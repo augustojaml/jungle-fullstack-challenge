@@ -1,34 +1,23 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import { plainToInstance } from 'class-transformer'
-import { randomUUID } from 'crypto'
 
-import {
-  RegisterUserDto,
-  RegisterUserResponseDto,
-} from '../dtos/register-user-dto'
+import { RegisterUserDto } from '../dtos/register-user-dto'
+import { RegisterUserUseCase } from '../use-cases/register-user-use-case'
 
 @Controller('/auth')
 class RegisterController {
+  constructor(private readonly registerUserUseCase: RegisterUserUseCase) {}
+
   @Post('/users')
   async handle(@Body() dto: RegisterUserDto) {
     const { name, email, password } = dto
 
-    const user = {
-      id: randomUUID(),
+    const result = await this.registerUserUseCase.execute({
       name,
       email,
       password,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }
-
-    // return { user: { name, email, password } }
-
-    const response = plainToInstance(RegisterUserResponseDto, user, {
-      excludeExtraneousValues: true,
     })
 
-    return { user: response }
+    return result
   }
 }
 
