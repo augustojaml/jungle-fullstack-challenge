@@ -35,6 +35,12 @@
       "dependsOn": [
         "^build"
       ]
+    },
+    "test:unit": {
+      "dependsOn": [
+        "^test:unit"
+      ],
+      "outputs": []
     }
   }
 }

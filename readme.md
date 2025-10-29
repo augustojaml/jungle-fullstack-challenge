@@ -30,3 +30,11 @@ infra/
   ├─ queues/    <-- bull, rabbit
   ├─ logger/
   └─ mailer/
+
+
+pnpm turbo run test:unit --filter=@repo/auth-services
+
+
+### tasks
+
+- [ ] => Test if password has encrypted
