@@ -1,0 +1,18 @@
+{
+  "extends": "@repo/typescript-config/node.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "rootDir": "src",
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "incremental": false, // <— desligue aqui
+    "composite": false // <— garanta que não esteja composite
+  },
+  "include": [
+    "src"
+  ]
+}

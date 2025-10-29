@@ -1,14 +1,32 @@
-"@eslint/js": "9.38.0",
-"@types/node": "24.9.1",
-"dotenv": "17.2.3",
-"eslint": "9.38.0",
-"eslint-config-prettier": "10.1.8",
-"eslint-plugin-prettier": "5.5.4",
-"globals": "16.4.0",
-"prettier": "3.6.2",
-"tsup": "8.5.0",
-"tsx": "4.20.6",
-"typescript": "5.9.3",
-"typescript-eslint": "8.46.2"
+modules/
+  └─ users/
+      ├─ application/       <-- use-cases (casos de uso) / services
+      │     ├─ create-user.usecase.ts
+      │     ├─ get-user.usecase.ts
+      │     └─ index.ts
+      ├─ domain/            <-- regras puras: entidades, value objects, interfaces
+      │     ├─ user.entity.ts
+      │     ├─ user.repository.ts (interface)
+      │     └─ events/ ...
+      ├─ infra/             <-- adapters / implementação concreta
+      │     ├─ prisma-user.repository.ts  (implements UserRepository)
+      │     └─ controllers/
+      │            └─ users.controller.ts
+      └─ users.module.ts
 
-pnpm add -d @eslint/js eslint eslint-config-prettier eslint-plugin-prettier globals prettier typescript typescript-eslint
+
+shared/
+  ├─ utils/
+  ├─ errors/
+  ├─ decorators/
+  ├─ validators/
+  ├─ auth/
+  └─ dtos/
+
+infra/
+  ├─ http/      <-- filters, pipes, interceptors globais
+  ├─ database/  <-- orm configs, prisma service, migrations
+  ├─ cache/     <-- redis
+  ├─ queues/    <-- bull, rabbit
+  ├─ logger/
+  └─ mailer/
