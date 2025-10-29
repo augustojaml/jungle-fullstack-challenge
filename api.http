@@ -1,0 +1,32 @@
+@apiGateWayUrl=http://localhost:3333/api-gateway
+@authServiceUrl=http://localhost:5002/auth-service
+
+### Create Task
+POST {{apiGateWayUrl}}/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "New Task 2"
+}
+
+### Get All Tasks
+GET {{apiGateWayUrl}}/tasks
+Accept: application/json
+
+
+### Authenticate User
+POST {{authServiceUrl}}/auth
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "jonh@example.com",
+  "password": "123456"
+}
+
+
+### Get User
+GET {{authServiceUrl}}/users
+Content-Type: application/json
+Accept: application/json
