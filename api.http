@@ -2,11 +2,14 @@
 
 
 ### Create Task
-POST {{apiGateWayUrl}}/users
+POST {{apiGateWayUrl}}/auth/users
 Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "New Task 2"
+  "name": "Augusto Monteiro",
+  "email": "augustojaml@example.com",
+  "password": "123456"
+
 }
 
