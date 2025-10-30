@@ -1,15 +1,24 @@
+import { Injectable } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+
 import { ResourceNotFoundError } from '@/shared/errors/resource-not-found-error'
 import { UnauthorizedError } from '@/shared/errors/unauthorized-error'
 import { passwdBcrypt } from '@/shared/helpers/passwd-bcrypt'
 
 import { UserRepositoryPort } from '../contracts/user-repository.port'
-import { RegisterUserDto } from '../dtos/register-user-dto'
+import { LoginUserDto } from '../dtos/login-user-dto'
 import { UserEntity } from '../entities/user'
 
+@Injectable()
 class LoginUserUseCase {
-  constructor(private readonly userRepository: UserRepositoryPort) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly userRepository: UserRepositoryPort,
+  ) {}
 
-  async execute(data: RegisterUserDto): Promise<UserEntity> {
+  async execute(
+    data: LoginUserDto,
+  ): Promise<{ user: UserEntity; token: string }> {
     const user = await this.userRepository.findByEmail(data.email)
 
     if (!user) {
@@ -25,7 +34,11 @@ class LoginUserUseCase {
       throw new UnauthorizedError()
     }
 
-    return user
+    const token = this.jwtService.sign({
+      id: user.id,
+    })
+
+    return { user, token }
   }
 }
 
