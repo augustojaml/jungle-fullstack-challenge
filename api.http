@@ -1,8 +1,8 @@
-@apiGateWayUrl=http://localhost:3003/auth
+@apiGateWayUrl=http://localhost:3002/auth
 
 
 ### Register user
-POST {{apiGateWayUrl}}/users
+POST {{apiGateWayUrl}}/register
 Content-Type: application/json
 Accept: application/json
 
@@ -21,4 +21,14 @@ Accept: application/json
 { 
   "email": "augustojaml@example.com",
   "password": "123456"
+}
+
+### Auth Refresh
+POST {{apiGateWayUrl}}/refresh
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NzY3ZjdkZC03ZWY1LTQ0YjAtYjM4ZC1iZTAzNjdjNDYzMzAiLCJpYXQiOjE3NjE4NDExMjIsImV4cCI6MTc2MTg0MjAyMn0.qY5SC5j6kXpenHsW1eNx2cfRFSgOuzswsQbEtFpzd28
+
+{ 
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NzY3ZjdkZC03ZWY1LTQ0YjAtYjM4ZC1iZTAzNjdjNDYzMzAiLCJpYXQiOjE3NjE4NDExNDUsImV4cCI6MTc2MjQ0NTk0NX0.RwQVf2KeDlHsiIwR0OqefH-WHAUyUmhZF2Tnp50Oo-o"  
 }
