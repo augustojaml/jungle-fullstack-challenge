@@ -5,8 +5,9 @@ import { PersistenceModule } from '@/infra/persistence/persistence.module'
 
 import { LoginController } from './controllers/login-controller'
 import { RegisterController } from './controllers/registe-controller'
-import { JwtAuthService } from './services/jwt-auth.service'
-import { JwtAuthGuard } from './services/jwt-guard.service'
+import { JwtStrategy } from './jwt.strategy'
+import { JwtAuthGuard } from './jwt-auth.guard'
+import { AuthService } from './services/auth.service'
 import { LoginUserUseCase } from './use-cases/login-user-use-case'
 import { RegisterUserUseCase } from './use-cases/register-user-use-case'
 
@@ -22,9 +23,10 @@ import { RegisterUserUseCase } from './use-cases/register-user-use-case'
   providers: [
     RegisterUserUseCase,
     LoginUserUseCase,
-    JwtAuthService,
+    AuthService,
+    JwtStrategy,
     JwtAuthGuard,
   ],
-  exports: [JwtAuthService, JwtModule, JwtAuthGuard],
+  exports: [AuthService, JwtModule, JwtStrategy, JwtAuthGuard],
 })
 export class AuthModule {}
