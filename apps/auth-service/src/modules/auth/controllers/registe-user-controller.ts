@@ -4,10 +4,10 @@ import { RegisterUserDto } from '../dtos/register-user-dto'
 import { RegisterUserUseCase } from '../use-cases/register-user-use-case'
 
 @Controller('/auth')
-class RegisterController {
+class RegisterUserController {
   constructor(private readonly registerUserUseCase: RegisterUserUseCase) {}
 
-  @Post('/users')
+  @Post('/register')
   async handle(@Body() dto: RegisterUserDto) {
     const { name, email, password } = dto
 
@@ -21,4 +21,4 @@ class RegisterController {
   }
 }
 
-export { RegisterController }
+export { RegisterUserController }

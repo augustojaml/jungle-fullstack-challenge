@@ -1,17 +1,13 @@
 // auth.dto.ts
 import { Exclude, Expose, Type } from 'class-transformer'
-import { IsEmail, IsString, MinLength } from 'class-validator'
+import { IsString } from 'class-validator'
 
-export class LoginUserDto {
-  @IsEmail()
-  email!: string
-
+export class RefreshTokenParamsDto {
   @IsString()
-  @MinLength(6)
-  password!: string
+  refreshToken!: string
 }
 
-export class LoginUserResponseDto {
+export class RefreshTokenResponseDto {
   @Expose() id!: string
   @Expose() name!: string
   @Expose() email!: string
@@ -27,7 +23,7 @@ export class LoginUserResponseDto {
 
   @Exclude() password!: string
 
-  constructor(partial: Partial<LoginUserResponseDto>) {
+  constructor(partial: Partial<RefreshTokenResponseDto>) {
     Object.assign(this, partial)
   }
 }

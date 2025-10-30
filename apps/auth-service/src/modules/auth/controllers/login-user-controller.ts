@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service'
 import { LoginUserUseCase } from '../use-cases/login-user-use-case'
 
 @Controller('/auth')
-class LoginController {
+class LoginUserController {
   constructor(
     private readonly authService: AuthService,
     private readonly loginUserUseCase: LoginUserUseCase,
@@ -34,4 +34,4 @@ class LoginController {
   }
 }
 
-export { LoginController }
+export { LoginUserController }
