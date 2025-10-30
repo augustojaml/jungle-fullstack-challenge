@@ -37,4 +37,10 @@ pnpm turbo run test:unit --filter=@repo/auth-services
 
 ### tasks
 
-- [ ] => Test if password has encrypted
+- [] => Ajustar gateway para register e login
+- [] => Validar swagger no gateway
+- [] => create Login UI
+- [] => create Register UI
+- [] => create Task UI
+- [] => Ajustar docker (web, gateway, auth)
+- [] => Ajustar docker-compose

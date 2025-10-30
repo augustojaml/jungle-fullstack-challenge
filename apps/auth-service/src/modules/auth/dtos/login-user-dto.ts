@@ -11,7 +11,7 @@ export class LoginUserDto {
   password!: string
 }
 
-export class LoginUserResponse {
+export class LoginUserResponseDto {
   @Expose() id!: string
   @Expose() name!: string
   @Expose() email!: string
@@ -27,16 +27,9 @@ export class LoginUserResponse {
 
   @Exclude() password!: string
 
-  constructor(partial: Partial<LoginUserResponse>) {
+  constructor(partial: Partial<LoginUserResponseDto>) {
     Object.assign(this, partial)
   }
 }
 
 /** wrapper para { user, token } */
-export class LoginUserResponseDto {
-  @Expose() token!: string
-
-  @Expose()
-  @Type(() => LoginUserResponse)
-  user!: LoginUserResponse
-}

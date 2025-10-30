@@ -7,16 +7,12 @@ import { passwdBcrypt } from '@/shared/helpers/passwd-bcrypt'
 
 import { UserRepositoryPort } from '../contracts/user-repository.port'
 import { LoginUserDto, LoginUserResponseDto } from '../dtos/login-user-dto'
-import { AuthService } from '../services/auth.service'
 
 @Injectable()
 class LoginUserUseCase {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userRepository: UserRepositoryPort,
-  ) {}
+  constructor(private readonly userRepository: UserRepositoryPort) {}
 
-  async execute(data: LoginUserDto): Promise<LoginUserResponseDto> {
+  async execute(data: LoginUserDto): Promise<{ user: LoginUserResponseDto }> {
     const user = await this.userRepository.findByEmail(data.email)
 
     if (!user) {
@@ -32,23 +28,16 @@ class LoginUserUseCase {
       throw new UnauthorizedError()
     }
 
-    const token = await this.authService.generateToken({
-      sub: user.id,
-    })
-
     const result = plainToInstance(LoginUserResponseDto, {
-      token,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        avatarUrl: user.avatarUrl,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      },
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      avatarUrl: user.avatarUrl,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     })
 
-    return result
+    return { user: result }
   }
 }
 

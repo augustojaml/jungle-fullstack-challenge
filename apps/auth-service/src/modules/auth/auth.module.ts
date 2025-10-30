@@ -15,7 +15,6 @@ import { RegisterUserUseCase } from './use-cases/register-user-use-case'
   imports: [
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'meu_segredo_super_secreto',
-      signOptions: { expiresIn: '1d' },
     }),
     PersistenceModule,
   ],
