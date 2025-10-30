@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 
-import { DatabaseModule } from '@/infra/database-module'
+import { DatabaseModule } from '@/infra/database/database-module'
 
 import { LoginController } from './controllers/login-controller'
 import { RegisterController } from './controllers/registe-controller'

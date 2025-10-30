@@ -6,5 +6,6 @@ abstract class UserRepositoryPort {
   abstract findById(id: string): Promise<UserEntity | null>
   abstract update(user: UserEntity): Promise<UserEntity>
 }
+export const USER_REPOSITORY = 'UserRepository'
 
 export { UserRepositoryPort }
