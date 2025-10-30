@@ -1,34 +1,52 @@
-@apiGateWayUrl=http://localhost:3002/auth
+@apiGateway = http://localhost:3001/api
 
+# @apiGateway = http://localhost:3002
 
-### Register user
-POST {{apiGateWayUrl}}/register
+@bearerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE4NDU1MTYsImV4cCI6MTc2MTg0NjQxNn0.9Hi9VymQn_brIZ38Vl1GQNzgLXw_j5neyNx9aXhnU4Y
+
+### Auth register
+POST {{apiGateway}}/auth/register
 Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Lucylenne Pereira",
-  "email": "lucylenne@example.com",
-  "password": "1234565"
-}
-
-
-### Auth user
-POST {{apiGateWayUrl}}/login
-Content-Type: application/json
-Accept: application/json
-
-{ 
-  "email": "augustojaml@example.com",
+  "name": "Marlon Lima",
+  "email": "marlon@example.com",
   "password": "123456"
 }
 
-### Auth Refresh
-POST {{apiGateWayUrl}}/refresh
+
+### Auth login
+POST {{apiGateway}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "lety@example.com",
+  "password": "1234565"
+}
+
+### Auth refresh
+POST {{apiGateway}}/auth/refresh
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NzY3ZjdkZC03ZWY1LTQ0YjAtYjM4ZC1iZTAzNjdjNDYzMzAiLCJpYXQiOjE3NjE4NDExMjIsImV4cCI6MTc2MTg0MjAyMn0.qY5SC5j6kXpenHsW1eNx2cfRFSgOuzswsQbEtFpzd28
 
-{ 
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NzY3ZjdkZC03ZWY1LTQ0YjAtYjM4ZC1iZTAzNjdjNDYzMzAiLCJpYXQiOjE3NjE4NDExNDUsImV4cCI6MTc2MjQ0NTk0NX0.RwQVf2KeDlHsiIwR0OqefH-WHAUyUmhZF2Tnp50Oo-o"  
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE4NDQyNTgsImV4cCI6MTc2MjQ0OTA1OH0.Nkh3xY_lKcReKuSgcwzNGzlF2ChXZ_wVkqqgJ8UQCr8"
 }
+
+
+### Auth refresh
+POST {{apiGateway}}/tasks
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{bearerToken}}
+
+{
+  "task_name": "Task name example"
+}
+
+### Auth refresh
+GET {{apiGateway}}/tasks
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{bearerToken}}

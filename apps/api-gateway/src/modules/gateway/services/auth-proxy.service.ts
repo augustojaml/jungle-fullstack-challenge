@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common'
 import { User } from '@repo/types'
 import { firstValueFrom } from 'rxjs'
 
-import { AuthLogionParamsDto } from '../dtos/auth-login-dto'
+import { AuthLoginParamsDto } from '../dtos/auth-login-dto'
 import { AuthRegisterParamsDto } from '../dtos/auth-register-dto'
 import { RefreshTokenParamsDto } from '../dtos/refresh-token-dto'
 
@@ -21,7 +21,7 @@ class AuthProxyService {
     return data
   }
 
-  async login(payload: AuthLogionParamsDto) {
+  async login(payload: AuthLoginParamsDto) {
     const { data } = await firstValueFrom(
       this.http.post<User>(`${this.authServiceUrl}/auth/login`, payload),
     )
