@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { plainToInstance } from 'class-transformer'
 
+import { ResourceAlreadyExistsError } from '@/shared/errors/resource-already-exists-error'
+import { passwdBcrypt } from '@/shared/helpers/passwd-bcrypt'
+
 import { UserRepositoryPort } from '../contracts/user-repository.port'
 import {
   RegisterUserDto,
@@ -18,10 +21,12 @@ class RegisterUserUseCase {
     const user = await this.userRepository.findByEmail(data.email)
 
     if (user) {
-      throw new Error('User already exists')
+      throw new ResourceAlreadyExistsError()
     }
 
-    const userEntity = UserEntity.create(data)
+    const hashPassword = await passwdBcrypt.hash(data.password)
+
+    const userEntity = UserEntity.create({ ...data, password: hashPassword })
     const userCreated = await this.userRepository.create(userEntity)
 
     const response = plainToInstance(RegisterUserResponseDto, {

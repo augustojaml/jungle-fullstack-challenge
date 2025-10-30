@@ -18,4 +18,6 @@ import { typeormOptions } from './typeorm/typeorm.config'
   ],
   exports: [UserRepositoryPort],
 })
-export class DatabaseModule {}
+class PersistenceModule {}
+
+export { PersistenceModule }
