@@ -16,8 +16,10 @@ WORKDIR /app
 COPY --from=builder /repo/out/json/ ./
 RUN pnpm install --frozen-lockfile
 COPY --from=builder /repo/out/full/ ./
-ARG VITE_API_BASE_URL=http://localhost:3333
-ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
+ARG VITE_API_URL=http://localhost:3001
+ENV VITE_API_URL=${VITE_API_URL}
+ARG VITE_APP_NAME=TaskIntelligence
+ENV VITE_APP_NAME=${VITE_APP_NAME}
 RUN pnpm -w turbo run build --filter @repo/web
 
 # SERVER

@@ -26,8 +26,8 @@ RUN mkdir -p /opt/deploy/dist \
 FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-ENV PORT=3001
-EXPOSE 3001
+ENV PORT=3002
+EXPOSE 3002
 RUN corepack enable && corepack prepare pnpm@10.10.0 --activate
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 appuser

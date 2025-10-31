@@ -8,6 +8,11 @@ import { HttpExceptionFilter } from './http-exception.filter'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true })
 
+  app.enableCors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -43,7 +48,7 @@ async function bootstrap() {
       persistAuthorization: true, // Mantém o token após refresh da página
     },
   })
-
+  console.log(process.env)
   await app.listen(process.env.PORT ?? 3001)
 }
 bootstrap()

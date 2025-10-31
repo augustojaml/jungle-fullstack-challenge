@@ -5,7 +5,7 @@ import { tokenService } from '@/features/auth/services/token-service'
 import { envConfig } from '../config/env'
 
 export const api = axios.create({
-  baseURL: `${envConfig.VITE_API_URL}`,
+  baseURL: `${envConfig.VITE_API_URL}/api`,
 })
 
 api.interceptors.request.use(
