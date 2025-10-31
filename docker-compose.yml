@@ -1,51 +1,63 @@
 services:
-  auth-service:
-    container_name: auth-service
-    build:
-      context: .
-      dockerfile: ./apps/auth-service/Dockerfile
-    environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASS=password
-      - DB_NAME=challenge_db
-    ports:
-      - 3002:3002
-    networks:
-      - challenge-network
-    depends_on:
-      - db
-    command: sh -c "pnpm migration:run:prod && pnpm start:prod"
+  # auth-service:
+  #   container_name: auth-service
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/auth-service/Dockerfile
+  #   environment:
+  #     - DB_HOST=db
+  #     - DB_PORT=5432
+  #     - DB_USER=postgres
+  #     - DB_PASS=password
+  #     - DB_NAME=challenge_db
+  #   ports:
+  #     - 3002:3002
+  #   networks:
+  #     - challenge-network
+  #   depends_on:
+  #     - db
+  #   command: sh -c "pnpm migration:run:prod && pnpm start:prod"
 
-  task-service:
-    container_name: task-service
-    build:
-      context: .
-      dockerfile: ./apps/task-service/Dockerfile
-    ports:
-      - 3003:3003
-    networks:
-      - challenge-network
-    depends_on:
-      - db
+  # task-service:
+  #   container_name: task-service
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/task-service/Dockerfile
+  #   ports:
+  #     - 3003:3003
+  #   networks:
+  #     - challenge-network
+  #   depends_on:
+  #     - db
 
-  api-gateway:
-    container_name: api-gateway
-    build:
-      context: .
-      dockerfile: ./apps/api-gateway/Dockerfile
-    ports:
-      - 3001:3001
-    environment:
-      - AUTH_SERVICE_URL=http://auth-service:3002
-      - TASK_SERVICE_URL=http://task-service:3003
-    networks:
-      - challenge-network
-    depends_on:
-      - db
-      - auth-service
-      - task-service
+  # api-gateway:
+  #   container_name: api-gateway
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/api-gateway/Dockerfile
+  #   ports:
+  #     - 3001:3001
+  #   environment:
+  #     - AUTH_SERVICE_URL=http://auth-service:3002
+  #     - TASK_SERVICE_URL=http://task-service:3003
+  #   networks:
+  #     - challenge-network
+  #   depends_on:
+  #     - db
+  #     - auth-service
+  #     - task-service
+
+  # web:
+  #   container_name: web
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/web/Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - challenge-network
+  #   depends_on:
+  #     - api-gateway
 
   db:
     image: postgres:17.5-alpine3.21
@@ -61,18 +73,6 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
       POSTGRES_DB: challenge_db
-
-  web:
-    container_name: web
-    build:
-      context: .
-      dockerfile: ./apps/web/Dockerfile
-    ports:
-      - "3000:3000"
-    networks:
-      - challenge-network
-    depends_on:
-      - api-gateway
 
 volumes:
   postgres_data:

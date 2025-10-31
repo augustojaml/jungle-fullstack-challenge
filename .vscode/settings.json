@@ -4,5 +4,25 @@
     "dtos",
     "postgres",
     "rabbitmq"
-  ]
+  ],
+  "files.exclude": {
+    // glob (qualquer nível do monorepo)
+    "**/.turbo": true,
+    "**/.tanstack": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    // caminhos específicos
+    "apps/api-gateway": true,
+    "apps/task-service": true,
+    "packages/*-config": true,
+  },
+  // o que é ignorado nas buscas
+  "search.exclude": {
+    "**/.turbo": true,
+    "**/.tanstack": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "apps/api-gateway": true
+  },
+  "explorer.excludeGitIgnore": true
 }

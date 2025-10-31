@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
+import { ResourceAlreadyExistsError } from '@/shared/errors/resource-already-exists-error'
 import { InMemoryUserRepository } from '@/shared/tests/in-memory/in-memory-use-repository'
 
 import { RegisterUserUseCase } from './register-user-use-case'
@@ -57,6 +58,6 @@ describe('GenericTest', () => {
         email: user.email,
         password: user.password,
       }),
-    ).rejects.toThrow(new Error('User already exists'))
+    ).rejects.toBeInstanceOf(ResourceAlreadyExistsError)
   })
 })

@@ -1,8 +1,8 @@
-@apiGateway = http://localhost:3001/api
+# @apiGateway = http://localhost:3001/api
 
-# @apiGateway = http://localhost:3002
+@apiGateway = http://localhost:3002
 
-@bearerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE4NzgxMDEsImV4cCI6MTc2MTg3OTAwMX0.KSS4sWgccnlp0Zkn8fFAHe_bxetrEt8tT59S-QvvLc4
+@bearerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE5NDQzNTMsImV4cCI6MTc2MTk0NTI1M30.NbALOG9KO-PuOgjrIUhZPLZ0QkypSSOTA_-SJMHOKoc
 
 ### Auth register
 POST {{apiGateway}}/auth/register
@@ -33,6 +33,11 @@ Accept: application/json
 {
   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE4NDQyNTgsImV4cCI6MTc2MjQ0OTA1OH0.Nkh3xY_lKcReKuSgcwzNGzlF2ChXZ_wVkqqgJ8UQCr8"
 }
+
+### Auth Me
+POST {{apiGateway}}/auth/me
+Content-Type: application/json
+Authorization: Bearer {{bearerToken}}
 
 
 ### Auth refresh
