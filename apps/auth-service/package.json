@@ -26,6 +26,8 @@
     "migration:run:prod": "pnpm typeorm:prod migration:run"
   },
   "dependencies": {
+    "@repo/types": "workspace:*",
+    "@repo/utils": "workspace:*",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
@@ -47,8 +49,6 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/types": "workspace:*",
-    "@repo/utils": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@faker-js/faker": "^10.1.0",
     "@nestjs/cli": "^11.0.0",

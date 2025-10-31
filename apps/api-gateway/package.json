@@ -18,6 +18,8 @@
     "test:unit": "vitest run --project unit --reporter verbose"
   },
   "dependencies": {
+    "@repo/types": "workspace:*",
+    "@repo/utils": "workspace:*",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
@@ -44,8 +46,6 @@
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
     "@repo/eslint-config": "workspace:*",
-    "@repo/types": "workspace:*",
-    "@repo/utils": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.0",

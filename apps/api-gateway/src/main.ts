@@ -1,6 +1,7 @@
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common'
 import { NestFactory, Reflector } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { consoleLog } from '@repo/utils'
 
 import { AppModule } from './app.module'
 import { HttpExceptionFilter } from './http-exception.filter'
@@ -48,7 +49,7 @@ async function bootstrap() {
       persistAuthorization: true, // Mantém o token após refresh da página
     },
   })
-  console.log(process.env)
+  consoleLog.log(`Server running on port ${process.env.PORT ?? 3001}`)
   await app.listen(process.env.PORT ?? 3001)
 }
 bootstrap()

@@ -24,6 +24,8 @@
     "migration:show": "npm run typeorm -- migration:show -d src/infra/typeorm/database/typeorm.config.ts"
   },
   "dependencies": {
+    "@repo/types": "workspace:*",
+    "@repo/utils": "workspace:*",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
@@ -49,8 +51,6 @@
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
     "@repo/eslint-config": "workspace:*",
-    "@repo/types": "workspace:*",
-    "@repo/utils": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.0",
