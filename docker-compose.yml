@@ -1,0 +1,72 @@
+services:
+  auth-service:
+    container_name: auth-service
+    build:
+      context: .
+      dockerfile: ./apps/auth-service/Dockerfile
+    ports:
+      - 3002:3002
+    networks:
+      - challenge-network
+
+  task-service:
+    container_name: task-service
+    build:
+      context: .
+      dockerfile: ./apps/task-service/Dockerfile
+    ports:
+      - 3002:3002
+    networks:
+      - challenge-network
+
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: .
+      dockerfile: ./apps/api-gateway/Dockerfile
+    ports:
+      - 3001:3001
+    networks:
+      - challenge-network
+    depends_on:
+      - auth-service
+      - task-service
+
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+      target: development
+    ports:
+      - "3000:3000"
+    networks:
+      - challenge-network
+    depends_on:
+      - api-gateway
+
+  db:
+    image: postgres:17.5-alpine3.21
+    container_name: db
+    attach: false
+    ports:
+      - "5432:5432"
+    networks:
+      - challenge-network
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: challenge_db
+
+volumes:
+  postgres_data:
+    driver: local
+  rabbitmq_data:
+    driver: local
+
+networks:
+  challenge-network:
+    driver: bridge

@@ -1,0 +1,15 @@
+import { z } from 'zod'
+
+const schema = z.object({
+  VITE_API_URL: z.string().default(' http://localhost:3001/api'),
+  VITE_APP_NAME: z.string().default('TaskIntelligence'),
+})
+
+const _env = schema.safeParse(import.meta.env)
+
+if (_env.success === false) {
+  console.error('Invalid environment variables', _env.error.format())
+  throw new Error('Invalid environment variables')
+}
+
+export const envConfig = _env.data

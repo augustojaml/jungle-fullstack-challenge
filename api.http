@@ -1,8 +1,8 @@
-@apiGateway = http://localhost:3001/api
+# @apiGateway = http://localhost:3001/api
 
-# @apiGateway = http://localhost:3002
+@apiGateway = http://localhost:3003
 
-@bearerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE4NTI5ODksImV4cCI6MTc2MTg1Mzg4OX0.vDp5Kv_PjRsXFJcVqgUwdoGNyQFmmM9mcS4xJZkPeAU
+@bearerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE4NzgxMDEsImV4cCI6MTc2MTg3OTAwMX0.KSS4sWgccnlp0Zkn8fFAHe_bxetrEt8tT59S-QvvLc4
 
 ### Auth register
 POST {{apiGateway}}/auth/register

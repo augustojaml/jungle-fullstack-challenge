@@ -10,7 +10,7 @@ import { RefreshTokenParamsDto } from '../dtos/refresh-token-dto'
 @Injectable()
 class AuthProxyService {
   private readonly authServiceUrl =
-    process.env.AUTH_SERVICE_URL ?? 'http://localhost:3002'
+    process.env.TASK_SERVICE_URL ?? 'http://localhost:3002'
 
   constructor(private readonly http: HttpService) {}
 
