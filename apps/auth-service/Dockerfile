@@ -16,7 +16,7 @@ WORKDIR /app
 COPY --from=builder /repo/out/json/ ./
 RUN pnpm install --frozen-lockfile
 COPY --from=builder /repo/out/full/ ./
-RUN pnpm --filter @repo/auth-service run build
+RUN pnpm --filter @repo/auth-service... run build
 RUN pnpm --filter @repo/auth-service deploy --prod /opt/deploy
 RUN mkdir -p /opt/deploy/dist \
  && cp -r apps/auth-service/dist/* /opt/deploy/dist/ \
@@ -28,6 +28,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3001
 EXPOSE 3001
+RUN corepack enable && corepack prepare pnpm@10.10.0 --activate
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 appuser
 USER appuser

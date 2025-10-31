@@ -16,7 +16,7 @@ WORKDIR /app
 COPY --from=builder /repo/out/json/ ./
 RUN pnpm install --frozen-lockfile
 COPY --from=builder /repo/out/full/ ./
-RUN pnpm --filter @repo/task-service run build
+RUN pnpm --filter @repo/task-service... run build
 RUN pnpm --filter @repo/task-service deploy --prod /opt/deploy
 RUN mkdir -p /opt/deploy/dist \
  && cp -r apps/task-service/dist/* /opt/deploy/dist/ \

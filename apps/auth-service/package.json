@@ -21,7 +21,9 @@
     "migration:create": "npm run typeorm -- migration:create",
     "migration:run": "npm run typeorm -- migration:run -d src/infra/typeorm/database/typeorm.config.ts",
     "migration:revert": "npm run typeorm -- migration:revert -d src/infra/typeorm/database/typeorm.config.ts",
-    "migration:show": "npm run typeorm -- migration:show -d src/infra/typeorm/database/typeorm.config.ts"
+    "migration:show": "npm run typeorm -- migration:show -d src/infra/typeorm/database/typeorm.config.ts",
+    "typeorm:prod": "node ./node_modules/typeorm/cli.js -d dist/infra/persistence/typeorm/typeorm.config.js",
+    "migration:run:prod": "pnpm typeorm:prod migration:run"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.1",
