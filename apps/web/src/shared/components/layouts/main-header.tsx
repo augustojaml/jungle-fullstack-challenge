@@ -17,7 +17,6 @@ import {
 
 const MainHeader = () => {
   const { mutateAsync: signOut } = useLogoutMutation()
-
   const handleSignOut = async () => {
     signOut()
   }
