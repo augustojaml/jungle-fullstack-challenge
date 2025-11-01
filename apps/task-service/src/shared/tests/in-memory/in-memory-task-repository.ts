@@ -1,4 +1,7 @@
-import { TaskRepositoryPort } from '@/modules/task/contracts/task-repository-port'
+import {
+  FindByCreatorOrUserIdProps,
+  TaskRepositoryPort,
+} from '@/modules/task/contracts/task-repository-port'
 import { TaskEntity } from '@/modules/task/entities/task-entity'
 
 class InMemoryTaskRepository implements TaskRepositoryPort {
@@ -21,13 +24,34 @@ class InMemoryTaskRepository implements TaskRepositoryPort {
     const task = this.tasks.find((task) => task.id === id)
     return Promise.resolve(task ?? null)
   }
-  find(): Promise<TaskEntity[]> {
-    return Promise.resolve(this.tasks)
-  }
 
-  findByCreatorId(creatorId: string): Promise<TaskEntity[]> {
-    const tasks = this.tasks.filter((task) => task.creatorId === creatorId)
-    return Promise.resolve(tasks)
+  findByCreatorOrUserId({
+    userId,
+    page = 1,
+    size = 10,
+  }: FindByCreatorOrUserIdProps): Promise<{
+    items: TaskEntity[]
+    total: number
+    page: number
+    size: number
+  }> {
+    const tasks = this.tasks.filter((task) => {
+      const isCreator = task.creatorId === userId
+      const isUser = task.assignees.some((assignee) => assignee.id === userId)
+      return isCreator || isUser
+    })
+
+    const total = tasks.length
+
+    const start = (page - 1) * size
+    const end = start + size
+
+    return Promise.resolve({
+      items: tasks.slice(start, end),
+      total,
+      page,
+      size,
+    })
   }
 }
 

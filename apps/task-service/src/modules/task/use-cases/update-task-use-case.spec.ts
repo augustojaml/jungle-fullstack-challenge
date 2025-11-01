@@ -67,8 +67,6 @@ describe('Update Task Use Case', () => {
       status: 'DONE',
     })
 
-    console.log(result)
-
     expect(result).toMatchObject({
       task: {
         id: expect.any(String),

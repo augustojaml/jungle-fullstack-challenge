@@ -1,16 +1,19 @@
-import { type TaskPriority, type TaskStatus } from '@repo/types'
 import { Exclude, Expose, Type } from 'class-transformer'
-import { IsString } from 'class-validator'
+import { IsString, MinLength } from 'class-validator'
 
-class GetTaskDto {
+class CreateTaskCommentDto {
   @IsString()
   taskId!: string
 
   @IsString()
-  creatorId!: string
-}
+  authorId!: string
 
+  @IsString()
+  @MinLength(10)
+  content!: string
+}
 class UserDto {
+  @Expose() id!: string
   @Expose() name!: string
   @Expose() email!: string
   @Expose() avatarUrl!: string | null
@@ -23,31 +26,23 @@ class UserDto {
   @Type(() => Date)
   updatedAt!: Date
 
+  @Exclude() password!: string
+
   constructor(partial: Partial<UserDto>) {
     Object.assign(this, partial)
   }
 }
 
-class GetTaskResponseDto {
+class CreateTaskCommentResponseDto {
   @Expose() id!: string
-  @Expose() title!: string
-  @Expose() description!: string
-
-  @Expose()
-  @Type(() => Date)
-  dueDate!: Date
-
-  @Expose() priority!: TaskPriority
-  @Expose() status!: TaskStatus
-  @Expose() creatorId!: string
+  @Expose() taskId!: string
+  @Expose() authorId!: string
 
   @Expose()
   @Type(() => UserDto)
-  creator!: UserDto
+  author!: UserDto | null
 
-  @Expose()
-  @Type(() => UserDto)
-  assignees!: UserDto[]
+  @Expose() content!: string
 
   @Expose()
   @Type(() => Date)
@@ -57,11 +52,9 @@ class GetTaskResponseDto {
   @Type(() => Date)
   updatedAt!: Date
 
-  @Exclude() deletedAt?: Date | null
-
-  constructor(partial: Partial<GetTaskResponseDto>) {
+  constructor(partial: Partial<CreateTaskCommentResponseDto>) {
     Object.assign(this, partial)
   }
 }
 
-export { GetTaskDto, GetTaskResponseDto }
+export { CreateTaskCommentDto, CreateTaskCommentResponseDto }

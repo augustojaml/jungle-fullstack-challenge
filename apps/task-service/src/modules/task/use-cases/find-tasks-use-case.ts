@@ -5,8 +5,11 @@ import { UnauthorizedError } from '@/shared/errors/unauthorized-error'
 
 import { TaskRepositoryPort } from '../contracts/task-repository-port'
 import { TaskUserRepositoryPort } from '../contracts/task-user-repository.port'
-import { CreateTaskResponseDto } from '../dtos/create-task-dto'
-import { FindTasksDto, FindTasksResponseDto } from '../dtos/find-tasks-dto'
+import {
+  FindTasksDto,
+  FindTasksResponseDto,
+  FindTasksResponsePaginationDto,
+} from '../dtos/find-tasks-dto'
 
 @Injectable()
 class FindTasksUseCase {
@@ -15,29 +18,36 @@ class FindTasksUseCase {
     private readonly taskUserRepository: TaskUserRepositoryPort,
   ) {}
 
-  async execute(
-    params: FindTasksDto,
-  ): Promise<{ tasks: FindTasksResponseDto[] }> {
-    const user = await this.taskUserRepository.findById(params.creatorId)
+  async execute(params: FindTasksDto): Promise<FindTasksResponsePaginationDto> {
+    const user = await this.taskUserRepository.findById(params.userId)
 
     if (!user) {
       throw new UnauthorizedError()
     }
 
-    const taskCreated = await this.taskRepository.findByCreatorId(
-      params.creatorId,
+    const filterTasks = await this.taskRepository.findByCreatorOrUserId({
+      userId: params.userId,
+      page: params.page,
+      size: params.size,
+    })
+
+    const response = plainToInstance(
+      FindTasksResponsePaginationDto,
+      {
+        tasks: filterTasks.items.map((c) =>
+          plainToInstance(FindTasksResponseDto, {
+            id: c.id,
+            ...c.props,
+          }),
+        ),
+        total: filterTasks.total,
+        page: filterTasks.page,
+        size: filterTasks.size,
+      },
+      { excludeExtraneousValues: true },
     )
 
-    const response = taskCreated.map((task) =>
-      plainToInstance(CreateTaskResponseDto, {
-        id: task.id,
-        ...task.props,
-      }),
-    )
-
-    return {
-      tasks: response,
-    }
+    return response
   }
 }
 

@@ -1,10 +1,18 @@
 import { type TaskPriority, type TaskStatus } from '@repo/types'
 import { Exclude, Expose, Type } from 'class-transformer'
-import { IsString } from 'class-validator'
+import { IsNumber, IsString } from 'class-validator'
 
 class FindTasksDto {
   @IsString()
-  creatorId!: string
+  userId!: string
+
+  @Type(() => Number)
+  @IsNumber()
+  page?: number = 1
+
+  @Type(() => Number)
+  @IsNumber()
+  size?: number = 10
 }
 
 class FindTasksResponseDto {
@@ -30,9 +38,25 @@ class FindTasksResponseDto {
 
   @Exclude() deletedAt?: Date | null
 
-  constructor(partial: Partial<FindTasksResponseDto>) {
+  constructor(partial: Partial<FindTasksDto>) {
     Object.assign(this, partial)
   }
 }
 
-export { FindTasksDto, FindTasksResponseDto }
+class FindTasksResponsePaginationDto {
+  @Expose()
+  @Type(() => FindTasksResponseDto)
+  tasks!: FindTasksResponseDto[]
+
+  @Expose() total!: number
+
+  // (opcional) inclua paginação no response também
+  @Expose() page!: number
+  @Expose() size!: number
+
+  constructor(partial: Partial<FindTasksResponsePaginationDto>) {
+    Object.assign(this, partial)
+  }
+}
+
+export { FindTasksDto, FindTasksResponseDto, FindTasksResponsePaginationDto }

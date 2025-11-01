@@ -8,7 +8,7 @@
 - [x] POST   /api/tasks                           # cria e publica `task.created`
 - [x] GET    /api/tasks/:id
 - [x] PUT    /api/tasks/:id                       # atualiza e publica `task.updated`
-- [ ] DELETE /api/tasks/:id
+- [x] DELETE /api/tasks/:id
 
 - [ ] POST   /api/tasks/:id/comments              # publica `task.comment.created`
 - [ ] GET    /api/tasks/:id/comments?page=&size   # lista de comentários com paginação

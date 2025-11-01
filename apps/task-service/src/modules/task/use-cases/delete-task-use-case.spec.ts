@@ -7,73 +7,55 @@ import { userFakeRepo } from '@/shared/tests/fakers/user-faker'
 import { InMemoryTaskRepository } from '@/shared/tests/in-memory/in-memory-task-repository'
 import { InMemoryTaskUserRepository } from '@/shared/tests/in-memory/in-memory-task-user-repository'
 
-import { GetTaskUseCase } from './get-task-use-case'
+import { DeleteTaskUseCase } from './delete-task-use-case'
 
 let taskRepository: InMemoryTaskRepository
 let taskUserRepository: InMemoryTaskUserRepository
 
-let sut: GetTaskUseCase
+let sut: DeleteTaskUseCase
 
-describe('Get Task Use Case', () => {
+describe('Delete Task Use Case', () => {
   beforeEach(() => {
     taskRepository = new InMemoryTaskRepository()
     taskUserRepository = new InMemoryTaskUserRepository()
-    sut = new GetTaskUseCase(taskRepository, taskUserRepository)
+    sut = new DeleteTaskUseCase(taskRepository, taskUserRepository)
   })
 
-  it('should be able to get a task', async () => {
-    const creator = await userFakeRepo({ repo: taskUserRepository })
+  it('should be able to delete a task', async () => {
+    const user = await userFakeRepo({ repo: taskUserRepository })
 
     const task = await taskFakeRepo({
-      creatorId: creator.id,
+      creatorId: user.id,
       repo: taskRepository,
     })
-    task.creator = creator
-
-    const assign1 = await userFakeRepo({
-      repo: taskUserRepository,
-    })
-    const assign2 = await userFakeRepo({
-      repo: taskUserRepository,
-    })
-
-    task.assignees.push(assign1, assign2)
 
     const result = await sut.execute({
-      creatorId: creator.id,
+      userId: user.id,
       taskId: task.id,
     })
 
     expect(result).toMatchObject({
       task: {
         id: expect.any(String),
-        title: task.title,
-        description: task.description,
-        dueDate: task.dueDate,
-        priority: task.priority,
-        status: task.status,
-        creatorId: task.creatorId,
-        creator: result.task.creator,
-        assignees: result.task.assignees,
       },
     })
   })
 
-  it('should not be able to get a task with non existing user', async () => {
+  it('should not be able to delete a task with non existing user', async () => {
     await expect(
       sut.execute({
-        creatorId: 'non-existing-user-id',
+        userId: 'non-existing-user-id',
         taskId: 'non-existing-task-id',
       }),
     ).rejects.toBeInstanceOf(UnauthorizedError)
   })
 
-  it('should not be able to get a task with non existing task', async () => {
+  it('should not be able to delete a task with non existing task', async () => {
     const user = await userFakeRepo({ repo: taskUserRepository })
 
     await expect(
       sut.execute({
-        creatorId: user.id,
+        userId: user.id,
         taskId: 'non-existing-task-id',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError)

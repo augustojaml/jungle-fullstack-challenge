@@ -20,31 +20,65 @@ describe('Find Tasks Use Case', () => {
     sut = new FindTasksUseCase(taskRepository, taskUserRepository)
   })
 
-  it('should be able to find a tasks', async () => {
+  it('should be able to find tasks (paginated) and match only title/description', async () => {
     const user = await userFakeRepo({ repo: taskUserRepository })
 
     const t1 = await taskFakeRepo({ creatorId: user.id, repo: taskRepository })
     const t2 = await taskFakeRepo({ creatorId: user.id, repo: taskRepository })
     const t3 = await taskFakeRepo({ creatorId: user.id, repo: taskRepository })
 
-    const result = await sut.execute({
-      creatorId: user.id,
+    const resultPage1 = await sut.execute({
+      userId: user.id,
+      size: 2,
+      page: 1,
     })
 
-    const only = result.tasks.map((t) => ({
+    // shape básico do pagination
+    expect(resultPage1).toMatchObject({
+      total: 3,
+      page: 1,
+      size: 2,
+    })
+    expect(resultPage1.tasks).toHaveLength(2)
+
+    const onlyPage1 = resultPage1.tasks.map((t) => ({
       title: t.title,
       description: t.description,
     }))
-
-    expect(only).toEqual([
+    expect(onlyPage1).toEqual([
       { title: t1.title, description: t1.description },
       { title: t2.title, description: t2.description },
+    ])
+
+    // segunda página (deve trazer o terceiro)
+    const resultPage2 = await sut.execute({
+      userId: user.id,
+      size: 2,
+      page: 2,
+    })
+
+    expect(resultPage2).toMatchObject({
+      total: 3,
+      page: 2,
+      size: 2,
+    })
+    expect(resultPage2.tasks).toHaveLength(1)
+
+    const onlyPage2 = resultPage2.tasks.map((t) => ({
+      title: t.title,
+      description: t.description,
+    }))
+    expect(onlyPage2).toEqual([
       { title: t3.title, description: t3.description },
     ])
   })
 
   it('should not be able to find a task with non existing user', async () => {
     const task = taskFaker({ creatorId: 'non-existing-user-id' })
-    await expect(sut.execute(task)).rejects.toBeInstanceOf(UnauthorizedError)
+    await expect(
+      sut.execute({
+        userId: task.creatorId,
+      }),
+    ).rejects.toBeInstanceOf(UnauthorizedError)
   })
 })
