@@ -1,4 +1,4 @@
-import { BaseError, ErrorCodes } from '../types/base-error'
+import { BaseError, ErrorCodes } from '@repo/types'
 
 export class ResourceAlreadyExistsError extends BaseError {
   constructor() {

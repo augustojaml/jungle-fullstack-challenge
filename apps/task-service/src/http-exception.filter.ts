@@ -5,9 +5,8 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common'
+import { BaseError } from '@repo/types'
 import { Response } from 'express'
-
-import { BaseError } from './shared/types/base-error'
 
 interface HttpExceptionResponse {
   message: string | string[]
