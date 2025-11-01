@@ -6,10 +6,9 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common'
+import { BaseError } from '@repo/types'
 import { AxiosError } from 'axios'
 import { Response } from 'express'
-
-import { BaseError } from './shared/types/base-error'
 
 interface HttpExceptionResponse {
   message: string | string[]

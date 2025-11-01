@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
+import { passwdBcrypt } from '@repo/utils'
 import { plainToInstance } from 'class-transformer'
 
 import { ResourceNotFoundError } from '@/shared/errors/resource-not-found-error'
 import { UnauthorizedError } from '@/shared/errors/unauthorized-error'
-import { passwdBcrypt } from '@/shared/helpers/passwd-bcrypt'
 
 import { UserRepositoryPort } from '../contracts/user-repository.port'
 import { LoginUserDto, LoginUserResponseDto } from '../dtos/login-user-dto'

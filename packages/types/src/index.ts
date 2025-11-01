@@ -1,1 +1,7 @@
+export { BaseError, ErrorCodes } from './types/base-error'
+export { Entity } from './types/entity'
+export { type OptionalType } from './types/optional'
+export { type Task } from './types/task'
+export { type TaskPriority } from './types/task-priority'
+export { type TaskStatus } from './types/task-status'
 export { type User } from './types/user'

@@ -8,6 +8,7 @@ import { HttpExceptionFilter } from './http-exception.filter'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true })
+  const port = process.env.PORT ?? 3001
 
   app.enableCors({
     origin: 'http://localhost:3000',
@@ -49,7 +50,7 @@ async function bootstrap() {
       persistAuthorization: true, // Mantém o token após refresh da página
     },
   })
-  consoleLog.log(`Server running on port ${process.env.PORT ?? 3001}`)
-  await app.listen(process.env.PORT ?? 3001)
+  consoleLog.log(`Api Gateway running on port ${port}`)
+  await app.listen(process.env.PORT ?? port)
 }
 bootstrap()

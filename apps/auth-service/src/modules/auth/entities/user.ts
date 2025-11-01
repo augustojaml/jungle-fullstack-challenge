@@ -1,5 +1,4 @@
-import { Entity } from '@/shared/types/entity'
-import { OptionalType } from '@/shared/types/optional'
+import { Entity, OptionalType } from '@repo/types'
 
 type UserEntityProps = {
   name: string

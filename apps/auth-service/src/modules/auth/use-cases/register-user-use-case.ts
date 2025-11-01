@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
+import { passwdBcrypt } from '@repo/utils'
 import { plainToInstance } from 'class-transformer'
 
 import { ResourceAlreadyExistsError } from '@/shared/errors/resource-already-exists-error'
-import { passwdBcrypt } from '@/shared/helpers/passwd-bcrypt'
 
 import { UserRepositoryPort } from '../contracts/user-repository.port'
 import {

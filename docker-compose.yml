@@ -5,6 +5,7 @@ services:
       context: .
       dockerfile: ./apps/auth-service/Dockerfile
     environment:
+      - PORT=3002
       - DB_HOST=db
       - DB_PORT=5432
       - DB_USER=postgres
@@ -25,6 +26,13 @@ services:
       dockerfile: ./apps/task-service/Dockerfile
     ports:
       - 3003:3003
+    environment:
+      - PORT=3003
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=password
+      - DB_NAME=challenge_db
     networks:
       - challenge-network
     depends_on:
@@ -38,8 +46,25 @@ services:
     ports:
       - 3001:3001
     environment:
+      - PORT=3001
       - AUTH_SERVICE_URL=http://auth-service:3002
       - TASK_SERVICE_URL=http://task-service:3003
+    networks:
+      - challenge-network
+    depends_on:
+      - db
+      - auth-service
+      - task-service
+
+  notifications-service:
+    container_name: notifications-service
+    build:
+      context: .
+      dockerfile: ./apps/notifications-service/Dockerfile
+    ports:
+      - 3004:3004
+    environment:
+      - PORT=3004
     networks:
       - challenge-network
     depends_on:
@@ -52,10 +77,15 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
+      args:
+        # use rota relativa; o nginx faz o proxy
+        VITE_API_URL: http://localhost:3001
     ports:
       - "3000:3000"
     networks:
       - challenge-network
+    environment:
+      - PORT=3000
     depends_on:
       - api-gateway
 
