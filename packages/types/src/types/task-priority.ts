@@ -1,3 +1,4 @@
-type TaskPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT'
+const TASK_PRIORITY = ['LOW', 'MEDIUM', 'HIGH', 'URGENT'] as const
+type TaskPriority = (typeof TASK_PRIORITY)[number]
 
-export { type TaskPriority }
+export { TASK_PRIORITY, type TaskPriority }

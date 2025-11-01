@@ -1,3 +1,4 @@
-type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'REVIEW' | 'DONE'
+const TASK_STATUS = ['TODO', 'IN_PROGRESS', 'REVIEW', 'DONE'] as const
+type TaskStatus = (typeof TASK_STATUS)[number]
 
-export { type TaskStatus }
+export { TASK_STATUS, type TaskStatus }
