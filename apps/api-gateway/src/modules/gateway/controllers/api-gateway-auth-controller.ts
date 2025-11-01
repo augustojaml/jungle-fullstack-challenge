@@ -1,5 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Get, Headers, Post } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { extractBearerToken } from '@repo/utils'
 
 import { AuthLoginParamsDto } from '../dtos/auth-login-dto'
 import { AuthRegisterParamsDto } from '../dtos/auth-register-dto'
@@ -40,6 +41,16 @@ class ApiGatewayAuthController {
   @Post('/refresh')
   async refresh(@Body() payload: RefreshTokenParamsDto) {
     return this.authProxy.refresh(payload)
+  }
+
+  @ApiOperation({
+    summary: 'Get user information (logged user only)',
+    description: 'Get the user information of the logged user (private route)',
+  })
+  @Get('/me')
+  async me(@Headers('authorization') authHeader: string) {
+    const token = extractBearerToken(authHeader)
+    return this.authProxy.me(token ?? '')
   }
 }
 

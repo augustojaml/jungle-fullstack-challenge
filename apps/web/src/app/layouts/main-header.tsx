@@ -1,11 +1,14 @@
 import { LogOutIcon } from 'lucide-react'
 
 import { useLogoutMutation } from '@/features/auth/react-query/use-logout-mutation'
-import { cn } from '@/shared/libs/utils'
-
-import { ButtonToggleTheme } from '../customs/button-toggle-theme'
-import { Avatar, AvatarFallback, AvatarImage } from '../primitives/avatar'
-import { Button } from '../primitives/button'
+import { useAuthStore } from '@/features/auth/store/use-auth-store'
+import { ButtonToggleTheme } from '@/shared/components/customs/button-toggle-theme'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/shared/components/primitives/avatar'
+import { Button } from '@/shared/components/primitives/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,26 +16,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../primitives/dropdown-menu'
+} from '@/shared/components/primitives/dropdown-menu'
+import { getInitialsLetterName } from '@/shared/helpers/get-initials-letter-name'
+import { cn } from '@/shared/libs/utils'
 
 const MainHeader = () => {
   const { mutateAsync: signOut } = useLogoutMutation()
+
+  const { user } = useAuthStore()
+
   const handleSignOut = async () => {
     signOut()
   }
 
-  const isFetching = false
-  const isError = false
-
-  const user = {
-    id: '1',
-    name: 'Augusto Monteiro',
-    avatarUrl: 'https://github.com/augustojaml.png',
-    email: '2NQ8P@example.com',
-  }
-
   return (
-    <header className="bg-background/70 sticky top-0 z-40 w-full border-b backdrop-blur-md">
+    <header className="bg-background/70 fixed top-0 z-40 w-full border-b backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* logo + brand */}
 
@@ -63,7 +61,10 @@ const MainHeader = () => {
                       className="h-full w-full rounded-full"
                     />
                     <AvatarFallback className="h-full w-full rounded-full text-xs!">
-                      AM
+                      {getInitialsLetterName({
+                        name: user?.name,
+                        email: user?.email,
+                      })}
                     </AvatarFallback>
                   </Avatar>
 
@@ -79,15 +80,9 @@ const MainHeader = () => {
 
             <DropdownMenuContent align="end" className="w-64">
               <DropdownMenuLabel className="space-y-1">
-                <div className="truncate text-sm font-medium">
-                  {isFetching
-                    ? 'Carregando…'
-                    : isError
-                      ? 'Usuário'
-                      : user?.name || 'Usuário'}
-                </div>
+                <div className="truncate text-sm font-medium">{user?.name}</div>
                 <div className="text-muted-foreground truncate text-xs">
-                  {user?.email || '—'}
+                  {user?.email}
                 </div>
               </DropdownMenuLabel>
 

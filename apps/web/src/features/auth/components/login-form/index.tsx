@@ -17,7 +17,7 @@ import {
 import { Separator } from '@/shared/components/primitives/separator'
 import { envConfig } from '@/shared/config/env'
 
-import { useLoginMutation } from '../../react-query/user-login-mutation'
+import { useLoginMutation } from '../../react-query/use-login-mutation'
 import { LoginParamsDto, loginSchema } from '../../schema/login-schema'
 
 const LoginForm = () => {

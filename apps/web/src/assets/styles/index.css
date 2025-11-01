@@ -127,3 +127,27 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .scroll-content::-webkit-scrollbar {
+    @apply h-2 w-2;
+  }
+
+  .scroll-content::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  /* invisível default */
+  .scroll-content::-webkit-scrollbar-thumb {
+    @apply bg-transparent;
+  }
+
+  /* quando hover no container */
+  .scroll-content:hover::-webkit-scrollbar-thumb {
+    @apply rounded bg-primary/20;
+  }
+
+  .scroll-content:hover::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/30;
+  }
+}

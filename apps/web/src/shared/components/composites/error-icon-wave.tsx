@@ -56,7 +56,7 @@ const ErrorIconWave = ({
   }, [size])
 
   return (
-    <div className="bg-background text-foreground relative flex min-h-screen items-center justify-center">
+    <div className="bg-background text-foreground relative flex min-h-screen w-full items-center justify-center">
       {/* decorative background blobs (com toque “danger”) */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="from-primary/15 to-destructive/15 absolute -top-24 -left-24 h-72 w-[140%] rounded-full bg-linear-to-br blur-3xl" />

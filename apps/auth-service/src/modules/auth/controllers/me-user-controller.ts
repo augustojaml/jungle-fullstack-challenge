@@ -1,4 +1,4 @@
-import { Controller, Post, Request, UseGuards } from '@nestjs/common'
+import { Controller, Get, Request, UseGuards } from '@nestjs/common'
 
 import { JwtAuthGuard } from '../jwt-auth.guard'
 import { MeUserUseCase } from '../use-cases/me-user-use-case'
@@ -8,7 +8,7 @@ class MeUserController {
   constructor(private readonly meUserUseCase: MeUserUseCase) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post('/me')
+  @Get('/me')
   async handle(@Request() req) {
     const { payload } = req.user
 

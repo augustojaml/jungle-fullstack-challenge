@@ -1,10 +1,10 @@
 # ✅ API Execution Checklist
 
 ### 🔐 Auth Endpoints
-- [ ] **POST /api/auth/register** — register a new user  
-- [ ] **POST /api/auth/login** — authenticate user and receive tokens  
-- [ ] **POST /api/auth/refresh** — refresh the access token  
-- [ ] **GET /api/auth/me** — get logged-in user data  
+- [x] **POST /api/auth/register** — register a new user  
+- [x] **POST /api/auth/login** — authenticate user and receive tokens  
+- [x] **POST /api/auth/refresh** — refresh the access token  
+- [x] **GET /api/auth/me** — get logged-in user data  
 
 ---
 

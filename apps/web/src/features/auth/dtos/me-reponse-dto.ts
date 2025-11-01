@@ -2,10 +2,8 @@ import { User } from '@repo/types'
 
 type UserResponse = Omit<User, 'password'>
 
-interface SignResponseDto {
-  token: string
-  refreshToken: string
+interface MeResponseDto {
   user: UserResponse
 }
 
-export { type SignResponseDto }
+export { type MeResponseDto }

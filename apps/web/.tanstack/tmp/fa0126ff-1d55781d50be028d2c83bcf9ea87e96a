@@ -15,7 +15,8 @@ import { Route as AuthLayoutRouteImport } from './app/routes/auth/_layout'
 import { Route as IndexRouteImport } from './app/routes/index'
 import { Route as TaskIndexRouteImport } from './app/routes/task/index'
 import { Route as AuthIndexRouteImport } from './app/routes/auth/index'
-import { Route as TaskTaskIDRouteImport } from './app/routes/task/$taskID'
+import { Route as TaskTaskIdRouteImport } from './app/routes/task/$taskId'
+import { Route as Task404RouteImport } from './app/routes/task/$404'
 import { Route as AuthRegisterRouteImport } from './app/routes/auth/register'
 import { Route as AuthLoginRouteImport } from './app/routes/auth/login'
 import { Route as Auth404RouteImport } from './app/routes/auth/$404'
@@ -50,9 +51,14 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthLayoutRoute,
 } as any)
-const TaskTaskIDRoute = TaskTaskIDRouteImport.update({
-  id: '/$taskID',
-  path: '/$taskID',
+const TaskTaskIdRoute = TaskTaskIdRouteImport.update({
+  id: '/$taskId',
+  path: '/$taskId',
+  getParentRoute: () => TaskLayoutRoute,
+} as any)
+const Task404Route = Task404RouteImport.update({
+  id: '/$404',
+  path: '/$404',
   getParentRoute: () => TaskLayoutRoute,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
@@ -79,7 +85,8 @@ export interface FileRoutesByFullPath {
   '/auth/$404': typeof Auth404Route
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/task/$taskID': typeof TaskTaskIDRoute
+  '/task/$404': typeof Task404Route
+  '/task/$taskId': typeof TaskTaskIdRoute
   '/auth/': typeof AuthIndexRoute
   '/task/': typeof TaskIndexRoute
 }
@@ -89,7 +96,8 @@ export interface FileRoutesByTo {
   '/auth/$404': typeof Auth404Route
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/task/$taskID': typeof TaskTaskIDRoute
+  '/task/$404': typeof Task404Route
+  '/task/$taskId': typeof TaskTaskIdRoute
   '/auth': typeof AuthIndexRoute
   '/task': typeof TaskIndexRoute
 }
@@ -102,7 +110,8 @@ export interface FileRoutesById {
   '/auth/$404': typeof Auth404Route
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/task/$taskID': typeof TaskTaskIDRoute
+  '/task/$404': typeof Task404Route
+  '/task/$taskId': typeof TaskTaskIdRoute
   '/auth/': typeof AuthIndexRoute
   '/task/': typeof TaskIndexRoute
 }
@@ -116,7 +125,8 @@ export interface FileRouteTypes {
     | '/auth/$404'
     | '/auth/login'
     | '/auth/register'
-    | '/task/$taskID'
+    | '/task/$404'
+    | '/task/$taskId'
     | '/auth/'
     | '/task/'
   fileRoutesByTo: FileRoutesByTo
@@ -126,7 +136,8 @@ export interface FileRouteTypes {
     | '/auth/$404'
     | '/auth/login'
     | '/auth/register'
-    | '/task/$taskID'
+    | '/task/$404'
+    | '/task/$taskId'
     | '/auth'
     | '/task'
   id:
@@ -138,7 +149,8 @@ export interface FileRouteTypes {
     | '/auth/$404'
     | '/auth/login'
     | '/auth/register'
-    | '/task/$taskID'
+    | '/task/$404'
+    | '/task/$taskId'
     | '/auth/'
     | '/task/'
   fileRoutesById: FileRoutesById
@@ -194,11 +206,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthIndexRouteImport
       parentRoute: typeof AuthLayoutRoute
     }
-    '/task/$taskID': {
-      id: '/task/$taskID'
-      path: '/$taskID'
-      fullPath: '/task/$taskID'
-      preLoaderRoute: typeof TaskTaskIDRouteImport
+    '/task/$taskId': {
+      id: '/task/$taskId'
+      path: '/$taskId'
+      fullPath: '/task/$taskId'
+      preLoaderRoute: typeof TaskTaskIdRouteImport
+      parentRoute: typeof TaskLayoutRoute
+    }
+    '/task/$404': {
+      id: '/task/$404'
+      path: '/$404'
+      fullPath: '/task/$404'
+      preLoaderRoute: typeof Task404RouteImport
       parentRoute: typeof TaskLayoutRoute
     }
     '/auth/register': {
@@ -244,12 +263,14 @@ const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
 )
 
 interface TaskLayoutRouteChildren {
-  TaskTaskIDRoute: typeof TaskTaskIDRoute
+  Task404Route: typeof Task404Route
+  TaskTaskIdRoute: typeof TaskTaskIdRoute
   TaskIndexRoute: typeof TaskIndexRoute
 }
 
 const TaskLayoutRouteChildren: TaskLayoutRouteChildren = {
-  TaskTaskIDRoute: TaskTaskIDRoute,
+  Task404Route: Task404Route,
+  TaskTaskIdRoute: TaskTaskIdRoute,
   TaskIndexRoute: TaskIndexRoute,
 }
 

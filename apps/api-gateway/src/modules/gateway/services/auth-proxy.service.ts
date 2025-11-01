@@ -33,6 +33,17 @@ class AuthProxyService {
     )
     return data
   }
+
+  async me(accessToken: string) {
+    const { data } = await firstValueFrom(
+      this.http.get<User>(`${this.authServiceUrl}/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    )
+    return data
+  }
 }
 
 export { AuthProxyService }

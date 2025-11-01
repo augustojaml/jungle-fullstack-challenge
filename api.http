@@ -1,8 +1,8 @@
-# @apiGateway = http://localhost:3001/api
+@apiGateway = http://localhost:3001/api
 
-@apiGateway = http://localhost:3002
+# @apiGateway = http://localhost:3002
 
-@bearerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE5NDQzNTMsImV4cCI6MTc2MTk0NTI1M30.NbALOG9KO-PuOgjrIUhZPLZ0QkypSSOTA_-SJMHOKoc
+@bearerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE5NDcwODMsImV4cCI6MTc2MTk0Nzk4M30.UdCafArvEl6HawRnop5W6DyYk-dO1KGQTiJpUzllg4s
 
 ### Auth register
 POST {{apiGateway}}/auth/register
@@ -26,6 +26,7 @@ Content-Type: application/json
 }
 
 ### Auth refresh
+# @name authRefresh
 POST {{apiGateway}}/auth/refresh
 Content-Type: application/json
 Accept: application/json
@@ -34,17 +35,20 @@ Accept: application/json
   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE4NDQyNTgsImV4cCI6MTc2MjQ0OTA1OH0.Nkh3xY_lKcReKuSgcwzNGzlF2ChXZ_wVkqqgJ8UQCr8"
 }
 
+### Set token variable
+@token = {{authRefresh.response.body.token}}
+
 ### Auth Me
-POST {{apiGateway}}/auth/me
+GET {{apiGateway}}/auth/me
 Content-Type: application/json
-Authorization: Bearer {{bearerToken}}
+Authorization: Bearer {{token}}
 
 
 ### Auth refresh
 POST {{apiGateway}}/tasks
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer {{bearerToken}}
+Authorization: Bearer {{token}}
 
 {
   "task_name": "Task name example"
@@ -54,4 +58,4 @@ Authorization: Bearer {{bearerToken}}
 GET {{apiGateway}}/tasks
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer {{bearerToken}}
+Authorization: Bearer {{token}}

@@ -1,6 +1,7 @@
 import { API_ROUTES } from '@/shared/constants/api-routes'
 import { api } from '@/shared/libs/axios'
 
+import { MeResponseDto } from '../dtos/me-reponse-dto'
 import { SignResponseDto } from '../dtos/signin-reponse-dto'
 import { LoginParamsDto } from '../schema/login-schema'
 import { tokenService } from './token-service'
@@ -18,6 +19,15 @@ const authService = {
     tokenService.setRefreshToken(result.refreshToken)
     return result.user
   },
+
+  me: async () => {
+    const { data: result } = await api.get<MeResponseDto>(
+      `${API_ROUTES.AUTH.ME}`,
+    )
+
+    return result.user
+  },
+
   logout: () => {
     tokenService.removeToken()
     tokenService.removeRefreshToken()

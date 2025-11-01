@@ -14,6 +14,7 @@
     // caminhos específicos
     "apps/api-gateway": true,
     "apps/task-service": true,
+    "apps/auth-service": true,
     "packages/*-config": true,
   },
   // o que é ignorado nas buscas

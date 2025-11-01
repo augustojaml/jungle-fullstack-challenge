@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './app/routes/index'
 import { Route as TaskIndexRouteImport } from './app/routes/task/index'
 import { Route as AuthIndexRouteImport } from './app/routes/auth/index'
 import { Route as TaskTaskIDRouteImport } from './app/routes/task/$taskID'
+import { Route as Task404RouteImport } from './app/routes/task/$404'
 import { Route as AuthRegisterRouteImport } from './app/routes/auth/register'
 import { Route as AuthLoginRouteImport } from './app/routes/auth/login'
 import { Route as Auth404RouteImport } from './app/routes/auth/$404'
@@ -55,6 +56,11 @@ const TaskTaskIDRoute = TaskTaskIDRouteImport.update({
   path: '/$taskID',
   getParentRoute: () => TaskLayoutRoute,
 } as any)
+const Task404Route = Task404RouteImport.update({
+  id: '/$404',
+  path: '/$404',
+  getParentRoute: () => TaskLayoutRoute,
+} as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/auth/$404': typeof Auth404Route
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/task/$404': typeof Task404Route
   '/task/$taskID': typeof TaskTaskIDRoute
   '/auth/': typeof AuthIndexRoute
   '/task/': typeof TaskIndexRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/auth/$404': typeof Auth404Route
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/task/$404': typeof Task404Route
   '/task/$taskID': typeof TaskTaskIDRoute
   '/auth': typeof AuthIndexRoute
   '/task': typeof TaskIndexRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/auth/$404': typeof Auth404Route
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/task/$404': typeof Task404Route
   '/task/$taskID': typeof TaskTaskIDRoute
   '/auth/': typeof AuthIndexRoute
   '/task/': typeof TaskIndexRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/auth/$404'
     | '/auth/login'
     | '/auth/register'
+    | '/task/$404'
     | '/task/$taskID'
     | '/auth/'
     | '/task/'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/auth/$404'
     | '/auth/login'
     | '/auth/register'
+    | '/task/$404'
     | '/task/$taskID'
     | '/auth'
     | '/task'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/auth/$404'
     | '/auth/login'
     | '/auth/register'
+    | '/task/$404'
     | '/task/$taskID'
     | '/auth/'
     | '/task/'
@@ -201,6 +213,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TaskTaskIDRouteImport
       parentRoute: typeof TaskLayoutRoute
     }
+    '/task/$404': {
+      id: '/task/$404'
+      path: '/$404'
+      fullPath: '/task/$404'
+      preLoaderRoute: typeof Task404RouteImport
+      parentRoute: typeof TaskLayoutRoute
+    }
     '/auth/register': {
       id: '/auth/register'
       path: '/register'
@@ -244,11 +263,13 @@ const AuthLayoutRouteWithChildren = AuthLayoutRoute._addFileChildren(
 )
 
 interface TaskLayoutRouteChildren {
+  Task404Route: typeof Task404Route
   TaskTaskIDRoute: typeof TaskTaskIDRoute
   TaskIndexRoute: typeof TaskIndexRoute
 }
 
 const TaskLayoutRouteChildren: TaskLayoutRouteChildren = {
+  Task404Route: Task404Route,
   TaskTaskIDRoute: TaskTaskIDRoute,
   TaskIndexRoute: TaskIndexRoute,
 }
