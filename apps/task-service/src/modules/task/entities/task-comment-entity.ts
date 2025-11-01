@@ -1,11 +1,11 @@
 import { Entity, OptionalType } from '@repo/types'
 
-import { CreatorEntity } from './creator-entity'
+import { TaskUserEntity } from './task-users-entity'
 
 type TaskCommentEntityProps = {
   taskId: string
   authorId: string
-  author?: CreatorEntity
+  author: TaskUserEntity | null
   content: string
   createdAt: Date
   updatedAt: Date
@@ -17,12 +17,16 @@ class TaskCommentEntity extends Entity<TaskCommentEntityProps> {
   }
 
   static create(
-    props: OptionalType<TaskCommentEntityProps, 'createdAt' | 'updatedAt'>,
+    props: OptionalType<
+      TaskCommentEntityProps,
+      'author' | 'createdAt' | 'updatedAt'
+    >,
     id?: string,
   ) {
     return new TaskCommentEntity(
       {
         ...props,
+        author: props.author ?? null,
         createdAt: props.createdAt ?? new Date(),
         updatedAt: props.updatedAt ?? new Date(),
       },

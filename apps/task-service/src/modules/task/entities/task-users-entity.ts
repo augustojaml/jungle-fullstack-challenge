@@ -1,6 +1,6 @@
 import { Entity, OptionalType } from '@repo/types'
 
-type CreatorEntityProps = {
+type TaskUserEntityProps = {
   name: string
   email: string
   avatarUrl: string | null
@@ -8,19 +8,19 @@ type CreatorEntityProps = {
   updatedAt: Date
 }
 
-class CreatorEntity extends Entity<CreatorEntityProps> {
-  private constructor(props: CreatorEntityProps, id?: string) {
+class TaskUserEntity extends Entity<TaskUserEntityProps> {
+  private constructor(props: TaskUserEntityProps, id?: string) {
     super(props, id)
   }
 
   static create(
     props: OptionalType<
-      CreatorEntityProps,
+      TaskUserEntityProps,
       'avatarUrl' | 'createdAt' | 'updatedAt'
     >,
     id?: string,
   ) {
-    return new CreatorEntity(
+    return new TaskUserEntity(
       {
         ...props,
         avatarUrl: props.avatarUrl ?? null,
@@ -52,4 +52,4 @@ class CreatorEntity extends Entity<CreatorEntityProps> {
   }
 }
 
-export { CreatorEntity, type CreatorEntityProps }
+export { TaskUserEntity, type TaskUserEntityProps }

@@ -6,7 +6,10 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@repo/types": [
+        "../../packages/types/src"
       ]
     }
-  },
+  }
 }
