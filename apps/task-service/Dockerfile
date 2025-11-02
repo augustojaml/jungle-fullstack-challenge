@@ -28,6 +28,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3003
 EXPOSE 3003
+RUN corepack enable && corepack prepare pnpm@10.10.0 --activate
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 appuser
 USER appuser

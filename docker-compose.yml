@@ -37,6 +37,7 @@ services:
       - challenge-network
     depends_on:
       - db
+    command: sh -c "pnpm migration:run:prod && pnpm start:prod"
 
   api-gateway:
     container_name: api-gateway

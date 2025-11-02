@@ -14,7 +14,7 @@
     // caminhos específicos
     "apps/api-gateway": true,
     // "apps/task-service": true,
-    "apps/auth-service": true,
+    // "apps/auth-service": true,
     "apps/notifications-service": true,
     // "apps/web": true,
     "packages/*-config": true,
