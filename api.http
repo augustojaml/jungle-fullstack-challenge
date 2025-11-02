@@ -10,8 +10,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "name": "Marlon Lima",
-  "email": "marlon@example.com",
+  "name": "Puru Lima",
+  "email": "pur@example.com",
   "password": "123456"
 }
 

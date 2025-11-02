@@ -12,11 +12,11 @@
     "**/dist": true,
     "**/node_modules": true,
     // caminhos específicos
-    // "apps/api-gateway": true,
-    // "apps/task-service": true,
+    "apps/api-gateway": true,
+    "apps/task-service": true,
     "apps/auth-service": true,
     "apps/notifications-service": true,
-    "apps/web": true,
+    // "apps/web": true,
     "packages/*-config": true,
   },
   // o que é ignorado nas buscas
