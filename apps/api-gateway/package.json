@@ -14,8 +14,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --fix",
-    "test:unit": "vitest run --project unit --reporter verbose"
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@repo/types": "workspace:*",

@@ -15,7 +15,6 @@
     "start:prod": "node dist/main",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix",
-    "test:unit": "vitest run --project unit --reporter verbose",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "npm run typeorm -- migration:generate -d src/infra/typeorm/database/typeorm.config.ts",
     "migration:create": "npm run typeorm -- migration:create",

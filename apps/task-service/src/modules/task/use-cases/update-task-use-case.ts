@@ -19,12 +19,12 @@ class UpdateTaskUseCase {
   async execute(
     params: UpdateTaskDto,
   ): Promise<{ task: UpdateTaskResponseDto }> {
-    const user = await this.taskUserRepository.findById(params.userId)
+    const user = await this.taskUserRepository.findById(params.userId || '')
 
     if (!user) {
       throw new UnauthorizedError()
     }
-    const task = await this.taskRepository.getById(params.taskId)
+    const task = await this.taskRepository.getById(params.taskId || '')
 
     if (!task) {
       throw new ResourceNotFoundError()

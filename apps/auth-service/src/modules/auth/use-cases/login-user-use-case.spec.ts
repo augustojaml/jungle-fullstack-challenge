@@ -1,8 +1,8 @@
+import { passwdBcrypt } from '@repo/utils'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { ResourceNotFoundError } from '@/shared/errors/resource-not-found-error'
 import { UnauthorizedError } from '@/shared/errors/unauthorized-error'
-import { passwdBcrypt } from '@/shared/helpers/passwd-bcrypt'
 import { InMemoryUserRepository } from '@/shared/tests/in-memory/in-memory-use-repository'
 
 import { UserEntity } from '../entities/user'

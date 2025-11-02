@@ -5,30 +5,35 @@ import {
   type TaskStatus,
 } from '@repo/types'
 import { Exclude, Expose, Type } from 'class-transformer'
-import { IsDate, IsEnum, IsString, MinLength } from 'class-validator'
+import { IsDate, IsEnum, IsOptional, IsString } from 'class-validator'
 
 class UpdateTaskDto {
+  @IsOptional()
   @IsString()
-  userId!: string
+  userId?: string
 
+  @IsOptional()
   @IsString()
-  taskId!: string
+  taskId?: string
 
+  @IsOptional()
   @IsString()
-  @MinLength(2)
   title?: string
 
+  @IsOptional()
   @IsString()
-  @MinLength(2)
   description?: string
 
+  @IsOptional()
   @Type(() => Date)
   @IsDate()
   dueDate?: Date
 
+  @IsOptional()
   @IsEnum(TASK_PRIORITY)
   priority?: TaskPriority
 
+  @IsOptional()
   @IsEnum(TASK_STATUS)
   status?: TaskStatus
 }
