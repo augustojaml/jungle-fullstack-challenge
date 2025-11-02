@@ -23,7 +23,13 @@ describe('Create Task Use Case', () => {
   it('should be able to create a task', async () => {
     const user = await userFakeRepo({ repo: taskUserRepository })
 
-    const task = taskFaker({ creatorId: user.id })
+    const ass1 = await userFakeRepo({ repo: taskUserRepository })
+    const ass2 = await userFakeRepo({ repo: taskUserRepository })
+
+    const task = taskFaker({
+      creatorId: user.id,
+      assigneeIds: [ass1.id, ass2.id],
+    })
 
     const result = await sut.execute(task)
 

@@ -6,10 +6,13 @@ import {
 } from '@repo/types'
 import { Exclude, Expose, Type } from 'class-transformer'
 import {
+  ArrayUnique,
+  IsArray,
   IsDate,
   IsEnum,
   IsOptional,
   IsString,
+  IsUUID,
   MinLength,
 } from 'class-validator'
 
@@ -35,6 +38,34 @@ class CreateTaskDto {
   @IsOptional()
   @IsString()
   creatorId?: string
+
+  @IsOptional()
+  @IsArray()
+  @ArrayUnique()
+  @IsUUID('all', { each: true })
+  assigneeIds?: string[]
+}
+
+class UserDto {
+  @Expose() name!: string
+  @Expose() email!: string
+  @Expose() avatarUrl!: string | null
+
+  constructor(partial: Partial<UserDto>) {
+    Object.assign(this, partial)
+  }
+}
+
+class CreateTaskCommentDto {
+  @IsString()
+  taskId!: string
+
+  @IsString()
+  authorId!: string
+
+  @IsString()
+  @MinLength(10)
+  content!: string
 }
 
 class CreateTaskResponseDto {
@@ -49,6 +80,18 @@ class CreateTaskResponseDto {
   @Expose() priority!: TaskPriority
   @Expose() status!: TaskStatus
   @Expose() creatorId!: string
+
+  @Exclude()
+  @Type(() => UserDto)
+  creator!: UserDto
+
+  @Exclude()
+  @Type(() => UserDto)
+  assignees!: UserDto[]
+
+  @Exclude()
+  @Type(() => CreateTaskCommentDto)
+  comments!: CreateTaskCommentDto
 
   @Expose()
   @Type(() => Date)

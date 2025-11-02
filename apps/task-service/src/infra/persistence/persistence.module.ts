@@ -5,6 +5,7 @@ import { TaskRepositoryPort } from '@/modules/task/contracts/task-repository-por
 import { TaskUserRepositoryPort } from '@/modules/task/contracts/task-user-repository.port'
 
 import { Task } from './typeorm/entities/task'
+import { TaskAssignee } from './typeorm/entities/task-assignee'
 import { TaskUser } from './typeorm/entities/task-user'
 import { TypeORMTaskRepositoryAdapter } from './typeorm/repositories/TypeORMTaskRepositoryAdpter'
 import { TypeORMTaskUserRepositoryAdapter } from './typeorm/repositories/TypeORMUserRepositoryAdpter'
@@ -12,7 +13,7 @@ import { typeormOptions } from './typeorm/typeorm.config'
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeormOptions),
-    TypeOrmModule.forFeature([Task, TaskUser]),
+    TypeOrmModule.forFeature([Task, TaskUser, TaskAssignee]),
   ],
 
   providers: [

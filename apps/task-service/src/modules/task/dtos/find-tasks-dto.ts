@@ -15,6 +15,24 @@ class FindTasksDto {
   size?: number = 10
 }
 
+class UserDto {
+  @Expose() name!: string
+  @Expose() email!: string
+  @Expose() avatarUrl!: string | null
+
+  @Expose()
+  @Type(() => Date)
+  createdAt!: Date
+
+  @Expose()
+  @Type(() => Date)
+  updatedAt!: Date
+
+  constructor(partial: Partial<UserDto>) {
+    Object.assign(this, partial)
+  }
+}
+
 class FindTasksResponseDto {
   @Expose() id!: string
   @Expose() title!: string
@@ -27,6 +45,10 @@ class FindTasksResponseDto {
   @Expose() priority!: TaskPriority
   @Expose() status!: TaskStatus
   @Expose() creatorId!: string
+
+  @Expose()
+  @Type(() => UserDto)
+  creator!: UserDto
 
   @Expose()
   @Type(() => Date)

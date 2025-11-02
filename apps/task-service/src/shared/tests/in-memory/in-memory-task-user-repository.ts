@@ -12,6 +12,11 @@ class InMemoryTaskUserRepository implements TaskUserRepositoryPort {
     const user = this.TaskUsers.find((user) => user.id === id)
     return Promise.resolve(user ?? null)
   }
+
+  async findByIds(ids: string[]): Promise<TaskUserEntity[]> {
+    const users = this.TaskUsers.filter((user) => ids.includes(user.id))
+    return Promise.resolve(users)
+  }
 }
 
 export { InMemoryTaskUserRepository }

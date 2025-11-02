@@ -24,6 +24,10 @@ class CreateTaskUseCase {
       throw new UnauthorizedError()
     }
 
+    const assignees = await this.taskUserRepository.findByIds(
+      params.assigneeIds || [],
+    )
+
     const task = TaskEntity.create({
       title: params.title,
       description: params.description,
@@ -31,6 +35,7 @@ class CreateTaskUseCase {
       priority: params.priority,
       status: params.status,
       creatorId: user.id,
+      assignees: assignees,
     })
 
     const taskCreated = await this.taskRepository.create(task)

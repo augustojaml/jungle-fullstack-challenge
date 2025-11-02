@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { In, Repository } from 'typeorm'
 
 import { TaskUserRepositoryPort } from '@/modules/task/contracts/task-user-repository.port'
 import { TaskUserEntity } from '@/modules/task/entities/task-users-entity'
@@ -13,6 +13,7 @@ class TypeORMTaskUserRepositoryAdapter implements TaskUserRepositoryPort {
     @InjectRepository(TaskUser)
     private readonly repo: Repository<TaskUser>,
   ) {}
+
   async create(user: TaskUserEntity): Promise<TaskUserEntity> {
     const orm = await this.repo.save(taskUserMapper.toOrm(user))
     return taskUserMapper.toDomain(orm)
@@ -25,6 +26,20 @@ class TypeORMTaskUserRepositoryAdapter implements TaskUserRepositoryPort {
     }
 
     return taskUserMapper.toDomain(orm)
+  }
+
+  async findByIds(ids: string[]): Promise<TaskUserEntity[]> {
+    if (!ids || ids.length === 0) {
+      return []
+    }
+
+    const users = await this.repo.find({
+      where: {
+        id: In(ids), // Operador In do TypeORM para buscar múltiplos IDs
+      },
+    })
+
+    return users.map((user) => taskUserMapper.toDomain(user))
   }
 }
 

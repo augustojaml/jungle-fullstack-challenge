@@ -6,26 +6,29 @@ import { TaskEntity } from '@/modules/task/entities/task-entity'
 
 type TaskFakePrams = {
   creatorId: string
+  assigneeIds?: string[]
 }
 
-const taskFaker = ({ creatorId }: TaskFakePrams) => {
+const taskFaker = ({ creatorId, assigneeIds }: TaskFakePrams) => {
   return {
     title: faker.lorem.words(), // ok
     description: faker.lorem.paragraph(), // ok
     dueDate: faker.date.future(), // ok
     priority: faker.helpers.arrayElement(Object.values(TASK_PRIORITY)),
     status: faker.helpers.arrayElement(Object.values(TASK_STATUS)),
-    creatorId: creatorId,
+    creatorId,
+    assigneeIds,
   }
 }
 
 type TaskFakeRepoPrams = {
   creatorId: string
+  assigneeIds?: string[]
   repo: TaskRepositoryPort
 }
 
-const taskFakeRepo = ({ creatorId, repo }: TaskFakeRepoPrams) => {
-  const task = taskFaker({ creatorId })
+const taskFakeRepo = ({ creatorId, assigneeIds, repo }: TaskFakeRepoPrams) => {
+  const task = taskFaker({ creatorId, assigneeIds })
   return repo.create(TaskEntity.create(task))
 }
 

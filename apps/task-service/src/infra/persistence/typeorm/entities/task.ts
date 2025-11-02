@@ -11,10 +11,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 
+import { TaskAssignee } from './task-assignee'
 import { TaskUser } from './task-user'
 
 @Entity('tasks')
@@ -44,6 +46,12 @@ class Task {
   })
   @JoinColumn({ name: 'creator_id' })
   creator!: TaskUser
+
+  @OneToMany(() => TaskAssignee, (a) => a.task, {
+    cascade: ['insert'],
+    eager: false,
+  })
+  assignees!: TaskAssignee[]
 
   // Coluna de FK (gerenciada automaticamente pelo TypeORM)
   @Column({ name: 'creator_id', type: 'uuid' })

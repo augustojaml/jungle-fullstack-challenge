@@ -19,7 +19,13 @@ class TypeORMTaskRepositoryAdapter implements TaskRepositoryPort {
 
   async create(task: TaskEntity): Promise<TaskEntity> {
     const orm = await this.repo.save(taskMapper.toOrm(task))
-    return taskMapper.toDomain(orm)
+
+    const saved = await this.repo.findOne({
+      where: { id: orm.id },
+      relations: ['creator', 'assignees'],
+    })
+
+    return taskMapper.toDomain(saved!)
   }
   async update(task: TaskEntity): Promise<TaskEntity> {
     const orm = await this.repo.save(taskMapper.toOrm(task))
@@ -34,7 +40,7 @@ class TypeORMTaskRepositoryAdapter implements TaskRepositoryPort {
       where: { id },
       relations: {
         creator: true,
-        // assignees: true,
+        assignees: true,
         // comments: true,
       },
     })

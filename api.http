@@ -72,11 +72,15 @@ Authorization: Bearer {{token}}
   "description": "Implement grid layout and mobile breakpoints for task cards layout.",
   "dueDate": "2025-11-10T00:00:00.000Z",
   "priority": "LOW",
-  "status": "TODO"
+  "status": "TODO",
+  "assigneeIds": [
+    "b7a02d3c-f81d-4608-90ee-b5dc98f7c302",
+    "d095119e-a8f9-4850-8b25-8e486cf74044"
+  ]
 }
 
 ### FIND BY ID
-GET {{other}}/tasks/689601f3-5dac-4179-830e-091f42572f5e
+GET {{other}}/tasks/0bce4cd9-8c96-420d-b67a-774d7a7b34a9
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}

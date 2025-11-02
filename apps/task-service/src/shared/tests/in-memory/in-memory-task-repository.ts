@@ -6,9 +6,9 @@ import { TaskEntity } from '@/modules/task/entities/task-entity'
 
 class InMemoryTaskRepository implements TaskRepositoryPort {
   public tasks: TaskEntity[] = []
-  async create(user: TaskEntity): Promise<TaskEntity> {
-    this.tasks.push(user)
-    return Promise.resolve(user)
+  async create(task: TaskEntity): Promise<TaskEntity> {
+    this.tasks.push(task)
+    return Promise.resolve(task)
   }
   async update(user: TaskEntity): Promise<TaskEntity> {
     const index = this.tasks.findIndex((task) => task.id === user.id)
