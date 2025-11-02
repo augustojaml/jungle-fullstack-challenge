@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Headers,
   Param,
@@ -63,13 +64,25 @@ class ApiGatewayTaskController {
     @Body() payload: UpdateTaskDto,
   ) {
     const token = extractBearerToken(authHeader)
-    console.log(token)
-    console.log(taskId)
-    console.log(payload)
+
     return this.taskProxy.update({
       token: token ?? '',
       taskId: taskId,
       payload,
+    })
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':taskId')
+  async delete(
+    @Headers('authorization') authHeader: string,
+    @Param('taskId', new ParseUUIDPipe({ version: '4' })) taskId: string,
+  ) {
+    const token = extractBearerToken(authHeader)
+
+    return this.taskProxy.delete({
+      token: token ?? '',
+      taskId: taskId,
     })
   }
 }

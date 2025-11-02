@@ -4,12 +4,14 @@ import { JwtModule } from '@nestjs/jwt'
 import { PersistenceModule } from '@/infra/persistence/persistence.module'
 
 import { CreateTaskController } from './controllers/create-task-controller'
+import { DeleteTaskController } from './controllers/delete-task-controller'
 import { FindTasksController } from './controllers/find-tasks-controller'
 import { GetTaskController } from './controllers/get-task-controller'
 import { UpdateTaskController } from './controllers/update-task-controller'
 import { JwtStrategy } from './jwt.strategy'
 import { JwtAuthGuard } from './jwt-auth.guard'
 import { CreateTaskUseCase } from './use-cases/create-task-use-case'
+import { DeleteTaskUseCase } from './use-cases/delete-task-use-case'
 import { FindTasksUseCase } from './use-cases/find-tasks-use-case'
 import { GetTaskUseCase } from './use-cases/get-task-use-case'
 import { UpdateTaskUseCase } from './use-cases/update-task-use-case'
@@ -26,12 +28,14 @@ import { UpdateTaskUseCase } from './use-cases/update-task-use-case'
     FindTasksController,
     GetTaskController,
     UpdateTaskController,
+    DeleteTaskController,
   ],
   providers: [
     CreateTaskUseCase,
     FindTasksUseCase,
     GetTaskUseCase,
     UpdateTaskUseCase,
+    DeleteTaskUseCase,
     JwtModule,
     JwtStrategy,
     JwtAuthGuard,

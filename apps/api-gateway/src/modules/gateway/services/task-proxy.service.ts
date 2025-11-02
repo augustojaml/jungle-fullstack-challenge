@@ -82,6 +82,17 @@ class TaskProxyService {
     )
     return data
   }
+
+  async delete({ token, taskId }: { token: string; taskId: string }) {
+    const { data } = await firstValueFrom(
+      this.http.delete(`${this.taskServiceUrl}/tasks/${taskId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    )
+    return data
+  }
 }
 
 export { TaskProxyService }

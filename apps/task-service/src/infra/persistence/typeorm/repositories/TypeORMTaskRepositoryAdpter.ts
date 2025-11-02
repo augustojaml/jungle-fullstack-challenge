@@ -26,7 +26,7 @@ class TypeORMTaskRepositoryAdapter implements TaskRepositoryPort {
     return taskMapper.toDomain(orm)
   }
   async delete(id: string): Promise<{ id: string }> {
-    await this.repo.softDelete(id)
+    await this.repo.delete(id)
     return { id }
   }
   async getById(id: string): Promise<TaskEntity | null> {
