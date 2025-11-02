@@ -1,34 +1,56 @@
-import { useMemo } from 'react'
+import { useState } from 'react'
 
-import {
-  Status,
-  Task,
-  TaskTableBody,
-} from '@/features/auth/components/task-table/task-table-body'
-import { TaskTableHeader } from '@/features/auth/components/task-table/task-table-header'
+import { TableError } from '@/features/task/components/task-table/table-error'
+import { TableSkeleton } from '@/features/task/components/task-table/table-skeleton'
+import { TaskTableBody } from '@/features/task/components/task-table/task-table-body'
+import { TaskTableHeader } from '@/features/task/components/task-table/task-table-header'
+import { DialogModal } from '@/shared/components/customs/dialog-modal'
 
-const tasks: Task[] = Array.from({ length: 50 }, (_, i) => ({
-  id: `${i + 1}`,
-  title: `Task #${i + 1}`,
-  team: ['Design Team', 'Development Team', 'BA Team'][i % 3],
-  assignee: i % 2 === 0 ? { name: `Assignee #${i + 1}` } : undefined,
-  date: `0${i + 1}Aug, 2021`,
-  status: ['COMPLETED', 'IN_PROGRESS', 'DELAYED', 'BACKLOG'][i % 4] as Status,
-}))
+import { CreateTaskModalForm } from '../components/create-task-modal-form'
+import { useFindTasksQuery } from '../react-query/use-find-tasks-query'
+
 const TaskPage = () => {
-  const counts = useMemo(() => {
-    const base = { COMPLETED: 0, IN_PROGRESS: 0, BACKLOG: 0, DELAYED: 0 }
-    for (const t of tasks) base[t.status]++
-    return base
-  }, [])
+  const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false)
+
+  const {
+    data: response,
+    isLoading: responseLoading,
+    isError: responseError,
+    refetch: responseRefetch,
+  } = useFindTasksQuery({ enabled: true })
+
+  if (responseLoading) {
+    return (
+      <div className="mx-auto h-[calc(100vh-4rem)] w-full max-w-7xl overflow-hidden px-10 pt-24">
+        <TableSkeleton rows={6} />
+      </div>
+    )
+  }
+
   return (
     <div className="mx-auto h-[calc(100vh-4rem)] w-full max-w-7xl overflow-hidden px-10 pt-24">
-      <TaskTableHeader counts={counts} />
-      <div className="scroll-content back h-full overflow-y-scroll bg-transparent">
-        <div className="border-muted/60 bg-card/90 overflow-hidden rounded-lg border">
-          <TaskTableBody tasks={tasks} />
+      <TaskTableHeader hasData={!!response?.tasks?.length} />
+      {responseError ? (
+        <TableError onRetry={responseRefetch} />
+      ) : (
+        <div className="scroll-content back h-full overflow-y-scroll bg-transparent">
+          <div className="border-muted/60 bg-card/90 overflow-hidden rounded-lg border">
+            <TaskTableBody
+              data={response}
+              onCreate={() => setOpenCreateTaskModal(true)}
+            />
+          </div>
         </div>
-      </div>
+      )}
+      <DialogModal
+        title="Create Your Next Task"
+        description="Turn your ideas into actions by defining details, deadline and ownership."
+        open={openCreateTaskModal}
+        size="xxl"
+        onOpenChange={setOpenCreateTaskModal}
+      >
+        <CreateTaskModalForm onSubmit={() => console.log(123)} />
+      </DialogModal>
     </div>
   )
 }

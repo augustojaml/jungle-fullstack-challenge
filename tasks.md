@@ -25,8 +25,8 @@
 - [x] PUT    /api/tasks/:id                       # atualiza e publica `task.updated`
 - [x] DELETE /api/tasks/:id
 
-- [ ] POST   /api/tasks/:id/comments              # publica `task.comment.created`
-- [ ] GET    /api/tasks/:id/comments?page=&size   # lista de comentários com paginação
+- [x] POST   /api/tasks/:id/comments              # publica `task.comment.created`
+- [x] GET    /api/tasks/:id/comments?page=&size   # lista de comentários com paginação
 
 # CONTROLLERS WITH SWAGGER
 

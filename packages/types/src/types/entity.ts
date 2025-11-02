@@ -1,11 +1,11 @@
-import { randomUUID } from 'node:crypto'
+import { v4 as uuidv4 } from 'uuid'
 
 abstract class Entity<Props> {
   public readonly id: string
   public readonly props: Props
 
   protected constructor(props: Props, id?: string) {
-    this.id = id ?? randomUUID()
+    this.id = id ?? uuidv4()
     this.props = props
   }
 }

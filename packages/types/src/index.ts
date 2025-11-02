@@ -1,4 +1,5 @@
 export { BaseError, ErrorCodes } from './types/base-error'
+export { type Comment } from './types/comments'
 export { Entity } from './types/entity'
 export { type OptionalType } from './types/optional'
 export { type Task } from './types/task'

@@ -45,7 +45,7 @@ Authorization: Bearer {{token}}
 
 
 ### FIND TASKS
-GET {{apiGateway}}/tasks?page=2&size=10
+GET {{apiGateway}}/tasks
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}

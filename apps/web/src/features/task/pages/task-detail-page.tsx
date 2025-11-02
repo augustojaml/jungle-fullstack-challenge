@@ -3,10 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { CalendarDays, Flag, MessageSquare, Plus, Users } from 'lucide-react'
 import { ChangeEvent, useMemo, useState } from 'react'
 
-import {
-  BadgeStatus,
-  TaskStatusType,
-} from '@/shared/components/customs/badge-status'
+import { BadgeStatus } from '@/shared/components/customs/badge-status'
 import {
   Avatar,
   AvatarFallback,
@@ -27,6 +24,7 @@ import { Separator } from '@/shared/components/primitives/separator'
 import { Textarea } from '@/shared/components/primitives/textarea'
 
 type Priority = 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT'
+type TaskStatusType = 'TODO' | 'IN_PROGRESS' | 'DONE'
 
 type Comment = {
   id: string

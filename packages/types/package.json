@@ -26,5 +26,8 @@
     "@repo/typescript-config": "workspace:*",
     "tsup": "^8.0.0",
     "typescript": "^5.8.0"
+  },
+  "dependencies": {
+    "uuid": "^13.0.0"
   }
 }
