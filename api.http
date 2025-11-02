@@ -45,7 +45,7 @@ Authorization: Bearer {{token}}
 
 
 ### FIND TASKS
-GET {{other}}/tasks
+GET {{apiGateway}}/tasks?page=2&size=10
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
@@ -96,5 +96,10 @@ Authorization: Bearer {{token}}
   "content": "Essa tarefa precisa ser revisada pelo time de QA."
 }
 
+### TASK COMMENTS
+GET {{apiGateway}}/tasks/93d442e8-e67b-46fb-95a5-cdfcca2c2bc8/comments?page=1&size=10
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
 
 

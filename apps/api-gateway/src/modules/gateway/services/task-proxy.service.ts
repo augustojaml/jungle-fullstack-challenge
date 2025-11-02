@@ -94,7 +94,7 @@ class TaskProxyService {
     return data
   }
 
-  async taskComments({
+  async createTaskComments({
     token,
     taskId,
     payload,
@@ -114,6 +114,31 @@ class TaskProxyService {
           },
         },
       ),
+    )
+    return data
+  }
+
+  async getTaskComments({
+    taskId,
+    token,
+    page,
+    size,
+  }: {
+    taskId: string
+    token: string
+    page: number
+    size: number
+  }) {
+    const { data } = await firstValueFrom(
+      this.http.get(`${this.taskServiceUrl}/tasks/${taskId}/comments`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          page,
+          size,
+        },
+      }),
     )
     return data
   }

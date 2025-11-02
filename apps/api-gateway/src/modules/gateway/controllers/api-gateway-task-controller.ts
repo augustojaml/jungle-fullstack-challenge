@@ -92,16 +92,34 @@ class ApiGatewayTaskController {
 
   @UseGuards(JwtAuthGuard)
   @Post(':taskId/comments')
-  async taskComments(
+  async createTaskComments(
     @Headers('authorization') authHeader: string,
     @Param() params: CreateParamTaskDto,
     @Body() payload: CreateBodyTaskDto,
   ) {
     const token = extractBearerToken(authHeader)
-    return this.taskProxy.taskComments({
+    return this.taskProxy.createTaskComments({
       token: token ?? '',
       taskId: params.taskId,
       payload: payload.content,
+    })
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':taskId/comments')
+  async gettaskComments(
+    @Headers('authorization') authHeader: string,
+    @Param('taskId') taskId: string,
+    @Query('page') page: number,
+    @Query('size') size: number,
+  ) {
+    const token = extractBearerToken(authHeader)
+
+    return this.taskProxy.getTaskComments({
+      token: token ?? '',
+      taskId: taskId,
+      page,
+      size,
     })
   }
 }
