@@ -1,5 +1,7 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@tanstack/react-router'
 import { LockIcon, MailIcon } from 'lucide-react'
+import { useForm } from 'react-hook-form'
 
 import { ButtonToggleTheme } from '@/shared/components/customs/button-toggle-theme'
 import { ButtonWithLoading } from '@/shared/components/customs/button-with-loading'
@@ -13,7 +15,25 @@ import {
 } from '@/shared/components/primitives/card'
 import { Separator } from '@/shared/components/primitives/separator'
 
+import { useRegisterMutation } from '../../react-query/use-register-mutation'
+import { RegisterParamsDto, registerSchema } from '../../schema/register-schema'
+
 const RegisterForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterParamsDto>({
+    resolver: zodResolver(registerSchema),
+    mode: 'all',
+  })
+
+  const registerMT = useRegisterMutation()
+
+  const handleRegister = async (data: RegisterParamsDto) => {
+    await registerMT.mutateAsync(data)
+  }
+
   return (
     <Card className="border-muted bg-card/90 w-full max-w-md backdrop-blur">
       <CardHeader className="flex justify-between">
@@ -25,13 +45,16 @@ const RegisterForm = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit(handleRegister)}>
           {/* name */}
           <InputWithIcon
             label="Name"
             id="name"
             type="text"
             placeholder="John Doe"
+            {...register('name')}
+            error={errors.name?.message}
+            disabled={registerMT.isPending}
           />
 
           {/* email */}
@@ -41,6 +64,9 @@ const RegisterForm = () => {
             type="email"
             placeholder="you@example.com"
             icon={MailIcon}
+            {...register('email')}
+            error={errors.email?.message}
+            disabled={registerMT.isPending}
           />
 
           <InputWithIcon
@@ -49,9 +75,17 @@ const RegisterForm = () => {
             type="password"
             placeholder="******"
             icon={LockIcon}
+            {...register('password')}
+            error={errors.password?.message}
+            disabled={registerMT.isPending}
           />
 
-          <ButtonWithLoading className="w-full" type="submit">
+          <ButtonWithLoading
+            className="w-full"
+            type="submit"
+            isLoading={registerMT.isPending}
+            disabled={registerMT.isPending}
+          >
             Register
           </ButtonWithLoading>
         </form>
