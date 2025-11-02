@@ -1,3 +1,8 @@
 ### Create Migration
 
-pnpm typeorm migration:create src/infra/database/typeorm/migrations/create-tasks
+pnpm migration:create src/infra/persistence/typeorm/migrations/create-comments
+
+### Run Migration
+
+pnpm migration:run
+

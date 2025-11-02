@@ -1,5 +1,17 @@
 import { Exclude, Expose, Type } from 'class-transformer'
-import { IsString, MinLength } from 'class-validator'
+import { IsOptional, IsString, MinLength } from 'class-validator'
+
+class CreateTaskCommentParamDto {
+  @IsString()
+  @IsOptional()
+  taskId?: string
+}
+
+class CreateTaskCommentBodyDto {
+  @IsString()
+  @IsOptional()
+  content?: string
+}
 
 class CreateTaskCommentDto {
   @IsString()
@@ -57,4 +69,9 @@ class CreateTaskCommentResponseDto {
   }
 }
 
-export { CreateTaskCommentDto, CreateTaskCommentResponseDto }
+export {
+  CreateTaskCommentBodyDto,
+  CreateTaskCommentDto,
+  CreateTaskCommentParamDto,
+  CreateTaskCommentResponseDto,
+}

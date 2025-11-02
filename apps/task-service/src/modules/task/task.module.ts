@@ -3,6 +3,7 @@ import { JwtModule } from '@nestjs/jwt'
 
 import { PersistenceModule } from '@/infra/persistence/persistence.module'
 
+import { CreateCommentController } from './controllers/create-comment-controller'
 import { CreateTaskController } from './controllers/create-task-controller'
 import { DeleteTaskController } from './controllers/delete-task-controller'
 import { FindTasksController } from './controllers/find-tasks-controller'
@@ -10,6 +11,7 @@ import { GetTaskController } from './controllers/get-task-controller'
 import { UpdateTaskController } from './controllers/update-task-controller'
 import { JwtStrategy } from './jwt.strategy'
 import { JwtAuthGuard } from './jwt-auth.guard'
+import { CreateTaskCommentUseCase } from './use-cases/create-task-comment-use-case'
 import { CreateTaskUseCase } from './use-cases/create-task-use-case'
 import { DeleteTaskUseCase } from './use-cases/delete-task-use-case'
 import { FindTasksUseCase } from './use-cases/find-tasks-use-case'
@@ -29,6 +31,7 @@ import { UpdateTaskUseCase } from './use-cases/update-task-use-case'
     GetTaskController,
     UpdateTaskController,
     DeleteTaskController,
+    CreateCommentController,
   ],
   providers: [
     CreateTaskUseCase,
@@ -36,6 +39,7 @@ import { UpdateTaskUseCase } from './use-cases/update-task-use-case'
     GetTaskUseCase,
     UpdateTaskUseCase,
     DeleteTaskUseCase,
+    CreateTaskCommentUseCase,
     JwtModule,
     JwtStrategy,
     JwtAuthGuard,

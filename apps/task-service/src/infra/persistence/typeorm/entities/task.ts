@@ -17,6 +17,7 @@ import {
 } from 'typeorm'
 
 import { TaskAssignee } from './task-assignee'
+import { TaskComment } from './task-comment'
 import { TaskUser } from './task-user'
 
 @Entity('tasks')
@@ -52,6 +53,12 @@ class Task {
     eager: false,
   })
   assignees!: TaskAssignee[]
+
+  @OneToMany(() => TaskComment, (c) => c.task, {
+    cascade: ['insert'],
+    eager: false,
+  })
+  comments!: TaskComment[]
 
   // Coluna de FK (gerenciada automaticamente pelo TypeORM)
   @Column({ name: 'creator_id', type: 'uuid' })

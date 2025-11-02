@@ -44,16 +44,6 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
-### Auth refresh
-POST {{apiGateway}}/tasks
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer {{token}}
-
-{
-  "task_name": "Task name example"
-}
-
 ### FIND TASKS
 GET {{other}}/tasks
 Content-Type: application/json
@@ -62,7 +52,7 @@ Authorization: Bearer {{token}}
 
 
 ### CREATE TASK
-POST {{other}}/tasks
+POST {{apiGateway}}/tasks
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
@@ -80,13 +70,13 @@ Authorization: Bearer {{token}}
 }
 
 ### FIND BY ID
-GET {{other}}/tasks/0bce4cd9-8c96-420d-b67a-774d7a7b34a9
+GET {{apiGateway}}/tasks/93d442e8-e67b-46fb-95a5-cdfcca2c2bc8
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
 ### UPDATE TASK
-PUT {{other}}/tasks/689601f3-5dac-4179-830e-091f42572f5e
+PUT {{apiGateway}}/tasks/93d442e8-e67b-46fb-95a5-cdfcca2c2bc8
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
@@ -94,3 +84,17 @@ Authorization: Bearer {{token}}
 {
   "title": "Escrever documentação da API 333"
 }
+
+
+### TASK COMMENTS
+POST {{apiGateway}}/tasks/93d442e8-e67b-46fb-95a5-cdfcca2c2bc8/comments
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "content": "Essa tarefa precisa ser revisada pelo time de QA."
+}
+
+
+

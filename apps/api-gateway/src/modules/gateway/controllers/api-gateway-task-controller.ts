@@ -14,6 +14,10 @@ import {
 import { ApiTags } from '@nestjs/swagger'
 import { extractBearerToken } from '@repo/utils'
 
+import {
+  CreateBodyTaskDto,
+  CreateParamTaskDto,
+} from '../dtos/create-comment-dto'
 import { CreateTaskDto } from '../dtos/create-task-dto'
 import { GetTaskDto } from '../dtos/get-task-dto'
 import { UpdateTaskDto } from '../dtos/update-task-dto'
@@ -83,6 +87,21 @@ class ApiGatewayTaskController {
     return this.taskProxy.delete({
       token: token ?? '',
       taskId: taskId,
+    })
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':taskId/comments')
+  async taskComments(
+    @Headers('authorization') authHeader: string,
+    @Param() params: CreateParamTaskDto,
+    @Body() payload: CreateBodyTaskDto,
+  ) {
+    const token = extractBearerToken(authHeader)
+    return this.taskProxy.taskComments({
+      token: token ?? '',
+      taskId: params.taskId,
+      payload: payload.content,
     })
   }
 }

@@ -93,6 +93,30 @@ class TaskProxyService {
     )
     return data
   }
+
+  async taskComments({
+    token,
+    taskId,
+    payload,
+  }: {
+    token: string
+    taskId: string
+    payload: string
+  }) {
+    console.log(token, taskId, payload)
+    const { data } = await firstValueFrom(
+      this.http.post(
+        `${this.taskServiceUrl}/tasks/${taskId}/comments`,
+        { content: payload },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      ),
+    )
+    return data
+  }
 }
 
 export { TaskProxyService }
