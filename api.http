@@ -1,8 +1,8 @@
-# @apiGateway = http://localhost:3001/api
+@apiGateway = http://localhost:3001/api
 
-@apiGateway = http://localhost:3002
+@other = http://localhost:3003
 
-@bearerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjE5NDcwODMsImV4cCI6MTc2MTk0Nzk4M30.UdCafArvEl6HawRnop5W6DyYk-dO1KGQTiJpUzllg4s
+@bearerToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDk1MTE5ZS1hOGY5LTQ4NTAtOGIyNS04ZTQ4NmNmNzQwNDQiLCJpYXQiOjE3NjIwNTAyNzQsImV4cCI6MTc2MjA1MTE3NH0.FtZfJKhWt9jwV6-KCyuscdX2TbIkgoLJe9HnT1ORKIo
 
 ### Auth register
 POST {{apiGateway}}/auth/register
@@ -55,14 +55,22 @@ Authorization: Bearer {{token}}
 }
 
 ### Auth refresh
-GET {{apiGateway}}/tasks
+GET {{other}}/tasks
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
 
 ### Notification
-POST {{apiGateway}}/notifications
+POST {{other}}/tasks
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
+
+{
+  "title": "Escrever documentação da API",
+  "description": "Detalhar endpoints, exemplos e fluxos de autenticação.",
+  "dueDate": "2025-11-04T00:00:00.000Z",
+  "priority": "LOW",
+  "status": "TODO"
+}

@@ -5,7 +5,13 @@ import {
   type TaskStatus,
 } from '@repo/types'
 import { Exclude, Expose, Type } from 'class-transformer'
-import { IsDate, IsEnum, IsString, MinLength } from 'class-validator'
+import {
+  IsDate,
+  IsEnum,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator'
 
 class CreateTaskDto {
   @IsString()
@@ -26,8 +32,9 @@ class CreateTaskDto {
   @IsEnum(TASK_STATUS)
   status!: TaskStatus
 
+  @IsOptional()
   @IsString()
-  creatorId!: string
+  creatorId?: string
 }
 
 class CreateTaskResponseDto {

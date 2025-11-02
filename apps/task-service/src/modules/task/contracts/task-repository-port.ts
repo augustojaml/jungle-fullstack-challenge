@@ -7,8 +7,8 @@ export interface FindByCreatorOrUserIdProps {
 }
 
 abstract class TaskRepositoryPort {
-  abstract create(user: TaskEntity): Promise<TaskEntity>
-  abstract update(user: TaskEntity): Promise<TaskEntity>
+  abstract create(task: TaskEntity): Promise<TaskEntity>
+  abstract update(task: TaskEntity): Promise<TaskEntity>
   abstract delete(id: string): Promise<{ id: string }>
   abstract getById(id: string): Promise<TaskEntity | null>
 

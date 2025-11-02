@@ -18,7 +18,7 @@ class CreateTaskUseCase {
   async execute(
     params: CreateTaskDto,
   ): Promise<{ task: CreateTaskResponseDto }> {
-    const user = await this.taskUserRepository.findById(params.creatorId)
+    const user = await this.taskUserRepository.findById(params.creatorId || '')
 
     if (!user) {
       throw new UnauthorizedError()
@@ -30,7 +30,7 @@ class CreateTaskUseCase {
       dueDate: params.dueDate,
       priority: params.priority,
       status: params.status,
-      creatorId: params.creatorId,
+      creatorId: user.id,
     })
 
     const taskCreated = await this.taskRepository.create(task)
