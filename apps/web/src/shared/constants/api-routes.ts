@@ -6,6 +6,7 @@ const API_ROUTES = {
   },
   TASK: {
     FIND_TASKS: '/tasks',
+    CREATE_TASK: '/tasks',
   },
 } as const
 

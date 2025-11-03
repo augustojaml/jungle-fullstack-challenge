@@ -24,6 +24,7 @@ const RegisterForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<RegisterParamsDto>({
     resolver: zodResolver(registerSchema),
@@ -34,6 +35,7 @@ const RegisterForm = () => {
 
   const handleRegister = async (data: RegisterParamsDto) => {
     await registerMT.mutateAsync(data)
+    reset()
   }
 
   return (

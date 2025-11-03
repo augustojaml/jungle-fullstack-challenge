@@ -1,15 +1,9 @@
 // src/app/tasks/tasks-page.tsx
 import { Task } from '@repo/types'
 import { Link } from '@tanstack/react-router'
-import {
-  CalendarDays,
-  EyeIcon,
-  Pencil,
-  Plus,
-  Trash2,
-  Users,
-} from 'lucide-react'
+import { CalendarDays, EyeIcon, Plus, Trash2, Users } from 'lucide-react'
 
+import { BadgePriority } from '@/shared/components/customs/badge-priority'
 import { BadgeStatus } from '@/shared/components/customs/badge-status'
 import { ButtonWithLoading } from '@/shared/components/customs/button-with-loading'
 import {
@@ -56,6 +50,7 @@ const TaskTableBody = ({ data, onCreate }: TaskTableBodyProps) => {
                 Date
               </div>
             </TableHead>
+            <TableHead className="min-w-[140px]">Priority</TableHead>
             <TableHead className="min-w-[140px]">Status</TableHead>
             <TableHead className="min-w-[120px] text-right">Actions</TableHead>
           </TableRow>
@@ -100,14 +95,15 @@ const TaskTableBody = ({ data, onCreate }: TaskTableBodyProps) => {
               </TableCell>
 
               <TableCell>
+                <BadgePriority priority={task.priority} />
+              </TableCell>
+
+              <TableCell>
                 <BadgeStatus status={task.status} />
               </TableCell>
 
               <TableCell className="text-right">
                 <div className="inline-flex items-center gap-2">
-                  <Button size="icon" variant="outline" className="h-8 w-8">
-                    <Pencil className="h-4 w-4" />
-                  </Button>
                   <Button
                     size="icon"
                     variant="outline"

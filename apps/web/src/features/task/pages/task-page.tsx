@@ -29,7 +29,10 @@ const TaskPage = () => {
 
   return (
     <div className="mx-auto h-[calc(100vh-4rem)] w-full max-w-7xl overflow-hidden px-10 pt-24">
-      <TaskTableHeader hasData={!!response?.tasks?.length} />
+      <TaskTableHeader
+        hasData={!!response?.tasks?.length}
+        onOpen={() => setOpenCreateTaskModal(true)}
+      />
       {responseError ? (
         <TableError onRetry={responseRefetch} />
       ) : (
@@ -49,7 +52,7 @@ const TaskPage = () => {
         size="xxl"
         onOpenChange={setOpenCreateTaskModal}
       >
-        <CreateTaskModalForm onSubmit={() => console.log(123)} />
+        <CreateTaskModalForm onClose={() => setOpenCreateTaskModal(false)} />
       </DialogModal>
     </div>
   )
