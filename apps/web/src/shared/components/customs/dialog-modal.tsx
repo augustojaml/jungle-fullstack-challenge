@@ -102,7 +102,6 @@ const DialogModal = ({
           <div
             className={cn(
               'relative z-10 max-h-[85vh] overflow-y-auto p-6',
-
               hasIcon
                 ? 'grid grid-cols-[auto,1fr] gap-3'
                 : 'grid grid-cols-1 gap-3',

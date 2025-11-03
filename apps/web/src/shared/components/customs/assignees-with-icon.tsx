@@ -130,7 +130,6 @@ export const AssigneesMultiSelect = forwardRef<
                         value={`${person.name} ${person.email ?? ''}`}
                         onSelect={() => {
                           toggleAssignee(person.id)
-
                           setOpen(false)
                           setTimeout(() => triggerRef.current?.focus(), 0)
                         }}
