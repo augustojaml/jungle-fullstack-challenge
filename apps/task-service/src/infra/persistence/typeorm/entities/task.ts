@@ -1,4 +1,3 @@
-// task-entity.ts
 import {
   TASK_PRIORITY,
   TASK_STATUS,
@@ -40,10 +39,9 @@ class Task {
   @Column({ type: 'enum', enum: TASK_STATUS, default: 'TODO' })
   status!: TaskStatus
 
-  // Relação: tasks.creator_id -> users.id
   @ManyToOne(() => TaskUser, (user) => user.createdTasks, {
     onDelete: 'RESTRICT',
-    eager: false, // lazy loading por padrão
+    eager: false,
   })
   @JoinColumn({ name: 'creator_id' })
   creator!: TaskUser
@@ -60,7 +58,6 @@ class Task {
   })
   comments!: TaskComment[]
 
-  // Coluna de FK (gerenciada automaticamente pelo TypeORM)
   @Column({ name: 'creator_id', type: 'uuid' })
   creatorId!: string
 

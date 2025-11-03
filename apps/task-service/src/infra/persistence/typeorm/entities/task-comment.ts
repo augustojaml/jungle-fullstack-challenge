@@ -1,4 +1,3 @@
-// src/infra/persistence/typeorm/entities/task-comment.ts
 import {
   Column,
   CreateDateColumn,
@@ -27,7 +26,6 @@ export class TaskComment {
   @JoinColumn({ name: 'task_id' })
   task!: Task
 
-  // 👉 relação opcional com o autor (TaskUser)
   @ManyToOne(() => TaskUser, { eager: false, nullable: true })
   @JoinColumn({ name: 'author_id' })
   author!: TaskUser | null

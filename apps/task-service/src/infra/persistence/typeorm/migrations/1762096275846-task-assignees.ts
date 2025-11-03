@@ -23,10 +23,9 @@ export class TaskAssignees1762096275846 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           { name: 'task_id', type: 'uuid', isNullable: false },
-          // user_id vem do auth-service (sem FK)
+
           { name: 'user_id', type: 'uuid', isNullable: false },
 
-          // timestamps
           {
             name: 'created_at',
             type: 'timestamp',
@@ -44,7 +43,6 @@ export class TaskAssignees1762096275846 implements MigrationInterface {
       true,
     )
 
-    // FK task_id -> tasks.id
     await queryRunner.createForeignKey(
       'task_assignees',
       new TableForeignKey({
@@ -55,7 +53,6 @@ export class TaskAssignees1762096275846 implements MigrationInterface {
       }),
     )
 
-    // UNIQUE composto (task, user)
     await queryRunner.createUniqueConstraint(
       'task_assignees',
       new TableUnique({
@@ -64,7 +61,6 @@ export class TaskAssignees1762096275846 implements MigrationInterface {
       }),
     )
 
-    // Índices
     await queryRunner.createIndex(
       'task_assignees',
       new TableIndex({

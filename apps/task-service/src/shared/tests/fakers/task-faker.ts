@@ -11,9 +11,9 @@ type TaskFakePrams = {
 
 const taskFaker = ({ creatorId, assigneeIds }: TaskFakePrams) => {
   return {
-    title: faker.lorem.words(), // ok
-    description: faker.lorem.paragraph(), // ok
-    dueDate: faker.date.future(), // ok
+    title: faker.lorem.words(),
+    description: faker.lorem.paragraph(),
+    dueDate: faker.date.future(),
     priority: faker.helpers.arrayElement(Object.values(TASK_PRIORITY)),
     status: faker.helpers.arrayElement(Object.values(TASK_STATUS)),
     creatorId,

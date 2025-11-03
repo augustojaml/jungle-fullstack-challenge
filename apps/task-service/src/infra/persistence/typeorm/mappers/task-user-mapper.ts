@@ -4,7 +4,6 @@ import { TaskUser } from '../entities/task-user'
 
 const taskUserMapper = {
   toDomain: (orm: TaskUser): TaskUserEntity => {
-    // ajuste conforme seu factory estático
     return TaskUserEntity.create(
       {
         name: orm.name,
@@ -17,7 +16,6 @@ const taskUserMapper = {
     )
   },
   toOrm: (dom: TaskUserEntity): TaskUser => {
-    // se UserEntity expõe props, ajuste os nomes
     const task = new TaskUser()
     task.id = dom.id
     task.name = dom.name

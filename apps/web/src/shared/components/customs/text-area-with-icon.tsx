@@ -1,5 +1,3 @@
-// src/shared/components/customs/textarea-with-icon.tsx
-
 import { InfoIcon, type LucideIcon } from 'lucide-react'
 import { type ComponentProps } from 'react'
 
@@ -30,7 +28,7 @@ export function TextareaWithIcon({
       <div className="space-y-1">
         {label && <Label htmlFor={id}>{label}</Label>}
 
-        <div className="group relative">
+        <div className="group bg-background relative">
           <Textarea
             id={id}
             style={{ height, resize: 'none' }}

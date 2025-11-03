@@ -1,4 +1,3 @@
-// task-user-entity.ts
 import {
   Column,
   CreateDateColumn,

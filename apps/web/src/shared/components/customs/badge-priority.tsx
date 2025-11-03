@@ -10,7 +10,6 @@ export interface BadgePriorityProps extends React.ComponentProps<'div'> {
   className?: string
 }
 
-// mapa estático e tipado
 const VARIANT: Record<TaskPriority, { bg: string; title: string }> = {
   LOW: {
     bg: 'bg-slate-500/15 text-slate-600 dark:text-slate-400',

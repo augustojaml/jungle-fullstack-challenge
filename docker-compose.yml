@@ -81,6 +81,7 @@ services:
       args:
         # use rota relativa; o nginx faz o proxy
         VITE_API_URL: http://localhost:3001
+        VITE_APP_ENVIRONMENT: development
     ports:
       - "3000:3000"
     networks:

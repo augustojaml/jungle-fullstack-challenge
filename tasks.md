@@ -59,6 +59,9 @@
  - [x] web: Validate refresh token
  - [x] web: Task Details | get and add comments
  - [x] web: Scroll task details
+ - [ ] api: Adjust endpoint task to get for creator or assignee
+ - [x] web: Adjust background input, textarea and select
+
  - [ ] api-gateway: adjust routes and test swagger
 
 # IF THERE IS TIME

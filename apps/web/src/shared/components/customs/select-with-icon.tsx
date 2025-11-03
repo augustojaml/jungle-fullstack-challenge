@@ -1,4 +1,3 @@
-// src/shared/components/customs/select-with-icon.tsx
 import { InfoIcon, type LucideIcon } from 'lucide-react'
 import { type ComponentProps, forwardRef } from 'react'
 
@@ -60,7 +59,7 @@ export const SelectWithIcon = forwardRef<
         <div className="space-y-1">
           {label && <Label htmlFor={id}>{label}</Label>}
 
-          <div className="group relative">
+          <div className="group bg-background relative">
             <Select
               name={name}
               value={value}

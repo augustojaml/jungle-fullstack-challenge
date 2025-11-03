@@ -1,4 +1,3 @@
-// src/app/tasks/components/task-detail-card.tsx
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Task, TaskPriority, TaskStatus } from '@repo/types'
 import { Link } from '@tanstack/react-router'
@@ -49,7 +48,6 @@ const TaskDetail = ({ task, isLoading, isError }: TaskDetailProps) => {
       description: task?.description,
       priority: task?.priority,
       status: task?.status,
-      // garante Date
       dueDate:
         task?.dueDate instanceof Date
           ? task.dueDate
@@ -72,7 +70,6 @@ const TaskDetail = ({ task, isLoading, isError }: TaskDetailProps) => {
     })
   }, [task, reset])
 
-  // flags de edição inline
   const [editTitle, setEditTitle] = useState(false)
   const [editDesc, setEditDesc] = useState(false)
   const titleRef = useRef<HTMLInputElement>(null)
@@ -149,11 +146,11 @@ const TaskDetail = ({ task, isLoading, isError }: TaskDetailProps) => {
                           ref={titleRef}
                           value={field.value ?? ''}
                           onChange={field.onChange}
-                          onBlur={() => setEditTitle(false)} // salva no blur
+                          onBlur={() => setEditTitle(false)}
                           onKeyDown={(e) => {
-                            if (e.key === 'Enter') setEditTitle(false) // salva
+                            if (e.key === 'Enter') setEditTitle(false)
                             if (e.key === 'Escape') {
-                              resetField('title') // volta ao default
+                              resetField('title')
                               setEditTitle(false)
                             }
                           }}
@@ -196,13 +193,13 @@ const TaskDetail = ({ task, isLoading, isError }: TaskDetailProps) => {
                           ref={descRef}
                           value={field.value ?? ''}
                           onChange={field.onChange}
-                          onBlur={() => setEditDesc(false)} // salva no blur
+                          onBlur={() => setEditDesc(false)}
                           onKeyDown={(e) => {
                             if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                              setEditDesc(false) // salva
+                              setEditDesc(false)
                             }
                             if (e.key === 'Escape') {
-                              resetField('description') // volta ao default
+                              resetField('description')
                               setEditDesc(false)
                             }
                           }}

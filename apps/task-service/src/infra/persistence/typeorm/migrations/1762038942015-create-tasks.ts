@@ -9,7 +9,6 @@ export class CreateTasks1761790000000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`)
 
-    // Criar ENUM types
     await queryRunner.query(`
       CREATE TYPE task_priority_enum AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'URGENT')
     `)

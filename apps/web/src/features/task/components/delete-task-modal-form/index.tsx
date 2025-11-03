@@ -1,4 +1,3 @@
-// src/app/tasks/components/delete-task-modal.tsx
 import { AlertTriangle, Trash2 } from 'lucide-react'
 
 import { ButtonWithLoading } from '@/shared/components/customs/button-with-loading'

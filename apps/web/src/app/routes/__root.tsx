@@ -1,6 +1,8 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 
+import { envConfig } from '@/shared/config/env'
+
 import { RootProviders } from '../providers'
 
 const Route = createRootRoute({
@@ -8,7 +10,9 @@ const Route = createRootRoute({
     <div className="bg-background font-display min-h-screen antialiased">
       <RootProviders>
         <Outlet />
-        <TanStackRouterDevtools position="bottom-right" />
+        {envConfig.VITE_APP_ENVIRONMENT === 'development' && (
+          <TanStackRouterDevtools position="bottom-right" />
+        )}
       </RootProviders>
     </div>
   ),

@@ -13,7 +13,6 @@ interface UserAvatarProps {
 }
 
 const UserAvatar = ({ user }: UserAvatarProps) => {
-  // se user não vier, avatar genérico
   if (!user) {
     return (
       <Avatar className="bg-primary/20 text-primary flex h-9 w-9 items-center justify-center rounded-full">

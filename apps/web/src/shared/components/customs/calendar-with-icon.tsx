@@ -1,4 +1,3 @@
-// src/shared/components/customs/calendar-with-icon.tsx
 import { format } from 'date-fns'
 import { Calendar as CalendarIcon, InfoIcon } from 'lucide-react'
 import { forwardRef } from 'react'
@@ -13,13 +12,9 @@ import { Popover, PopoverContent, PopoverTrigger } from '../primitives/popover'
 interface CalendarWithIconProps {
   id: string
   label?: string
-  /** RHF Controller -> field.value (Date) */
   value?: Date
-  /** RHF Controller -> field.onChange */
   onChange?: (date: Date) => void
-  /** RHF Controller -> field.onBlur */
   onBlur?: () => void
-  /** opcional (não é necessário para RHF) */
   name?: string
   placeholder?: string
   error?: string
@@ -53,7 +48,7 @@ export const CalendarWithIcon = forwardRef<
         <div className="space-y-1">
           {label && <Label htmlFor={id}>{label}</Label>}
 
-          <div className="relative">
+          <div className="bg-background relative">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -63,10 +58,9 @@ export const CalendarWithIcon = forwardRef<
                   disabled={disabled}
                   className={cn(
                     'w-full justify-start pl-9 text-left font-normal',
-                    error && 'border-destructive!',
+                    error && 'border-destructive',
                     className,
                   )}
-                  // dispara onBlur do RHF quando o trigger perde o foco (opcional)
                   onBlur={onBlur}
                   data-name={name}
                   id={id}

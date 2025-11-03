@@ -1,4 +1,3 @@
-// ✅ sem default import
 import { z } from 'zod'
 
 const zodValidator = {

@@ -69,7 +69,6 @@ class FindTaskCommentsResponseDto {
 
   @Expose() total!: number
 
-  // (opcional) inclua paginação no response também
   @Expose() page!: number
   @Expose() size!: number
 

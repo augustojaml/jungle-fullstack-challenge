@@ -1,4 +1,3 @@
-// src/shared/components/customs/modal.tsx
 import { X } from 'lucide-react'
 import * as React from 'react'
 
@@ -103,7 +102,7 @@ const DialogModal = ({
           <div
             className={cn(
               'relative z-10 max-h-[85vh] overflow-y-auto p-6',
-              // layout em grid: se tem ícone = 2 colunas (auto,1fr), senão 1 coluna
+
               hasIcon
                 ? 'grid grid-cols-[auto,1fr] gap-3'
                 : 'grid grid-cols-1 gap-3',

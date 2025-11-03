@@ -10,7 +10,7 @@ export const typeormOptions: DataSourceOptions = {
   password: process.env.DB_PASS ?? 'password',
   database: process.env.DB_NAME ?? 'challenge_db',
   synchronize: false,
-  entities: [join(__dirname, 'entities', '*.{ts,js}')], // <== só ORM
+  entities: [join(__dirname, 'entities', '*.{ts,js}')],
   migrations: [join(__dirname, 'migrations', '*.{ts,js}')],
   logging: ['error', 'warn'],
 }

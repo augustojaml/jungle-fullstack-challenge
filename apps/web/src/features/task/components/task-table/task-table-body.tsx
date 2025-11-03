@@ -1,4 +1,3 @@
-// src/app/tasks/tasks-page.tsx
 import { Task } from '@repo/types'
 import { Link } from '@tanstack/react-router'
 import { CalendarDays, EyeIcon, Plus, Trash2, Users } from 'lucide-react'

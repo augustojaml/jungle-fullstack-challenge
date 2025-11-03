@@ -61,7 +61,7 @@ const TaskPage = () => {
       isSuccess={deleteTaskMT.isSuccess}
       error={deleteTaskMT.error}
     >
-      <div className="mx-auto h-[calc(100vh-4rem)] w-full max-w-7xl overflow-hidden px-10 pt-24">
+      <div className="mx-auto h-[calc(100vh-4rem)] w-full max-w-7xl overflow-hidden px-4 pt-24 sm:px-6 lg:px-8">
         <TaskTableHeader
           hasData={!!response?.tasks?.length}
           onOpen={() => setOpenCreateTaskModal(true)}
@@ -69,7 +69,7 @@ const TaskPage = () => {
         {responseError ? (
           <TableError onRetry={responseRefetch} />
         ) : (
-          <div className="scroll-content back h-full overflow-y-scroll bg-transparent">
+          <div className="scroll-content back h-full overflow-y-auto bg-transparent">
             <div className="border-muted/60 bg-card/90 overflow-hidden rounded-lg border">
               <TaskTableBody
                 data={response}

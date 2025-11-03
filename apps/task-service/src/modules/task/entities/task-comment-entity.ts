@@ -34,7 +34,6 @@ class TaskCommentEntity extends Entity<TaskCommentEntityProps> {
     )
   }
 
-  // getters
   get taskId() {
     return this.props.taskId
   }

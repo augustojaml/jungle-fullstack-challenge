@@ -29,7 +29,7 @@ export class CreateComments1762105145867 implements MigrationInterface {
           {
             name: 'author_id',
             type: 'uuid',
-            isNullable: false, // vem do auth-service (sem FK)
+            isNullable: false,
           },
           {
             name: 'content',

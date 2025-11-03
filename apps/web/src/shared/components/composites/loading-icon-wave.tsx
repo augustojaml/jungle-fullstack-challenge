@@ -5,22 +5,11 @@ import { useMemo } from 'react'
 import { APP_NAME as APP } from '@/shared/constants/app-name' // opcional
 
 export type LoadingIconWaveProps = {
-  /** Ícones a exibir; por padrão usa os 4 do tema “tarefas inteligentes e digitais” */
   icons?: ComponentType<{ className?: string }>[]
-
-  /** Duração da animação em segundos (default 1.2) */
   duration?: number
-
-  /** Atraso incremental entre ícones em segundos (default 0.12) */
   delayStep?: number
-
-  /** Tamanho visual */
   size?: 'sm' | 'md' | 'lg'
-
-  /** Texto abaixo (default "Loading") */
   label?: string
-
-  /** Nome do app exibido no pill (fallback "app-pools") */
   appName?: string
 }
 

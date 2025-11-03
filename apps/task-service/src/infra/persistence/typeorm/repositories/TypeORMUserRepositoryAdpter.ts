@@ -35,7 +35,7 @@ class TypeORMTaskUserRepositoryAdapter implements TaskUserRepositoryPort {
 
     const users = await this.repo.find({
       where: {
-        id: In(ids), // Operador In do TypeORM para buscar múltiplos IDs
+        id: In(ids),
       },
     })
 

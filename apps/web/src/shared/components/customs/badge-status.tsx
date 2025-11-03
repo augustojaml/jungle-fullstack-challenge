@@ -10,7 +10,6 @@ export interface BadgeStatusProps extends React.ComponentProps<'div'> {
   className?: string
 }
 
-// mapa estático e tipado: todas as chaves de TaskStatus precisam existir
 const VARIANT: Record<TaskStatus, { bg: string; title: string }> = {
   TODO: {
     bg: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
@@ -22,11 +21,11 @@ const VARIANT: Record<TaskStatus, { bg: string; title: string }> = {
   },
   DONE: {
     bg: 'bg-sky-500/15 text-sky-600 dark:text-sky-400',
-    title: 'In Review', // ou "In Backlog" se preferir
+    title: 'In Review',
   },
   REVIEW: {
     bg: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
-    title: 'In Review', // ou "Delayed" se for essa a intenção
+    title: 'In Review',
   },
 }
 
@@ -45,7 +44,6 @@ const BadgeStatus = ({
   className,
   ...rest
 }: BadgeStatusProps) => {
-  // normaliza/garante fallback
   const key = safeStatus(status)
   const { bg, title } = useMemo(() => VARIANT[key], [key])
 

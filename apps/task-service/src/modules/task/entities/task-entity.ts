@@ -47,7 +47,6 @@ class TaskEntity extends Entity<TaskEntityProps> {
     )
   }
 
-  // getters
   get title() {
     return this.props.title
   }

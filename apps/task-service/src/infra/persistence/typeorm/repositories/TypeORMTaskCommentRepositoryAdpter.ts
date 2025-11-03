@@ -1,4 +1,3 @@
-// src/infra/persistence/typeorm/repositories/typeorm-task-comment-repository-adapter.ts
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'

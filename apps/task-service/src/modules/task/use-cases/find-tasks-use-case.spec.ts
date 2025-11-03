@@ -33,7 +33,6 @@ describe('Find Tasks Use Case', () => {
       page: 1,
     })
 
-    // shape básico do pagination
     expect(resultPage1).toMatchObject({
       total: 3,
       page: 1,
@@ -50,7 +49,6 @@ describe('Find Tasks Use Case', () => {
       { title: t2.title, description: t2.description },
     ])
 
-    // segunda página (deve trazer o terceiro)
     const resultPage2 = await sut.execute({
       userId: user.id,
       size: 2,

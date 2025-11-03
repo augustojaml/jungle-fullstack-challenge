@@ -24,8 +24,12 @@ export function InputWithIcon({
     <div>
       <div className="space-y-1">
         {label && <Label htmlFor={id}>{label}</Label>}
-        <div className="group relative">
-          <Input id={id} className={cn('', !!Icon && 'pl-9')} {...rest} />
+        <div className="group bg-background relative">
+          <Input
+            id={id}
+            className={cn('bg-transparent', !!Icon && 'pl-9')}
+            {...rest}
+          />
           {Icon && (
             <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
               <Icon className="text-muted-foreground group-focus-within:text-primary h-4 w-4 transition-colors" />

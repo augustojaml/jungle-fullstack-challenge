@@ -1,4 +1,3 @@
-// src/app/tasks/components/task-detail-error.tsx
 import { BellRing, ClipboardList, Users2, Workflow } from 'lucide-react'
 
 import { ErrorIconWave } from '@/shared/components/composites/error-icon-wave'

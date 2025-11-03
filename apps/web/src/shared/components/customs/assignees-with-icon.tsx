@@ -22,12 +22,8 @@ interface AssigneeOption {
 
 interface AssigneesMultiSelectProps {
   id: string
-  /** vindo do Controller */
   name?: string
-  /** vindo do Controller */
   onBlur?: () => void
-  /** vindo do Controller */
-  // o ref do RHF será encaminhado para o <input hidden />
   value: string[]
   onChange: (ids: string[]) => void
   people: AssigneeOption[]
@@ -76,14 +72,13 @@ export const AssigneesMultiSelect = forwardRef<
     const hasError = Boolean(error)
 
     return (
-      <div className="w-full space-y-2">
-        {/* input invisível p/ RHF registrar o campo */}
+      <div className="bg-background w-full space-y-2">
         <input
-          ref={ref} // <- ref do Controller
-          name={name} // <- name do Controller
-          onBlur={onBlur} // <- onBlur do Controller
+          ref={ref}
+          name={name}
+          onBlur={onBlur}
           type="hidden"
-          value={JSON.stringify(value)} // serialize o array
+          value={JSON.stringify(value)}
           aria-hidden="true"
         />
 
@@ -98,7 +93,7 @@ export const AssigneesMultiSelect = forwardRef<
             <Button
               ref={triggerRef}
               id={id}
-              type="button" // garante que não é submit
+              type="button"
               variant="outline"
               role="combobox"
               aria-expanded={open}
@@ -135,7 +130,7 @@ export const AssigneesMultiSelect = forwardRef<
                         value={`${person.name} ${person.email ?? ''}`}
                         onSelect={() => {
                           toggleAssignee(person.id)
-                          // fecha e devolve foco ao trigger para acessibilidade
+
                           setOpen(false)
                           setTimeout(() => triggerRef.current?.focus(), 0)
                         }}

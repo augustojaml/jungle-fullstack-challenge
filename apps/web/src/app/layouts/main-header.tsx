@@ -47,7 +47,7 @@ const MainHeader = () => {
                 variant="ghost"
                 className={cn(
                   'relative h-9 rounded-full px-2',
-                  // amplia a área clicável quando há nome
+
                   user?.name ? 'pr-3 pl-2' : 'h-9 w-9 justify-center',
                 )}
                 aria-label="Open user menu"

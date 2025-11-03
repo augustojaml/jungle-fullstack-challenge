@@ -9,6 +9,7 @@ import {
 import { TaskEntity } from '@/modules/task/entities/task-entity'
 
 import { Task } from '../entities/task'
+import { TaskAssignee } from '../entities/task-assignee'
 import { taskMapper } from '../mappers/task-mapper'
 @Injectable()
 class TypeORMTaskRepositoryAdapter implements TaskRepositoryPort {
@@ -61,17 +62,29 @@ class TypeORMTaskRepositoryAdapter implements TaskRepositoryPort {
     const size = Math.max(1, props.size ?? 10)
     const offset = (page - 1) * size
 
-    // use propriedades mapeadas (creatorId), não creator_id
+    const { userId } = props
+
     const baseQb = this.repo
       .createQueryBuilder('t')
-      .where('t.creatorId = :userId', { userId: props.userId })
+      .where('t.creatorId = :userId', { userId })
+      .orWhere((qb) => {
+        const sub = qb
+          .subQuery()
+          .select('1')
+          .from(TaskAssignee, 'ta')
+          .where('ta.taskId = t.id')
+          .andWhere('ta.userId = :userId')
+          .getQuery()
+        return `EXISTS ${sub}`
+      })
 
     const total = await baseQb.clone().getCount()
 
     const rows = await baseQb
       .clone()
-      .leftJoinAndSelect('t.creator', 'creator') // ok: relation property
-      // use propriedade mapeada (createdAt), não created_at
+      .leftJoinAndSelect('t.creator', 'creator')
+      .leftJoinAndSelect('t.assignees', 'assignees')
+      .leftJoinAndSelect('assignees.user', 'assigneeUser')
       .orderBy('t.createdAt', 'DESC')
       .skip(offset)
       .take(size)
