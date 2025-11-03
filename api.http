@@ -44,6 +44,12 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 
+###  Auth Users
+GET {{apiGateway}}/auth/users
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
 ### FIND TASKS
 GET {{apiGateway}}/tasks
 Content-Type: application/json

@@ -5,7 +5,16 @@ import {
   TaskStatus,
 } from '@repo/types'
 import { Type } from 'class-transformer'
-import { IsDate, IsEnum, IsString, MinLength } from 'class-validator'
+import {
+  ArrayUnique,
+  IsArray,
+  IsDate,
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsUUID,
+  MinLength,
+} from 'class-validator'
 class CreateTaskDto {
   @IsString()
   @MinLength(2)
@@ -24,6 +33,12 @@ class CreateTaskDto {
 
   @IsEnum(TASK_STATUS)
   status!: TaskStatus
+
+  @IsOptional()
+  @IsArray()
+  @ArrayUnique()
+  @IsUUID('all', { each: true })
+  assigneeIds?: string[]
 }
 
 export { CreateTaskDto }

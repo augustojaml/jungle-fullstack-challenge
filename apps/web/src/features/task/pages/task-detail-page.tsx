@@ -1,15 +1,17 @@
 // src/app/tasks/components/task-detail-card.tsx
+import { TaskPriority, TaskStatus } from '@repo/types'
 import { Link } from '@tanstack/react-router'
 import { CalendarDays, Flag, MessageSquare, Plus, Users } from 'lucide-react'
 import { ChangeEvent, useMemo, useState } from 'react'
 
+import { BadgePriority } from '@/shared/components/customs/badge-priority'
 import { BadgeStatus } from '@/shared/components/customs/badge-status'
+import { UserAvatar } from '@/shared/components/customs/user-avatar'
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from '@/shared/components/primitives/avatar'
-import { Badge } from '@/shared/components/primitives/badge'
 import { Button } from '@/shared/components/primitives/button'
 import { CardTitle } from '@/shared/components/primitives/card'
 import { Input } from '@/shared/components/primitives/input'
@@ -22,9 +24,6 @@ import {
 } from '@/shared/components/primitives/select'
 import { Separator } from '@/shared/components/primitives/separator'
 import { Textarea } from '@/shared/components/primitives/textarea'
-
-type Priority = 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT'
-type TaskStatusType = 'TODO' | 'IN_PROGRESS' | 'DONE'
 
 type Comment = {
   id: string
@@ -40,17 +39,10 @@ type TaskDetail = {
   title: string
   description?: string
   dueDate?: string
-  priority: Priority
-  status: TaskStatusType
+  priority: TaskPriority
+  status: TaskStatus
   assignees: Assignee[]
   comments: Comment[]
-}
-
-const PRIORITY_STYLES: Record<Priority, string> = {
-  LOW: 'bg-sky-500/15 text-sky-600 dark:text-sky-400',
-  MEDIUM: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
-  HIGH: 'bg-orange-500/15 text-orange-600 dark:text-orange-400',
-  URGENT: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
 }
 
 const TaskDetailPage = () => {
@@ -65,8 +57,18 @@ const TaskDetailPage = () => {
       priority: 'HIGH',
       status: 'IN_PROGRESS',
       assignees: [
-        { id: 'u1', name: 'Zaire Donin' },
-        { id: 'u2', name: 'Allison Curtis' },
+        {
+          id: 'u1',
+          name: 'Zaire Donin',
+          email: 'z.donin@example.com',
+          avatarUrl: 'https://avatars.githubusercontent.com/u/123456?v=4',
+        },
+        {
+          id: 'u2',
+          name: 'Allison Curtis',
+          email: 'a.curits@example.com',
+          avatarUrl: 'https://avatars.githubusercontent.com/u/789012?v=4',
+        },
       ],
       comments: [
         {
@@ -146,9 +148,7 @@ const TaskDetailPage = () => {
           </div>
           <div className="flex h-9 items-center gap-2 rounded-md border px-3 text-sm">
             <Flag className="text-muted-foreground h-4 w-4" />
-            <Badge className={`px-2.5 py-1 ${PRIORITY_STYLES[task.priority]}`}>
-              {task.priority}
-            </Badge>
+            <BadgePriority priority={task.priority} />
           </div>
           <div className="flex h-9 items-center gap-2 rounded-md border px-3 text-sm">
             <Users className="text-muted-foreground h-4 w-4" />
@@ -188,12 +188,7 @@ const TaskDetailPage = () => {
                 key={a.id}
                 className="bg-background/40 flex items-center gap-2 rounded-full border px-2.5 py-1.5"
               >
-                <Avatar className="h-6 w-6">
-                  <AvatarImage src={a.avatar ?? ''} />
-                  <AvatarFallback>
-                    {a.name.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
+                <UserAvatar user={a} />
                 <span className="text-sm">{a.name}</span>
                 <button
                   onClick={() => removeAssignee(a.id)}
@@ -220,7 +215,7 @@ const TaskDetailPage = () => {
             </label>
             <Select
               value={task.status}
-              onValueChange={(v: TaskStatusType) =>
+              onValueChange={(v: TaskStatus) =>
                 setTask((t) => ({ ...t, status: v }))
               }
             >
@@ -242,7 +237,7 @@ const TaskDetailPage = () => {
             </label>
             <Select
               value={task.priority}
-              onValueChange={(v: Priority) =>
+              onValueChange={(v: TaskPriority) =>
                 setTask((t) => ({ ...t, priority: v }))
               }
             >

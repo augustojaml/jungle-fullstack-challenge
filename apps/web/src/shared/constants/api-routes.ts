@@ -3,6 +3,7 @@ const API_ROUTES = {
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',
     ME: '/auth/me',
+    USERS: '/auth/users',
   },
   TASK: {
     FIND_TASKS: '/tasks',

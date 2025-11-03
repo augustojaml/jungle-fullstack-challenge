@@ -52,6 +52,12 @@ class ApiGatewayAuthController {
     const token = extractBearerToken(authHeader)
     return this.authProxy.me(token ?? '')
   }
+
+  @Get('/users')
+  async findExceptCurrent(@Headers('authorization') authHeader: string) {
+    const token = extractBearerToken(authHeader)
+    return this.authProxy.findExceptCurrent(token ?? '')
+  }
 }
 
 export { ApiGatewayAuthController }

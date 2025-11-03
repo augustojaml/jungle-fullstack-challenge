@@ -5,6 +5,7 @@ abstract class UserRepositoryPort {
   abstract findByEmail(email: string): Promise<UserEntity | null>
   abstract findById(id: string): Promise<UserEntity | null>
   abstract update(user: UserEntity): Promise<UserEntity>
+  abstract findExceptCurrent(userId: string): Promise<UserEntity[]>
 }
 export const USER_REPOSITORY = 'UserRepository'
 

@@ -22,39 +22,15 @@ export type AssigneeOption = {
   email?: string
 }
 
-const FAKE_ASSIGNEES: AssigneeOption[] = [
-  {
-    id: 'b7a02d3c-f81d-4608-90ee-b5dc98f7c302',
-    name: 'Carla Souza',
-    email: 'carla@acme.co',
-  },
-  {
-    id: 'd095119e-a8f9-4850-8b25-8e486cf74044',
-    name: 'Guilherme Lima',
-    email: 'gui@acme.co',
-  },
-  {
-    id: '7d5a4a1f-1a1b-4f2e-9a3b-111122223333',
-    name: 'Leozinho',
-    email: 'leo@acme.co',
-  },
-  {
-    id: 'aa11bb22-cc33-dd44-ee55-666677778888',
-    name: 'Cleble Ferrari',
-    email: 'cleble@acme.co',
-  },
-  {
-    id: '99998888-7777-6666-5555-444433332222',
-    name: 'Gaby Martins',
-    email: 'gaby@acme.co',
-  },
-]
-
 interface CreateTaskModalFormProps {
+  assignees?: AssigneeOption[]
   onClose: () => void
 }
 
-const CreateTaskModalForm = ({ onClose }: CreateTaskModalFormProps) => {
+const CreateTaskModalForm = ({
+  onClose,
+  assignees = [],
+}: CreateTaskModalFormProps) => {
   const {
     control,
     handleSubmit,
@@ -172,6 +148,7 @@ const CreateTaskModalForm = ({ onClose }: CreateTaskModalFormProps) => {
         </div>
 
         {/* Assignees (fake list por padrão) */}
+
         <Controller
           name="assigneeIds"
           control={control}
@@ -179,12 +156,15 @@ const CreateTaskModalForm = ({ onClose }: CreateTaskModalFormProps) => {
             <AssigneesMultiSelect
               id="assigneeIds"
               name={field.name}
+              placeholder={
+                assignees.length === 0 ? 'No assignees' : 'Select assignees'
+              }
               onBlur={field.onBlur}
               value={field.value ?? []}
               onChange={field.onChange}
-              people={FAKE_ASSIGNEES}
+              people={assignees}
               error={errors.assigneeIds?.message}
-              disabled={createTaskMT.isPending}
+              disabled={createTaskMT.isPending || assignees.length === 0}
             />
           )}
         />

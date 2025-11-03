@@ -48,13 +48,20 @@
 = [x] auth/login
 = [x] auth/register
 = [x] auth/refresh
+= [x] tasks/list
+= [x] tasks/details
 
 
 # PENDENCIES
 
-- [ ] Register implementation
-- [ ] Remove assign user to detail task
-- [ ] Implement refresh token
+ - [x] web: Delete Tasks
+ - [ ] api: Tasks assigns | Check not include relations
+ - [ ] web: Task Details e add comments
+ - [ ] web: Validate refresh token
+ - [ ] web: paginate tasks
+ - [ ] web: paginate comments
+ - [ ] api-gateway: adjust routes and test swagger
+
 
 
 

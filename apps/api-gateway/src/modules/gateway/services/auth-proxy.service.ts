@@ -44,6 +44,17 @@ class AuthProxyService {
     )
     return data
   }
+
+  async findExceptCurrent(accessToken: string) {
+    const { data } = await firstValueFrom(
+      this.http.get<User[]>(`${this.authServiceUrl}/auth/users`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+    )
+    return data
+  }
 }
 
 export { AuthProxyService }

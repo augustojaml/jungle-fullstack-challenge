@@ -1,7 +1,7 @@
 // src/modules/auth/infra/repositories/user-repository.adapter.ts
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Not, Repository } from 'typeorm'
 
 import { UserRepositoryPort } from '@/modules/auth/contracts/user-repository.port'
 import { UserEntity } from '@/modules/auth/entities/user'
@@ -34,6 +34,11 @@ class TypeORMUserRepositoryAdapter implements UserRepositoryPort {
   async update(user: UserEntity): Promise<UserEntity> {
     const saved = await this.repo.save(userMapper.toOrm(user))
     return userMapper.toDomain(saved)
+  }
+
+  async findExceptCurrent(userId: string): Promise<UserEntity[]> {
+    const users = await this.repo.find({ where: { id: Not(userId) } })
+    return users.map((user) => userMapper.toDomain(user))
   }
 }
 

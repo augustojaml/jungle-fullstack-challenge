@@ -2,6 +2,7 @@ import { TaskEntity } from '@/modules/task/entities/task-entity'
 
 import { Task } from '../entities/task'
 import { TaskAssignee } from '../entities/task-assignee'
+import { taskCommentMapper } from './task-comment-mapper'
 import { taskUserMapper } from './task-user-mapper'
 
 const taskMapper = {
@@ -17,6 +18,7 @@ const taskMapper = {
         creator: orm.creator ? taskUserMapper.toDomain(orm.creator) : null,
         assignees:
           orm.assignees?.map((a) => taskUserMapper.toDomain(a.user)) || [],
+        comments: orm.comments?.map((c) => taskCommentMapper.toDomain(c)) || [],
         createdAt: orm.createdAt,
         updatedAt: orm.updatedAt,
       },

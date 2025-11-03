@@ -20,6 +20,14 @@ const taskService = {
 
     return result
   },
+
+  deleteTask: async (taskId: string) => {
+    const { data: result } = await api.delete<FindTaskResponseDto>(
+      `${API_ROUTES.TASK.CREATE_TASK}/${taskId}`,
+    )
+
+    return result
+  },
 }
 
 export { taskService }

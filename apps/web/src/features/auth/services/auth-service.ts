@@ -27,7 +27,6 @@ const authService = {
     const { data: result } = await api.get<MeResponseDto>(
       `${API_ROUTES.AUTH.ME}`,
     )
-
     return result.user
   },
 
@@ -44,6 +43,13 @@ const authService = {
       },
     )
     return result.user
+  },
+  findExceptCurrent: async () => {
+    const { data: result } = await api.get<{ users: User[] }>(
+      `${API_ROUTES.AUTH.USERS}`,
+    )
+
+    return result.users
   },
 }
 

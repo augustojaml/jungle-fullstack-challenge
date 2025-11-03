@@ -2,7 +2,7 @@ import { UserRepositoryPort } from '@/modules/auth/contracts/user-repository.por
 import { UserEntity } from '@/modules/auth/entities/user'
 
 class InMemoryUserRepository implements UserRepositoryPort {
-  private users: UserEntity[] = []
+  public users: UserEntity[] = []
 
   async create(user: UserEntity): Promise<UserEntity> {
     this.users.push(user)
@@ -20,6 +20,11 @@ class InMemoryUserRepository implements UserRepositoryPort {
     const index = this.users.findIndex((u) => u.id === user.id)
     this.users[index] = user
     return Promise.resolve(user)
+  }
+
+  async findExceptCurrent(userId: string): Promise<UserEntity[]> {
+    const users = this.users.filter((user) => user.id !== userId)
+    return Promise.resolve(users)
   }
 }
 

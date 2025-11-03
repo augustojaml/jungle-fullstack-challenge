@@ -33,9 +33,14 @@ interface DataTable {
 interface TaskTableBodyProps {
   data?: DataTable
   onCreate?: () => void
+  onSeSelectTask: (task: Task) => void
 }
 
-const TaskTableBody = ({ data, onCreate }: TaskTableBodyProps) => {
+const TaskTableBody = ({
+  data,
+  onCreate,
+  onSeSelectTask,
+}: TaskTableBodyProps) => {
   return (
     <div className="w-full">
       <Table className="w-full">
@@ -108,6 +113,7 @@ const TaskTableBody = ({ data, onCreate }: TaskTableBodyProps) => {
                     size="icon"
                     variant="outline"
                     className="text-destructive hover:text-destructive h-8 w-8"
+                    onClick={() => onSeSelectTask(task)}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
