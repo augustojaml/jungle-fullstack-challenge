@@ -1,13 +1,23 @@
-// src/app/tasks/components/task-detail-card.tsx
-
-import { taskDetailsMock } from '@/shared/mocks/task-details-mock'
+import { useParams } from '@tanstack/react-router'
 
 import { TaskDetail } from '../components/task-details'
+import { useTaskDetailQuery } from '../react-query/use-task-detail-query'
 
 const TaskDetailPage = () => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return <TaskDetail task={taskDetailsMock.task} />
+  const { taskID } = useParams({ strict: false })
+
+  const {
+    data: taskDetails,
+    isLoading,
+    isError,
+  } = useTaskDetailQuery({
+    taskId: taskID as string,
+    enabled: !!taskID,
+  })
+
+  return (
+    <TaskDetail task={taskDetails} isLoading={isLoading} isError={isError} />
+  )
 }
 
 export default TaskDetailPage

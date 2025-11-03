@@ -8,6 +8,8 @@ const API_ROUTES = {
   TASK: {
     FIND_TASKS: '/tasks',
     CREATE_TASK: '/tasks',
+    TASK_DETAIL: (taskId: string) => `/tasks/${taskId}`,
+    DELETE_TASK: (taskId: string) => `/tasks/${taskId}`,
   },
 } as const
 

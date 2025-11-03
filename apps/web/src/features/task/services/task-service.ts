@@ -1,3 +1,5 @@
+import { Task } from '@repo/types'
+
 import { API_ROUTES } from '@/shared/constants/api-routes'
 import { api } from '@/shared/libs/axios'
 
@@ -23,10 +25,18 @@ const taskService = {
 
   deleteTask: async (taskId: string) => {
     const { data: result } = await api.delete<FindTaskResponseDto>(
-      `${API_ROUTES.TASK.CREATE_TASK}/${taskId}`,
+      `${API_ROUTES.TASK.DELETE_TASK(taskId)}`,
     )
 
     return result
+  },
+
+  taskDetails: async (taskId: string) => {
+    const { data: result } = await api.get<{ task: Task }>(
+      `${API_ROUTES.TASK.TASK_DETAIL(taskId)}`,
+    )
+
+    return result.task
   },
 }
 

@@ -55,8 +55,8 @@
 # PENDENCIES
 
  - [x] web: Delete Tasks
- - [ ] api: Tasks assigns | Check not include relations
- - [ ] web: Task Details e add comments
+ - [x] api: Tasks assigns | Check not include relations
+ - [ ] web: Task Details | get and add comments
  - [ ] web: Validate refresh token
  - [ ] web: paginate tasks
  - [ ] web: paginate comments
