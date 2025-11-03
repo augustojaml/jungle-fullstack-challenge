@@ -11,6 +11,7 @@ class GetTaskDto {
 }
 
 class UserDto {
+  @Expose() id!: string
   @Expose() name!: string
   @Expose() email!: string
   @Expose() avatarUrl!: string | null

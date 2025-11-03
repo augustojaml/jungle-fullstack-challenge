@@ -8,7 +8,7 @@ const priorityOptions: { key: TaskPriority; value: string }[] = [
 ]
 
 const statusOptions: { key: TaskStatus; value: string }[] = [
-  { key: 'TODO', value: 'Backlog' },
+  { key: 'TODO', value: 'To Do' },
   { key: 'IN_PROGRESS', value: 'In Progress' },
   { key: 'REVIEW', value: 'In Review' },
   { key: 'DONE', value: 'Done' },

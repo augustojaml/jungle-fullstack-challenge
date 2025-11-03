@@ -6,6 +6,7 @@ const QUERY_KEY = {
   TASK: {
     FIND_TASKS: 'find',
     TASK_DETAIL: 'task-detail',
+    FIND_TASK_COMMENTS: 'task-comments',
   },
 }
 

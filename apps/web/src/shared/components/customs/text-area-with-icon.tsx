@@ -26,7 +26,7 @@ export function TextareaWithIcon({
   ...rest
 }: TextareaWithIconProps) {
   return (
-    <div>
+    <div className="w-full">
       <div className="space-y-1">
         {label && <Label htmlFor={id}>{label}</Label>}
 

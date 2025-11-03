@@ -103,7 +103,6 @@ class TaskProxyService {
     taskId: string
     payload: string
   }) {
-    console.log(token, taskId, payload)
     const { data } = await firstValueFrom(
       this.http.post(
         `${this.taskServiceUrl}/tasks/${taskId}/comments`,

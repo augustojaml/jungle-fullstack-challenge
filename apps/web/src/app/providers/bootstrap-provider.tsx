@@ -18,7 +18,6 @@ const BootstrapProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (isError) {
       tokenService.removeToken()
-      tokenService.removeRefreshToken()
     }
   }, [isError])
 

@@ -10,6 +10,9 @@ const API_ROUTES = {
     CREATE_TASK: '/tasks',
     TASK_DETAIL: (taskId: string) => `/tasks/${taskId}`,
     DELETE_TASK: (taskId: string) => `/tasks/${taskId}`,
+    UPDATE_TASK: (taskId: string) => `/tasks/${taskId}`,
+    CREATE_TASK_COMMENT: (taskId: string) => `/tasks/${taskId}/comments`,
+    FIND_TASK_COMMENTS: (taskId: string) => `/tasks/${taskId}/comments`,
   },
 } as const
 

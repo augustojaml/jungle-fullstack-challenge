@@ -56,11 +56,15 @@
 
  - [x] web: Delete Tasks
  - [x] api: Tasks assigns | Check not include relations
- - [ ] web: Task Details | get and add comments
- - [ ] web: Validate refresh token
- - [ ] web: paginate tasks
- - [ ] web: paginate comments
+ - [x] web: Validate refresh token
+ - [x] web: Task Details | get and add comments
+ - [x] web: Scroll task details
  - [ ] api-gateway: adjust routes and test swagger
+
+# IF THERE IS TIME
+
+- [ ] web: Paginate Tasks
+- [ ] web: Paginate Comments
 
 
 

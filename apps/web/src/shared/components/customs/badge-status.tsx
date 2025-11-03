@@ -14,7 +14,7 @@ export interface BadgeStatusProps extends React.ComponentProps<'div'> {
 const VARIANT: Record<TaskStatus, { bg: string; title: string }> = {
   TODO: {
     bg: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
-    title: 'Done',
+    title: 'To do',
   },
   IN_PROGRESS: {
     bg: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
@@ -26,7 +26,7 @@ const VARIANT: Record<TaskStatus, { bg: string; title: string }> = {
   },
   REVIEW: {
     bg: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
-    title: 'To Do', // ou "Delayed" se for essa a intenção
+    title: 'In Review', // ou "Delayed" se for essa a intenção
   },
 }
 
