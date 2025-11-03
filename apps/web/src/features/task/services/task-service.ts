@@ -10,9 +10,9 @@ import { CreateTaskDto } from '../schema/create-task-schema'
 import { UpdateTaskDto } from '../schema/update-task-dto'
 
 const taskService = {
-  findTasks: async () => {
+  findTasks: async (page = 1, size = 5) => {
     const { data: result } = await api.get<FindTaskResponseDto>(
-      `${API_ROUTES.TASK.FIND_TASKS}`,
+      `${API_ROUTES.TASK.FIND_TASKS}?page=${page}&size=${size}`,
     )
 
     return result
@@ -51,13 +51,15 @@ const taskService = {
     return result.task
   },
 
-  findTaskComment: async (taskId: string) => {
+  findTaskComment: async (taskId: string, page = 1, size = 5) => {
     const { data: result } = await api.get<{
       comments: Comment[]
       total: number
       page: number
       size: number
-    }>(`${API_ROUTES.TASK.FIND_TASK_COMMENTS(taskId)}`)
+    }>(
+      `${API_ROUTES.TASK.FIND_TASK_COMMENTS(taskId)}?page=${page}&size=${size}`,
+    )
     return result
   },
 

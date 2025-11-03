@@ -63,16 +63,25 @@ Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
+# {
+#   "title": "Create responsive task cards",
+#   "description": "Implement grid layout and mobile breakpoints for task cards layout.",
+#   "dueDate": "2025-11-10T00:00:00.000Z",
+#   "priority": "LOW",
+#   "status": "TODO",
+#   "assigneeIds": [
+#     "b7a02d3c-f81d-4608-90ee-b5dc98f7c302",
+#     "d095119e-a8f9-4850-8b25-8e486cf74044"
+#   ]
+# }
+
 {
-  "title": "Create responsive task cards",
-  "description": "Implement grid layout and mobile breakpoints for task cards layout.",
-  "dueDate": "2025-11-10T00:00:00.000Z",
-  "priority": "LOW",
-  "status": "TODO",
-  "assigneeIds": [
-    "b7a02d3c-f81d-4608-90ee-b5dc98f7c302",
-    "d095119e-a8f9-4850-8b25-8e486cf74044"
-  ]
+ "title": "Add batch assign operation",
+      "description": "Allow selecting multiple tasks and assigning users in one action.",
+      "dueDate": "2025-11-19T00:00:00.000Z",
+      "priority": "MEDIUM",
+      "status": "IN_PROGRESS"
+    
 }
 
 ### FIND BY ID

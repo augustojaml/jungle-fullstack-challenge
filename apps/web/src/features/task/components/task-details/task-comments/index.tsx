@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MessageSquare, MessageSquareDashed } from 'lucide-react'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useCreateTaskCommentMutation } from '@/features/task/react-query/use-create-task-comment-mutation'
@@ -14,6 +14,8 @@ import { TextareaWithIcon } from '@/shared/components/customs/text-area-with-ico
 import { UserAvatar } from '@/shared/components/customs/user-avatar'
 import { Button } from '@/shared/components/primitives/button'
 import { formatDateBR } from '@/shared/helpers/format-date-br'
+
+import { PageCommentPagination } from './table-comment-pagination'
 
 interface TaskCommentProps {
   taskId?: string
@@ -29,8 +31,13 @@ const TaskComments = ({ taskId }: TaskCommentProps) => {
     resolver: zodResolver(createTaskCommentSchema),
     mode: 'all',
   })
+  const [page, setPage] = useState(1)
 
-  const { data: response, isLoading } = useFindTaskCommentsQuery({ taskId })
+  const { data: response, isLoading } = useFindTaskCommentsQuery({
+    taskId,
+    page,
+    size: 3,
+  })
 
   const createCommentMT = useCreateTaskCommentMutation(taskId || '')
 
@@ -54,9 +61,17 @@ const TaskComments = ({ taskId }: TaskCommentProps) => {
       error={createCommentMT.error}
     >
       <section className="flex flex-col space-y-4">
-        <div className="flex items-center gap-2">
-          <MessageSquare className="text-muted-foreground h-4 w-4" />
-          <h3 className="text-sm font-semibold">Comments</h3>
+        <div className="item-center flex justify-between">
+          <div className="flex items-center gap-2">
+            <MessageSquare className="text-muted-foreground h-4 w-4" />
+            <h3 className="text-sm font-semibold">Comments</h3>
+          </div>
+          <PageCommentPagination
+            page={response?.page}
+            size={response?.size}
+            total={response?.total}
+            onPageChange={(newPage) => setPage(newPage)}
+          />
         </div>
 
         <form

@@ -72,7 +72,7 @@ export const AssigneesMultiSelect = forwardRef<
     const hasError = Boolean(error)
 
     return (
-      <div className="bg-background w-full space-y-2">
+      <div className="w-full space-y-2 bg-transparent">
         <input
           ref={ref}
           name={name}
@@ -100,7 +100,7 @@ export const AssigneesMultiSelect = forwardRef<
               aria-invalid={hasError}
               aria-describedby={hasError ? `${id}-error` : undefined}
               disabled={disabled}
-              className={`w-full justify-between ${hasError ? 'border-destructive focus-visible:ring-destructive' : ''}`}
+              className={`bg-background dark:bg-background/30! w-full justify-between ${hasError ? 'border-destructive focus-visible:ring-destructive' : ''}`}
             >
               <span className="flex items-center gap-2 overflow-hidden">
                 <Users className="text-muted-foreground h-4 w-4 shrink-0" />

@@ -8,15 +8,20 @@ import { TaskTableBody } from '@/features/task/components/task-table/task-table-
 import { TaskTableHeader } from '@/features/task/components/task-table/task-table-header'
 import { DialogModal } from '@/shared/components/customs/dialog-modal'
 import { ProcessMessage } from '@/shared/components/customs/process-message'
+import { Separator } from '@/shared/components/primitives/separator'
 
 import { CreateTaskModalForm } from '../components/create-task-modal-form'
 import { DeleteTaskModal } from '../components/delete-task-modal-form'
+import { TablePagination } from '../components/task-table/table-pagination'
 import { useDeleteTaskMutation } from '../react-query/use-delete-task-mutation'
 import { useFindTasksQuery } from '../react-query/use-find-tasks-query'
 
 const TaskPage = () => {
   const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false)
   const [selectedTask, setSelectedTask] = useState<Task | null>(null)
+
+  const [page, setPage] = useState(1)
+  const [size, setSize] = useState(10)
 
   const [openDeleteTaskModal, setOpenDeleteTaskModal] = useState(false)
 
@@ -40,7 +45,7 @@ const TaskPage = () => {
     isLoading: responseLoading,
     isError: responseError,
     refetch: responseRefetch,
-  } = useFindTasksQuery({ enabled: true })
+  } = useFindTasksQuery({ enabled: true, page, size })
 
   const { data: assignees } = useFindExceptCurrentQuery()
 
@@ -61,16 +66,29 @@ const TaskPage = () => {
       isSuccess={deleteTaskMT.isSuccess}
       error={deleteTaskMT.error}
     >
-      <div className="mx-auto h-[calc(100vh-4rem)] w-full max-w-7xl overflow-hidden px-4 pt-24 sm:px-6 lg:px-8">
-        <TaskTableHeader
-          hasData={!!response?.tasks?.length}
-          onOpen={() => setOpenCreateTaskModal(true)}
-        />
+      <div className="mx-auto h-full w-full max-w-7xl overflow-hidden px-4 pt-24 sm:px-6 lg:px-8">
+        <div className="mb-2 flex flex-col">
+          <TaskTableHeader
+            hasData={!!response?.tasks?.length}
+            onOpen={() => setOpenCreateTaskModal(true)}
+          />
+          <TablePagination
+            total={response?.total}
+            size={response?.size}
+            page={response?.page}
+            onPageChange={(newPage) => setPage(newPage)}
+            onSizeChange={(newSize) => {
+              setSize(newSize)
+              setPage(1)
+            }}
+          />
+          <Separator className="my-4" />
+        </div>
         {responseError ? (
           <TableError onRetry={responseRefetch} />
         ) : (
-          <div className="scroll-content back h-full overflow-y-auto bg-transparent">
-            <div className="border-muted/60 bg-card/90 overflow-hidden rounded-lg border">
+          <div className="scroll-content back h-full overflow-y-auto bg-transparent pb-20">
+            <div className="border-muted/60 bg-card/90 overflow-hidden rounded-lg border pb-4">
               <TaskTableBody
                 data={response}
                 onCreate={() => setOpenCreateTaskModal(true)}
