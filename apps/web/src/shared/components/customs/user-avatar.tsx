@@ -8,8 +8,8 @@ interface UserAvatarProps {
   user?: {
     name: string
     email: string
-    avatarUrl: string
-  }
+    avatarUrl: string | null
+  } | null
 }
 
 const UserAvatar = ({ user }: UserAvatarProps) => {

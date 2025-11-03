@@ -3,7 +3,8 @@
     "augustojaml",
     "dtos",
     "postgres",
-    "rabbitmq"
+    "rabbitmq",
+    "ROLLABLE"
   ],
   "files.exclude": {
     // glob (qualquer nível do monorepo)

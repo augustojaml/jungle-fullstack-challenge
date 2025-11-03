@@ -85,66 +85,63 @@ const CreateTaskModalForm = ({
         {/* row: Due Date / Priority / Status — grid 3 colunas */}
         <div className="grid gap-4 md:grid-cols-3">
           {/* Due Date */}
-          <div className="space-y-2">
-            <Controller
-              name="dueDate"
-              control={control}
-              render={({ field, fieldState }) => (
-                <CalendarWithIcon
-                  id="dueDate"
-                  label="Due date"
-                  value={field.value}
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  name={field.name}
-                  error={fieldState.error?.message}
-                  disabled={createTaskMT.isPending}
-                />
-              )}
-            />
-          </div>
+
+          <Controller
+            name="dueDate"
+            control={control}
+            render={({ field, fieldState }) => (
+              <CalendarWithIcon
+                id="dueDate"
+                label="Due date"
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                name={field.name}
+                error={fieldState.error?.message}
+                disabled={createTaskMT.isPending}
+              />
+            )}
+          />
 
           {/* Priority */}
-          <div className="space-y-2">
-            <Controller
-              name="priority"
-              control={control}
-              render={({ field }) => (
-                <SelectWithIcon
-                  id="priority"
-                  name={field.name}
-                  label="Priority"
-                  options={priorityOptions}
-                  placeholder="Select type..."
-                  value={field.value ?? undefined}
-                  onValueChange={field.onChange}
-                  error={errors.priority?.message}
-                  disabled={createTaskMT.isPending}
-                />
-              )}
-            />
-          </div>
+
+          <Controller
+            name="priority"
+            control={control}
+            render={({ field }) => (
+              <SelectWithIcon
+                id="priority"
+                name={field.name}
+                label="Priority"
+                options={priorityOptions}
+                placeholder="Select type..."
+                value={field.value ?? undefined}
+                onValueChange={field.onChange}
+                error={errors.priority?.message}
+                disabled={createTaskMT.isPending}
+              />
+            )}
+          />
 
           {/* Status */}
-          <div className="space-y-2">
-            <Controller
-              name="status"
-              control={control}
-              render={({ field }) => (
-                <SelectWithIcon
-                  id="status"
-                  name={field.name}
-                  label="Status"
-                  options={statusOptions}
-                  placeholder="Select type..."
-                  value={field.value ?? undefined}
-                  onValueChange={field.onChange}
-                  error={errors.status?.message}
-                  disabled={createTaskMT.isPending}
-                />
-              )}
-            />
-          </div>
+
+          <Controller
+            name="status"
+            control={control}
+            render={({ field }) => (
+              <SelectWithIcon
+                id="status"
+                name={field.name}
+                label="Status"
+                options={statusOptions}
+                placeholder="Select type..."
+                value={field.value ?? undefined}
+                onValueChange={field.onChange}
+                error={errors.status?.message}
+                disabled={createTaskMT.isPending}
+              />
+            )}
+          />
         </div>
 
         {/* Assignees (fake list por padrão) */}
