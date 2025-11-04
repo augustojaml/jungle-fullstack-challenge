@@ -1,4 +1,4 @@
-import { Task } from '@repo/types'
+import { Task, User } from '@repo/types'
 import { Comment } from '@repo/types'
 
 import { API_ROUTES } from '@/shared/constants/api-routes'
@@ -63,10 +63,17 @@ const taskService = {
     return result
   },
 
-  createTaskComment: async (taskId: string, data: CreateTaskCommentDto) => {
+  createTaskComment: async (
+    taskId: string,
+    data: CreateTaskCommentDto,
+    assignees: User[],
+  ) => {
     const { data: result } = await api.post<{ comment: Comment }>(
       `${API_ROUTES.TASK.CREATE_TASK_COMMENT(taskId)}`,
-      data,
+      {
+        ...data,
+        assigneeIds: assignees.map((assignee) => assignee.id),
+      },
     )
 
     return result.comment

@@ -6,7 +6,11 @@ import { UnauthorizedError } from '@/shared/errors/unauthorized-error'
 
 import { TaskRepositoryPort } from '../contracts/task-repository-port'
 import { TaskUserRepositoryPort } from '../contracts/task-user-repository.port'
-import { UpdateTaskDto, UpdateTaskResponseDto } from '../dtos/update-task-dto'
+import {
+  ToUpdateUserResponseDto,
+  UpdateTaskDto,
+  UpdateTaskResponseDto,
+} from '../dtos/update-task-dto'
 import { TaskEntity } from '../entities/task-entity'
 
 @Injectable()
@@ -44,8 +48,19 @@ class UpdateTaskUseCase {
       ),
     )
 
-    const result = plainToInstance(UpdateTaskResponseDto, updatedTask, {
-      excludeExtraneousValues: true,
+    const result = plainToInstance(UpdateTaskResponseDto, {
+      id: updatedTask.id,
+      ...updatedTask.props,
+      creator: plainToInstance(ToUpdateUserResponseDto, {
+        id: updatedTask.creator?.id,
+        ...updatedTask.creator?.props,
+      }),
+      assignees: updatedTask.assignees.map((a) => {
+        return plainToInstance(ToUpdateUserResponseDto, {
+          id: a.id,
+          ...a.props,
+        })
+      }),
     })
 
     return {

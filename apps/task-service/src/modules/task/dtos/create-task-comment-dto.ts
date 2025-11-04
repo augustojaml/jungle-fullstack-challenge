@@ -1,5 +1,12 @@
 import { Exclude, Expose, Type } from 'class-transformer'
-import { IsOptional, IsString, MinLength } from 'class-validator'
+import {
+  ArrayUnique,
+  IsArray,
+  IsOptional,
+  IsString,
+  IsUUID,
+  MinLength,
+} from 'class-validator'
 
 class CreateTaskCommentParamDto {
   @IsString()
@@ -11,6 +18,12 @@ class CreateTaskCommentBodyDto {
   @IsString()
   @IsOptional()
   content?: string
+
+  @IsOptional()
+  @IsArray()
+  @ArrayUnique()
+  @IsUUID('all', { each: true })
+  assigneeIds?: string[]
 }
 
 class CreateTaskCommentDto {
@@ -45,14 +58,27 @@ class UserDto {
   }
 }
 
+class ToCommentTaskUserResponseDto {
+  @Expose() id!: string
+  @Expose() name!: string
+  @Expose() email!: string
+  @Expose() avatarUrl!: string | null
+
+  @Exclude() password!: string
+
+  constructor(partial: Partial<UserDto>) {
+    Object.assign(this, partial)
+  }
+}
+
 class CreateTaskCommentResponseDto {
   @Expose() id!: string
   @Expose() taskId!: string
   @Expose() authorId!: string
 
   @Expose()
-  @Type(() => UserDto)
-  author!: UserDto | null
+  @Type(() => ToCommentTaskUserResponseDto)
+  author!: ToCommentTaskUserResponseDto | null
 
   @Expose() content!: string
 
@@ -74,4 +100,5 @@ export {
   CreateTaskCommentDto,
   CreateTaskCommentParamDto,
   CreateTaskCommentResponseDto,
+  ToCommentTaskUserResponseDto,
 }

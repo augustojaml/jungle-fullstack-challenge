@@ -19,8 +19,13 @@ class TypeORMTaskCommentRepositoryAdapter implements TaskCommentRepositoryPort {
   ) {}
 
   async create(comment: TaskCommentEntity): Promise<TaskCommentEntity> {
-    const saved = await this.repo.save(taskCommentMapper.toOrm(comment))
-    return taskCommentMapper.toDomain(saved)
+    const orm = await this.repo.save(taskCommentMapper.toOrm(comment))
+    const updated = await this.repo.findOne({
+      where: { id: orm.id },
+      relations: ['author'],
+    })
+
+    return taskCommentMapper.toDomain(updated!)
   }
 
   async findByTaskId(props: FindByTaskIdProps): Promise<{

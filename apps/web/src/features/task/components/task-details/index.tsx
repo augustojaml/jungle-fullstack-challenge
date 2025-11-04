@@ -289,7 +289,7 @@ const TaskDetail = ({ task, isLoading, isError }: TaskDetailProps) => {
 
         <div className="scroll-content back h-full overflow-y-scroll bg-transparent">
           <div className="back h-full">
-            <TaskComments taskId={task.id} />
+            <TaskComments taskId={task.id} assignees={task.assignees} />
           </div>
         </div>
       </div>

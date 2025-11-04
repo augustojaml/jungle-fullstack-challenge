@@ -4,12 +4,14 @@ import { BootstrapProvider } from './bootstrap-provider'
 import { QueryClientProvider } from './query-client-provider'
 import { ThemeProvider } from './theme-provider'
 import { CustomToastProvider } from './toast-provider'
+import { SocketProvider } from './websoket-provider'
 
 const PROVIDERS = [
   { component: QueryClientProvider, key: 'queryClientProvider' },
   { component: ThemeProvider, key: 'themeProvider' },
   { component: CustomToastProvider, key: 'toastProvider' },
   { component: BootstrapProvider, key: 'bootstrapProvider' },
+  { component: SocketProvider, key: 'socketProvider' },
 ]
 
 export const RootProviders = ({ children }: { children: ReactNode }) => {

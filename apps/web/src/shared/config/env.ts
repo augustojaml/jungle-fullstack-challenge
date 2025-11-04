@@ -6,6 +6,7 @@ const schema = z.object({
   VITE_APP_ENVIRONMENT: z
     .enum(['development', 'production'])
     .default('development'),
+  VITE_WS_URL: z.string().default('http://localhost:3001'),
 })
 
 const _env = schema.safeParse(import.meta.env)

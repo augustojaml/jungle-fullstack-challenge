@@ -80,6 +80,19 @@ class CommentResponseDto {
   }
 }
 
+class ToUpdateUserResponseDto {
+  @Expose() id!: string
+  @Expose() name!: string
+  @Expose() email!: string
+  @Expose() avatarUrl!: string | null
+
+  @Exclude() password!: string
+
+  constructor(partial: Partial<ToUpdateUserResponseDto>) {
+    Object.assign(this, partial)
+  }
+}
+
 class UpdateTaskResponseDto {
   @Expose() id!: string
   @Expose() title!: string
@@ -120,4 +133,4 @@ class UpdateTaskResponseDto {
   }
 }
 
-export { UpdateTaskDto, UpdateTaskResponseDto }
+export { ToUpdateUserResponseDto, UpdateTaskDto, UpdateTaskResponseDto }

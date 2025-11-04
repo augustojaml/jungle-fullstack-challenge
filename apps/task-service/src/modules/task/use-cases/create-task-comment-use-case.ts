@@ -10,6 +10,7 @@ import { TaskUserRepositoryPort } from '../contracts/task-user-repository.port'
 import {
   CreateTaskCommentDto,
   CreateTaskCommentResponseDto,
+  ToCommentTaskUserResponseDto,
 } from '../dtos/create-task-comment-dto'
 import { TaskCommentEntity } from '../entities/task-comment-entity'
 
@@ -48,6 +49,12 @@ class CreateTaskCommentUseCase {
     const response = plainToInstance(CreateTaskCommentResponseDto, {
       id: taskCommentCreated.id,
       ...taskCommentCreated.props,
+      author: plainToInstance(ToCommentTaskUserResponseDto, {
+        id: taskCommentCreated.author?.id,
+        name: taskCommentCreated.author?.name,
+        email: taskCommentCreated.author?.email,
+        avatarUrl: taskCommentCreated.author?.avatarUrl,
+      }),
     })
 
     return {

@@ -18,21 +18,29 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger'
+import { Task } from '@repo/types'
 import { extractBearerToken } from '@repo/utils'
 
+import { WsService } from '@/infra/websocket/ws.service'
+
 import {
-  CreateBodyTaskDto,
   CreateParamTaskDto,
+  CreateTaskCommentDto,
 } from '../dtos/create-comment-dto'
 import { CreateTaskDto } from '../dtos/create-task-dto'
 import { GetTaskDto } from '../dtos/get-task-dto'
 import { UpdateTaskDto } from '../dtos/update-task-dto'
+import { commentWsMapper } from '../mappers/comment-ws-mapper'
+import { taskWsMapper } from '../mappers/task-ws-mapper'
 import { TaskProxyService } from '../services/task-proxy.service'
 
 @ApiTags('Tasks')
 @Controller('/api/tasks')
 class ApiGatewayTaskController {
-  constructor(private readonly taskProxy: TaskProxyService) {}
+  constructor(
+    private readonly taskProxy: TaskProxyService,
+    private readonly ws: WsService,
+  ) {}
 
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
@@ -44,7 +52,13 @@ class ApiGatewayTaskController {
   async create(@Req() req: Request, @Body() dto: CreateTaskDto) {
     const authHeader = req.headers['authorization'] as string | undefined
     const token = extractBearerToken(authHeader)
-    return this.taskProxy.create({ dto, accessToken: token ?? '' })
+    const response = (await this.taskProxy.create({
+      dto,
+      accessToken: token ?? '',
+    })) as { task: Task }
+    const { recipients, notification } = taskWsMapper(response.task, 'created')
+    this.ws.emitToUsers(recipients, 'notification', notification)
+    return response
   }
 
   @ApiBearerAuth('JWT-auth')
@@ -95,12 +109,15 @@ class ApiGatewayTaskController {
   ) {
     const authHeader = req.headers['authorization'] as string | undefined
     const token = extractBearerToken(authHeader)
-
-    return this.taskProxy.update({
+    const response = (await this.taskProxy.update({
       token: token ?? '',
       taskId: taskId,
       payload,
-    })
+    })) as { task: Task }
+
+    const { recipients, notification } = taskWsMapper(response.task, 'updated')
+    this.ws.emitToUsers(recipients, 'notification', notification)
+    return response
   }
 
   @ApiBearerAuth('JWT-auth')
@@ -135,15 +152,23 @@ class ApiGatewayTaskController {
   async createTaskComments(
     @Req() req: Request,
     @Param() params: CreateParamTaskDto,
-    @Body() payload: CreateBodyTaskDto,
+    @Body() payload: CreateTaskCommentDto,
   ) {
     const authHeader = req.headers['authorization'] as string | undefined
     const token = extractBearerToken(authHeader)
-    return this.taskProxy.createTaskComments({
+
+    const response = await this.taskProxy.createTaskComments({
       token: token ?? '',
       taskId: params.taskId,
       payload: payload.content,
     })
+    const { notification } = commentWsMapper({
+      comment: response.taskComment,
+      type: 'created',
+    })
+    this.ws.emitToUsers(payload.assigneeIds ?? [], 'notification', notification)
+
+    return response
   }
 
   @ApiBearerAuth('JWT-auth')

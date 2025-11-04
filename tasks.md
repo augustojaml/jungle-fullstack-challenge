@@ -71,10 +71,18 @@
 
 # OTHERS
 
+- [ ] Adjust tests
 - [ ] Filter task for name
-- 
+- [ ] Websocket setup and testing before using RabbitMQ
+- [ ] Adjust pagination comments
 
 
+# O que eu varia se tivesse tempo
+
+[ ] => Recuperação de senha
+[ ] => Signin com google e github
+[ ] => Tradutor
+[ ] => Para nao ficar disparando notificações optei por alterar tasks somente no momento que clicar no botão update
 
 
 

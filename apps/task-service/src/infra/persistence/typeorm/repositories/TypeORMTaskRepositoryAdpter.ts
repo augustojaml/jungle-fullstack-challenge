@@ -30,7 +30,12 @@ class TypeORMTaskRepositoryAdapter implements TaskRepositoryPort {
   }
   async update(task: TaskEntity): Promise<TaskEntity> {
     const orm = await this.repo.save(taskMapper.toOrm(task))
-    return taskMapper.toDomain(orm)
+    const updated = await this.repo.findOne({
+      where: { id: orm.id },
+      relations: ['creator', 'assignees'],
+    })
+
+    return taskMapper.toDomain(updated!)
   }
   async delete(id: string): Promise<{ id: string }> {
     await this.repo.delete(id)

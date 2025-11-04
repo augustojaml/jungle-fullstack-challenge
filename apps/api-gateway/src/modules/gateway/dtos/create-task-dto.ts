@@ -1,10 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import {
-  TASK_PRIORITY,
-  TASK_STATUS,
-  TaskPriority,
-  TaskStatus,
-} from '@repo/types'
+import { TaskPriority, TaskStatus } from '@repo/types'
 import { Type } from 'class-transformer'
 import {
   ArrayUnique,
@@ -16,6 +11,21 @@ import {
   IsUUID,
   MinLength,
 } from 'class-validator'
+
+enum TaskStatusEnum {
+  TODO = 'TODO',
+  IN_PROGRESS = 'IN_PROGRESS',
+  REVIEW = 'REVIEW',
+  DONE = 'DONE',
+}
+
+enum TaskPriorityEnum {
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
+  URGENT = 'URGENT',
+}
+
 class CreateTaskDto {
   @ApiProperty({ example: 'Design login page', description: 'Task title' })
   @IsString()
@@ -39,26 +49,26 @@ class CreateTaskDto {
   dueDate!: Date
 
   @ApiProperty({
-    enum: TASK_PRIORITY,
+    enum: TaskPriorityEnum,
     example: 'HIGH',
     description: 'Task priority',
   })
-  @IsEnum(TASK_PRIORITY)
+  @IsEnum(TaskPriorityEnum)
   priority!: TaskPriority
 
   @ApiProperty({
-    enum: TASK_STATUS,
-    example: 'OPEN',
+    enum: TaskStatusEnum,
+    example: 'TODO',
     description: 'Task status',
   })
-  @IsEnum(TASK_STATUS)
+  @IsEnum(TaskStatusEnum)
   status!: TaskStatus
 
   @ApiProperty({
     required: false,
     type: [String],
     description: 'Optional list of assignee user IDs (UUIDv4)',
-    example: ['6c7f0a7e-7c3c-4d3b-9c1a-1f6e9d2b1a23'],
+    example: ['d095119e-a8f9-4850-8b25-8e486cf74044'],
   })
   @IsOptional()
   @IsArray()

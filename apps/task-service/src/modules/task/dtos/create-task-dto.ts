@@ -47,6 +47,7 @@ class CreateTaskDto {
 }
 
 class UserDto {
+  @Expose() id!: string
   @Expose() name!: string
   @Expose() email!: string
   @Expose() avatarUrl!: string | null
@@ -68,6 +69,19 @@ class CreateTaskCommentDto {
   content!: string
 }
 
+class ToCreateUserResponseDto {
+  @Expose() id!: string
+  @Expose() name!: string
+  @Expose() email!: string
+  @Expose() avatarUrl!: string | null
+
+  @Exclude() password!: string
+
+  constructor(partial: Partial<ToCreateUserResponseDto>) {
+    Object.assign(this, partial)
+  }
+}
+
 class CreateTaskResponseDto {
   @Expose() id!: string
   @Expose() title!: string
@@ -81,17 +95,17 @@ class CreateTaskResponseDto {
   @Expose() status!: TaskStatus
   @Expose() creatorId!: string
 
-  @Exclude()
+  @Expose()
   @Type(() => UserDto)
   creator!: UserDto
 
-  @Exclude()
+  @Expose()
   @Type(() => UserDto)
   assignees!: UserDto[]
 
-  @Exclude()
+  @Expose()
   @Type(() => CreateTaskCommentDto)
-  comments!: CreateTaskCommentDto
+  comments!: CreateTaskCommentDto[]
 
   @Expose()
   @Type(() => Date)
@@ -108,4 +122,4 @@ class CreateTaskResponseDto {
   }
 }
 
-export { CreateTaskDto, CreateTaskResponseDto }
+export { CreateTaskDto, CreateTaskResponseDto, ToCreateUserResponseDto }

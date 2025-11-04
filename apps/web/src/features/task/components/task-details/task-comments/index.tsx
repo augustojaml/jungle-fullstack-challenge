@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { User } from '@repo/types'
 import { MessageSquare, MessageSquareDashed } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -19,9 +20,10 @@ import { PageCommentPagination } from './table-comment-pagination'
 
 interface TaskCommentProps {
   taskId?: string
+  assignees: User[]
 }
 
-const TaskComments = ({ taskId }: TaskCommentProps) => {
+const TaskComments = ({ taskId, assignees }: TaskCommentProps) => {
   const {
     register,
     handleSubmit,
@@ -39,7 +41,10 @@ const TaskComments = ({ taskId }: TaskCommentProps) => {
     size: 3,
   })
 
-  const createCommentMT = useCreateTaskCommentMutation(taskId || '')
+  const createCommentMT = useCreateTaskCommentMutation({
+    taskId: taskId || '',
+    assignees,
+  })
 
   const onSubmit = handleSubmit(async (data) => {
     await createCommentMT.mutateAsync(data)
