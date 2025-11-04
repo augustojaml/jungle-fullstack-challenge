@@ -47,8 +47,12 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api/docs', app, document, {
     swaggerOptions: {
-      persistAuthorization: true, // Mantém o token após refresh da página
+      persistAuthorization: true,
     },
+  })
+  // Expor o JSON do OpenAPI para integrações externas
+  app.getHttpAdapter().get('/api/docs-json', (_req, res) => {
+    res.json(document)
   })
   consoleLog.log(`Api Gateway running on port ${port}`)
   await app.listen(process.env.PORT ?? port)

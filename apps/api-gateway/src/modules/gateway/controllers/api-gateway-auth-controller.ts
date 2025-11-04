@@ -1,5 +1,10 @@
-import { Body, Controller, Get, Headers, Post } from '@nestjs/common'
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { Body, Controller, Get, Post, Req } from '@nestjs/common'
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger'
 import { extractBearerToken } from '@repo/utils'
 
 import { AuthLoginParamsDto } from '../dtos/auth-login-dto'
@@ -47,14 +52,25 @@ class ApiGatewayAuthController {
     summary: 'Get user information (logged user only)',
     description: 'Get the user information of the logged user (private route)',
   })
+  @ApiBearerAuth('JWT-auth')
+  @ApiResponse({ status: 200, description: 'User info returned' })
   @Get('/me')
-  async me(@Headers('authorization') authHeader: string) {
+  async me(@Req() req: Request) {
+    const authHeader = req.headers['authorization'] as string | undefined
     const token = extractBearerToken(authHeader)
     return this.authProxy.me(token ?? '')
   }
 
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Get all users except the logged user',
+    description:
+      'Returns a list of all users, excluding the currently authenticated user. (private route)',
+  })
+  @ApiResponse({ status: 200, description: 'Users list returned' })
   @Get('/users')
-  async findExceptCurrent(@Headers('authorization') authHeader: string) {
+  async findExceptCurrent(@Req() req: Request) {
+    const authHeader = req.headers['authorization'] as string | undefined
     const token = extractBearerToken(authHeader)
     return this.authProxy.findExceptCurrent(token ?? '')
   }
