@@ -62,18 +62,16 @@ class TypeORMTaskRepositoryAdapter implements TaskRepositoryPort {
     total: number
     page: number
     size: number
-    title?: string
   }> {
     const page = Math.max(1, props.page ?? 1)
     const size = Math.max(1, props.size ?? 10)
     const offset = (page - 1) * size
 
-    const { userId, title } = props
+    const { userId } = props
 
     const baseQb = this.repo
       .createQueryBuilder('t')
       .where('t.creatorId = :userId', { userId })
-      .andWhere('t.title LIKE :title', { title: `%${title}%` })
       .orWhere((qb) => {
         const sub = qb
           .subQuery()
@@ -84,12 +82,6 @@ class TypeORMTaskRepositoryAdapter implements TaskRepositoryPort {
           .getQuery()
         return `EXISTS ${sub}`
       })
-
-    if (title && title.trim() !== '') {
-      baseQb.andWhere('LOWER(t.title) LIKE LOWER(:title)', {
-        title: `%${title}%`,
-      })
-    }
 
     const total = await baseQb.clone().getCount()
 

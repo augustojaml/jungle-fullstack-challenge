@@ -8,6 +8,7 @@ const schema = z.object({
     .default('development'),
   VITE_WS_URL: z.string().default('http://192.168.1.19:3001'),
   VITE_WS_PATH: z.string().default('/ws'),
+  PORT: z.coerce.number().default(3000),
 })
 
 const _env = schema.safeParse(import.meta.env)

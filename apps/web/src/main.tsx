@@ -13,7 +13,6 @@ declare module '@tanstack/react-router' {
     router: typeof router
   }
 }
-console.log(import.meta.env)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
