@@ -151,10 +151,17 @@ Cada serviço possui seu próprio `.env.example` (quando aplicável) para orient
 - Consolidar o Swagger no Gateway elevou a experiência de integração.
 - RabbitMQ permitiu entregar notificações realmente em tempo real.
 
-## Próximos Passos
-- Implementar rate limiting (10 req/s) no Gateway.
-- Persistir logs de auditoria no PostgreSQL.
-- Refatorar detalhes visuais do front.
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![NestJS](https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://react.dev/)
+[![PNPM](https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![Turborepo](https://img.shields.io/badge/Turborepo-000000?logo=turborepo&logoColor=white)](https://turbo.build/repo)
+[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?logo=rabbitmq&logoColor=white)](https://www.rabbitmq.com/)
+[![Swagger](https://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=black)](http://localhost:3001/api/docs)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-## Tempo Investido
-Foram 14 dias dedicados (~4h/dia), totalizando aproximadamente **56 horas** de desenvolvimento.
+
+
+
+
