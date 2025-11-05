@@ -33,7 +33,12 @@ const TaskAssignees = ({ assignees }: TaskAssigneesProps) => {
                   avatarUrl: a.avatarUrl,
                 }}
               />
-              <span className="text-xs">{a.name}</span>
+              <div className="flex flex-col">
+                <span className="text-xs">{a.name}</span>
+                <span className="text-muted-foreground text-[0.6rem]">
+                  {a.email}
+                </span>
+              </div>
             </div>
           ))}
         </div>
