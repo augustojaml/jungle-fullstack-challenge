@@ -74,6 +74,16 @@ Os detalhes completos vivem em `fullstack-challenge.md`, e este README acompanha
 - **Front-end:** React, TanStack Router/Query, shadcn/ui, Tailwind CSS, Vite
 - **Infra:** Docker, Docker Compose, WebSocket
 
+## Tecnologias & packages usados 🧰
+| Categoria | Ferramentas/Packages | Para que servem |
+|-----------|----------------------|-----------------|
+| Monorepo & DevX | Turborepo, PNPM, `pnpm turbo`, `pnpm workspaces`, `@repo/typescript-config`, `@repo/eslint-config` | Organização de pipelines paralelos, gerenciamento de dependências e padrões de lint/TS compartilhados. |
+| Back-end | NestJS 11, TypeORM, PostgreSQL, RabbitMQ (`amqplib`), Swagger, `@nestjs/throttler`, Passport JWT/bcrypt, `nestjs-zod` | Microserviços tipados com validação, autenticação, eventos assíncronos e documentação OpenAPI. |
+| Front-end | React 19, TanStack Router & Query, Vite, shadcn/ui, Radix UI, Tailwind 4, `tailwind-merge`, Zustand, React Hook Form, Zod, `socket.io-client`, date-fns, lucide-react | Construção da UI responsiva, roteamento, estado, formulários validados e tempo real. |
+| Build & Bundling | tsup, TypeScript 5.9, SWC (`unplugin-swc`), `ts-loader` | Compilação rápida de libs internas, builds de Nest e verificação de tipos. |
+| Testes & Qualidade | Vitest, ESLint 9, Prettier (plugin Tailwind), Simple Import Sort, `eslint-plugin-react-refresh`, `eslint-plugin-turbo` | Garantem padronização, qualidade de código e suporte a HMR no front. |
+| Utilidades compartilhadas | `@repo/types`, `@repo/utils`, UUID, `extract-bearer-token`, `consoleLog`, `passwdBcrypt` | Tipos de domínio e helpers reutilizados entre serviços e gateway. |
+
 ## Como rodar ▶️
 Pré-requisitos: Docker, Docker Compose, Node 20+, PNPM 8+.
 
@@ -176,4 +186,3 @@ Swagger prontinho em `/api/docs` do gateway.
 [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?logo=rabbitmq&logoColor=white)](https://www.rabbitmq.com/)
 [![Swagger](https://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=black)](http://localhost:3001/api/docs)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-
