@@ -163,7 +163,7 @@ Swagger prontinho em `/api/docs` do gateway (Docker: http://localhost:3001/api/d
 ## Problemas conhecidos 🐞
 - Rate limiting do gateway ainda não implementado.
 - Logs centralizados em Postgres planejados, mas pendentes.
-- Notificações não possuem preferências por usuário (todo mundo recebe tudo que lhe diz respeito).
+- Notificações ainda não oferecem preferências avançadas; apenas os participantes de cada tarefa recebem os avisos.
 - Front-end carece de testes E2E — foco ficou na entrega funcional.
 
 ## Tempo investido ⏱️
