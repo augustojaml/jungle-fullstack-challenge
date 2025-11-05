@@ -4,10 +4,10 @@ import { consoleLog } from '@repo/utils'
 
 import { AppModule } from './app.module'
 import { HttpExceptionFilter } from './http-exception.filter'
+import { envConfig } from './shared/env/env'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
-  const port = process.env.PORT ?? 3003
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -20,7 +20,7 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)))
   app.useGlobalFilters(new HttpExceptionFilter())
-  consoleLog.log(`Task service running on port ${port}`)
-  await app.listen(process.env.PORT ?? port)
+  consoleLog.log(`Task service running on port ${envConfig.PORT}`)
+  await app.listen(envConfig.PORT)
 }
 bootstrap()

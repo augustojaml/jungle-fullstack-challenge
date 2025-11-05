@@ -35,10 +35,12 @@ services:
       - DB_USER=postgres
       - DB_PASS=password
       - DB_NAME=challenge_db
+      - RABBITMQ_URL=amqp://admin:admin@rabbitmq:5672
     networks:
       - challenge-network
     depends_on:
       - db
+      - rabbitmq
     command: sh -c "pnpm migration:run:prod && pnpm start:prod"
 
   # API Gateway
@@ -53,12 +55,14 @@ services:
       - PORT=3001
       - AUTH_SERVICE_URL=http://auth-service:3002
       - TASK_SERVICE_URL=http://task-service:3003
+      - RABBITMQ_URL=amqp://admin:admin@rabbitmq:5672
     networks:
       - challenge-network
     depends_on:
       - db
       - auth-service
       - task-service
+      - rabbitmq
 
   # Notification service
   notifications-service:
@@ -70,12 +74,14 @@ services:
       - 3004:3004
     environment:
       - PORT=3004
+      - RABBITMQ_URL=amqp://admin:admin@rabbitmq:5672
     networks:
       - challenge-network
     depends_on:
       - db
       - auth-service
       - task-service
+      - rabbitmq
 
   # Front end
   web:

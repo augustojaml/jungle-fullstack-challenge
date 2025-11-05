@@ -1,6 +1,8 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common'
 import { Channel, connect, Connection } from 'amqplib'
 
+import { envConfig } from '@/shared/env/env'
+
 @Injectable()
 export class BrokerService implements OnModuleInit, OnModuleDestroy {
   private conn!: Connection
@@ -14,7 +16,7 @@ export class BrokerService implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     // ajuste o host conforme seu ambiente (localhost se app fora do docker)
-    this.conn = await connect('amqp://admin:admin@localhost:5672')
+    this.conn = await connect(envConfig.RABBITMQ_URL)
     this.channel = await this.conn.createChannel()
     await this.channel.prefetch(5)
     this._readyResolve(this.channel)

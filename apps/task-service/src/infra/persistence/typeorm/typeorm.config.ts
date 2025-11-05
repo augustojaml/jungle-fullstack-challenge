@@ -2,13 +2,15 @@ import { join } from 'node:path'
 
 import { DataSource, DataSourceOptions } from 'typeorm'
 
+import { envConfig } from '@/shared/env/env'
+
 export const typeormOptions: DataSourceOptions = {
   type: 'postgres',
-  host: process.env.DB_HOST ?? 'localhost',
-  port: Number(process.env.DB_PORT ?? 5432),
-  username: process.env.DB_USER ?? 'postgres',
-  password: process.env.DB_PASS ?? 'password',
-  database: process.env.DB_NAME ?? 'challenge_db',
+  host: envConfig.DB_HOST,
+  port: envConfig.DB_PORT,
+  username: envConfig.DB_USER,
+  password: envConfig.DB_PASS,
+  database: envConfig.DB_NAME,
   synchronize: false,
   entities: [join(__dirname, 'entities', '*.{ts,js}')],
   migrations: [join(__dirname, 'migrations', '*.{ts,js}')],

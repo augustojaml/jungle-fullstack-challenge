@@ -7,6 +7,8 @@ import {
 } from '@nestjs/common'
 import { Channel, connect, Connection, Options } from 'amqplib'
 
+import { envConfig } from '@/shared/env/env'
+
 @Injectable()
 export class BrokerService implements OnModuleInit, OnModuleDestroy {
   private readonly logger = new Logger(BrokerService.name)
@@ -26,7 +28,7 @@ export class BrokerService implements OnModuleInit, OnModuleDestroy {
   }
 
   private async connect() {
-    const url = process.env.RABBITMQ_URL || 'amqp://admin:admin@localhost:5672'
+    const url = envConfig.RABBITMQ_URL
     this.logger.log(`📡 Connecting to RabbitMQ at ${url} (task-service)...`)
 
     try {
