@@ -2,14 +2,15 @@ import { HttpService } from '@nestjs/axios'
 import { Injectable } from '@nestjs/common'
 import { firstValueFrom } from 'rxjs'
 
+import { envConfig } from '@/shared/config/env'
+
 import { CreateTaskDto } from '../dtos/create-task-dto'
 import { GetTaskDto } from '../dtos/get-task-dto'
 import { UpdateTaskDto } from '../dtos/update-task-dto'
 
 @Injectable()
 class TaskProxyService {
-  private readonly taskServiceUrl =
-    process.env.TASK_SERVICE_URL ?? 'http://localhost:3003'
+  private readonly taskServiceUrl = envConfig.TASK_SERVICE_URL
 
   constructor(private readonly http: HttpService) {}
 

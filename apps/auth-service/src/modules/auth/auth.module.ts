@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 
 import { PersistenceModule } from '@/infra/persistence/persistence.module'
+import { envConfig } from '@/shared/env/env'
 
 import { FindExceptCurrentController } from './controllers/find-except-current-controller'
 import { LoginUserController } from './controllers/login-user-controller'
@@ -20,7 +21,7 @@ import { RegisterUserUseCase } from './use-cases/register-user-use-case'
 @Module({
   imports: [
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'meu_segredo_super_secreto',
+      secret: envConfig.JWT_SECRET,
     }),
     PersistenceModule,
   ],

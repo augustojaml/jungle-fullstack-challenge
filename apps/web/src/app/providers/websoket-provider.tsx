@@ -51,7 +51,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     })
 
     socket.on('notification', async (payload: WebSocketComment) => {
-      console.log('[WS] notification', JSON.stringify(payload, null, 2))
       showToast({
         title: payload.title,
         message: payload.message,

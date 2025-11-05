@@ -12,6 +12,7 @@ services:
       - DB_USER=postgres
       - DB_PASS=password
       - DB_NAME=challenge_db
+      - JWT_SECRET=meu_segredo_super_secreto
     ports:
       - 3002:3002
     networks:
@@ -56,6 +57,8 @@ services:
       - AUTH_SERVICE_URL=http://auth-service:3002
       - TASK_SERVICE_URL=http://task-service:3003
       - RABBITMQ_URL=amqp://admin:admin@rabbitmq:5672
+      - AUTH_SERVICE_JWT_SECRET=meu_segredo_super_secreto
+      - WS_PATH=/ws
     networks:
       - challenge-network
     depends_on:

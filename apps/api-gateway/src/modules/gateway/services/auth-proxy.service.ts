@@ -3,14 +3,15 @@ import { Injectable } from '@nestjs/common'
 import { User } from '@repo/types'
 import { firstValueFrom } from 'rxjs'
 
+import { envConfig } from '@/shared/config/env'
+
 import { AuthLoginParamsDto } from '../dtos/auth-login-dto'
 import { AuthRegisterParamsDto } from '../dtos/auth-register-dto'
 import { RefreshTokenParamsDto } from '../dtos/refresh-token-dto'
 
 @Injectable()
 class AuthProxyService {
-  private readonly authServiceUrl =
-    process.env.AUTH_SERVICE_URL ?? 'http://localhost:3002'
+  private readonly authServiceUrl = envConfig.AUTH_SERVICE_URL
 
   constructor(private readonly http: HttpService) {}
 
