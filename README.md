@@ -159,7 +159,7 @@ Swagger prontinho em `/api/docs` do gateway.
 | Front-end | ✅ | React + TanStack Router/Query, shadcn/ui, Tailwind, formulários com RHF + Zod, loading/toasts |
 | Docker | ✅ | Todos os serviços sobem com `docker compose up --build` |
 
-<<<<<<< HEAD
+
 ## Problemas conhecidos 🐞
 - Rate limiting do gateway ainda não implementado.
 - Logs centralizados em Postgres planejados, mas pendentes.
