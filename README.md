@@ -1,8 +1,6 @@
 # TaskIntelligence 🤖✨
 Monorepo full-stack montado para o desafio da Jungle Gaming descrito em `fullstack-challenge.md`. Entrega autenticação com JWT, tarefas colaborativas com comentários, histórico e notificações em tempo real — tudo rodando no Docker em um passe de mágica (com um pouco de café ☕).
 
-> Apenas este `README.md` foi atualizado durante a revisão. O código continua intacto.
-
 ## Menu delícia 🍽️
 - Contexto do desafio
 - Arquitetura
@@ -112,6 +110,8 @@ pnpm turbo run dev --parallel
 ```
 > Dá para subir serviços individualmente com os scripts `start:dev` dentro de cada app, caso prefira granularidade total.
 
+Swagger dev-friendly: http://localhost:3333/api/docs
+
 ## Variáveis de ambiente 🌦️
 Cada app traz um `.env.example`. Exemplo do gateway:
 ```
@@ -141,7 +141,7 @@ Eventos WebSocket:
 - `task:updated`
 - `comment:new`
 
-Swagger prontinho em `/api/docs` do gateway.
+Swagger prontinho em `/api/docs` do gateway (Docker: http://localhost:3001/api/docs · Dev local: http://localhost:3333/api/docs).
 
 ## Decisões e trade-offs 🧠
 - **Gateway único:** simplifica autenticação centralizada e documentação Swagger em um só lugar.
