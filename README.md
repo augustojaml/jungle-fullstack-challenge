@@ -140,6 +140,7 @@ Swagger prontinho em `/api/docs` do gateway.
 | Front-end | ✅ | React + TanStack Router/Query, shadcn/ui, Tailwind, formulários com RHF + Zod, loading/toasts |
 | Docker | ✅ | Todos os serviços sobem com `docker compose up --build` |
 
+<<<<<<< HEAD
 ## Problemas conhecidos 🐞
 - Rate limiting do gateway ainda não implementado.
 - Logs centralizados em Postgres planejados, mas pendentes.
@@ -161,3 +162,19 @@ Swagger prontinho em `/api/docs` do gateway.
 2. Persistir logs de auditoria e expor painel de observabilidade.
 3. Lapidar UI com testes de usabilidade e dark mode.
 4. Expandir suíte de testes (unitários + E2E).
+=======
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![NestJS](https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://react.dev/)
+[![PNPM](https://img.shields.io/badge/pnpm-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
+[![Turborepo](https://img.shields.io/badge/Turborepo-000000?logo=turborepo&logoColor=white)](https://turbo.build/repo)
+[![RabbitMQ](https://img.shields.io/badge/RabbitMQ-FF6600?logo=rabbitmq&logoColor=white)](https://www.rabbitmq.com/)
+[![Swagger](https://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=black)](http://localhost:3001/api/docs)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
+
+
+
+
+>>>>>>> 385a4381d760e1588235e864beb2bc464f37858e
