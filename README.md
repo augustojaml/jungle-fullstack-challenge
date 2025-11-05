@@ -56,14 +56,9 @@ fullstack-challenge.md: Contexto e requisitos do desafio.
 
 ![Tela de Detalhes](task-detail.png)
 
-### 🎛️ Painel Administrativo
+### 🎛️ Usuário iniciado
 
 ![Usuário iniciado](notask.png)
-
-### ➕ Cadastro de Leilão
-
-![Tela de Cadastro de Leilão](4-admin-add.png)
-
 
 
 ## Como Rodar 🏁
@@ -72,14 +67,14 @@ Requisitos: Node 20+, PNPM, Docker e Docker Compose.
 ### Opção 1 — Tudo com Docker (recomendado)
 docker compose up --build
 
-Serviços:
-Web: http://localhost:3000
-API Gateway: http://localhost:3001 (Swagger em /api/docs)
-Auth: http://localhost:3002
-Tasks: http://localhost:3003
-Notifications: http://localhost:3004
-RabbitMQ UI: http://localhost:15672 (admin/admin)
-Postgres: localhost (line 5432)
+Serviços
+- Web: http://localhost:3000
+- API Gateway: http://localhost:3001 (Swagger em /api/docs)
+- Auth: http://localhost:3002
+- Tasks: http://localhost:3003
+- Notifications: http://localhost:3004
+- RabbitMQ UI: http://localhost:15672 (admin/admin)
+- Postgres: localhost (line 5432)
 
 ### Opção 2 — Local com PNPM (serviços individuais)
 pnpm i
@@ -112,17 +107,17 @@ Web: WS + consumo do Gateway.
 ## Rotas e Swagger 📚
 Swagger do Gateway: http://localhost:3001/api/docs
 
-Endpoints principais:
-POST /api/auth/register
-POST /api/auth/login
-POST /api/auth/refresh
-GET /api/tasks
-POST /api/tasks
-GET /api/tasks/:id
-PUT /api/tasks/:id
-DELETE /api/tasks/:id
-POST /api/tasks/:id/comments
-GET /api/tasks/:id/comments
+- Endpoints principais:
+- POST /api/auth/register
+- POST /api/auth/login
+- POST /api/auth/refresh
+- GET /api/tasks
+- POST /api/tasks
+- GET /api/tasks/:id
+- PUT /api/tasks/:id
+- DELETE /api/tasks/:id
+- POST /api/tasks/:id/comments
+- GET /api/tasks/:id/comments
 
 # O que foi feito
 
