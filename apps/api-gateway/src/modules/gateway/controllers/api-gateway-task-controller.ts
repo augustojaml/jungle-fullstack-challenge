@@ -21,8 +21,6 @@ import {
 import { Task } from '@repo/types'
 import { extractBearerToken } from '@repo/utils'
 
-import { WsService } from '@/infra/websocket/ws.service'
-
 import {
   CreateParamTaskDto,
   CreateTaskCommentDto,
@@ -30,17 +28,12 @@ import {
 import { CreateTaskDto } from '../dtos/create-task-dto'
 import { GetTaskDto } from '../dtos/get-task-dto'
 import { UpdateTaskDto } from '../dtos/update-task-dto'
-import { commentWsMapper } from '../mappers/comment-ws-mapper'
-import { taskWsMapper } from '../mappers/task-ws-mapper'
 import { TaskProxyService } from '../services/task-proxy.service'
 
 @ApiTags('Tasks')
 @Controller('/api/tasks')
 class ApiGatewayTaskController {
-  constructor(
-    private readonly taskProxy: TaskProxyService,
-    private readonly ws: WsService,
-  ) {}
+  constructor(private readonly taskProxy: TaskProxyService) {}
 
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
@@ -56,8 +49,7 @@ class ApiGatewayTaskController {
       dto,
       accessToken: token ?? '',
     })) as { task: Task }
-    const { recipients, notification } = taskWsMapper(response.task, 'created')
-    this.ws.emitToUsers(recipients, 'notification', notification)
+
     return response
   }
 
@@ -116,9 +108,6 @@ class ApiGatewayTaskController {
       taskId: taskId,
       payload,
     })) as { task: Task }
-
-    const { recipients, notification } = taskWsMapper(response.task, 'updated')
-    this.ws.emitToUsers(recipients, 'notification', notification)
     return response
   }
 
@@ -162,15 +151,8 @@ class ApiGatewayTaskController {
     const response = await this.taskProxy.createTaskComments({
       token: token ?? '',
       taskId: params.taskId,
-      payload: payload.content,
+      payload: payload,
     })
-    const { notification } = commentWsMapper({
-      comment: response.taskComment,
-      type: 'created',
-    })
-    console.log('notification', payload.assigneeIds)
-    // console.log('notification', payload.assigneeIds)
-    this.ws.emitToUsers(payload.assigneeIds ?? [], 'notification', notification)
 
     return response
   }

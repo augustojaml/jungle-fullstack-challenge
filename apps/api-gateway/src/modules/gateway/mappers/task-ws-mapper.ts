@@ -1,24 +1,29 @@
-import { Task } from '@repo/types'
+// import { Task } from '@repo/types'
 
-export const taskWsMapper = (task: Task, type: 'created' | 'updated') => {
-  const recipients = task.assignees.map((a) => a.id)
+import { TaskConsumerResponse } from './types/task-payload'
+
+export const taskWsMapper = (
+  data: TaskConsumerResponse,
+  type: 'task:created' | 'task:updated',
+) => {
+  console.log('[taskWsMapper]', JSON.stringify(data, null, 2))
+  const task = data.payload.task
+  const recipients = task.assignees?.map((a) => a.id) ?? []
 
   const selectType = {
-    created: {
-      type: 'task:created' as const,
-      title: 'New task',
+    'task:created': {
+      title: 'New Task',
       message: `${task.creator?.name ?? 'Someone'} created a new task`,
     },
-    updated: {
-      type: 'task:updated' as const,
-      title: 'Task updated',
+    'task:updated': {
+      title: 'Task Updated',
       message: `${task.creator?.name ?? 'Someone'} updated a task`,
     },
-  }
+  } as const
 
   const notification = {
-    type: selectType[type].type,
-    title: selectType[type].title,
+    type: data.type,
+    title: data.title ?? selectType[type].title,
     message: selectType[type].message,
     data: {
       taskId: task.id,

@@ -1,7 +1,7 @@
 import { HttpModule } from '@nestjs/axios'
 import { Module } from '@nestjs/common'
 
-import { WebsocketModule } from '@/infra/websocket/websocket.module'
+import { InfraModule } from '@/infra/infra.module'
 
 import { ApiGatewayAuthController } from './controllers/api-gateway-auth-controller'
 import { ApiGatewayTaskController } from './controllers/api-gateway-task-controller'
@@ -12,7 +12,7 @@ import { NotificationProxyService } from './services/notification-proxy.service'
 import { TaskProxyService } from './services/task-proxy.service'
 
 @Module({
-  imports: [HttpModule, WebsocketModule],
+  imports: [HttpModule, InfraModule],
   controllers: [ApiGatewayAuthController, ApiGatewayTaskController],
   providers: [
     AuthProxyService,

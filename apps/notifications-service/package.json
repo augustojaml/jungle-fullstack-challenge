@@ -23,8 +23,6 @@
     "migration:show": "npm run typeorm -- migration:show -d src/infra/typeorm/database/typeorm.config.ts"
   },
   "dependencies": {
-    "@repo/types": "workspace:*",
-    "@repo/utils": "workspace:*",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
@@ -33,6 +31,9 @@
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.2.1",
     "@nestjs/typeorm": "^11.0.0",
+    "@repo/types": "workspace:*",
+    "@repo/utils": "workspace:*",
+    "amqplib": "^0.10.9",
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",

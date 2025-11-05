@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { JwtModule } from '@nestjs/jwt'
 
-import { PersistenceModule } from '@/infra/persistence/persistence.module'
+import { InfraModule } from '@/infra/infra.module'
 
 import { CreateCommentController } from './controllers/create-comment-controller'
 import { CreateTaskController } from './controllers/create-task-controller'
@@ -25,7 +25,7 @@ import { UpdateTaskUseCase } from './use-cases/update-task-use-case'
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'meu_segredo_super_secreto',
     }),
-    PersistenceModule,
+    InfraModule,
   ],
   controllers: [
     CreateTaskController,

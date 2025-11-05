@@ -1,28 +1,24 @@
-import { Comment } from '@repo/types'
+import { OutboundNewCommentMessage } from './types/comment-payload'
 
-interface CommetWsMapperProps {
-  comment: Comment
-  type: 'created' | 'updated'
-}
+export const commentWsMapper = (
+  data: OutboundNewCommentMessage,
+  type: 'comment:new',
+) => {
+  console.log('[commentWsMapper]', JSON.stringify(data, null, 2))
+  const comment = data.payload.comment
 
-export const commentWsMapper = ({ comment, type }: CommetWsMapperProps) => {
   const selectType = {
-    created: {
+    'comment:new': {
       type: 'comment:new' as const,
       title: 'New comment',
       message: `${comment.author?.name ?? 'Someone'} created a new comment`,
     },
-    updated: {
-      type: 'comment:update' as const,
-      title: 'Comment updated',
-      message: `${comment.author?.name ?? 'Someone'} updated a comment`,
-    },
   }
 
   const notification = {
-    type: selectType[type].type,
-    title: selectType[type].title,
-    message: selectType[type].message,
+    type: selectType[type]?.type,
+    title: selectType[type]?.title,
+    message: selectType[type]?.message,
     data: {
       commentId: comment.id,
       taskId: comment.taskId,
@@ -34,5 +30,6 @@ export const commentWsMapper = ({ comment, type }: CommetWsMapperProps) => {
 
   return {
     notification,
+    recipients: data.payload.assigneeIds,
   }
 }

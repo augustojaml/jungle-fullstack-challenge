@@ -104,12 +104,15 @@ class TaskProxyService {
   }: {
     token: string
     taskId: string
-    payload: string
+    payload: {
+      content: string
+      assigneeIds?: string[]
+    }
   }) {
     const { data } = await firstValueFrom(
       this.http.post(
         `${this.taskServiceUrl}/tasks/${taskId}/comments`,
-        { content: payload },
+        payload,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -117,6 +120,7 @@ class TaskProxyService {
         },
       ),
     )
+
     return data
   }
 
