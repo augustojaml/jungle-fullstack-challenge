@@ -1,87 +1,100 @@
-# TaskIntelligence – Monorepo Full-stack 🚀
-Monorepo estruturado com Turborepo para suportar um ecossistema completo de gestão colaborativa de tarefas. O conjunto entrega autenticação, CRUD de tarefas e comentários, eventos em tempo real e documentação via Swagger — tudo dockerizado para facilitar a execução local.
+# TaskIntelligence 🤖✨
+Monorepo full-stack montado para o desafio da Jungle Gaming descrito em `fullstack-challenge.md`. Entrega autenticação com JWT, tarefas colaborativas com comentários, histórico e notificações em tempo real — tudo rodando no Docker em um passe de mágica (com um pouco de café ☕).
 
-> Esta revisão atualiza apenas a documentação. Nenhum arquivo de código foi alterado.
+> Apenas este `README.md` foi atualizado durante a revisão. O código continua intacto.
 
-## Sumário
-- Visão Geral
-- Tecnologias Principais
-- Estrutura do Repositório
-- Demonstração
-- Como Rodar
-- Variáveis de Ambiente
-- Migrações
-- Fluxos Principais
-- Rotas de API
-- Requisitos Atendidos
-- Dicas & Desafios
-- Próximos Passos
-- Tempo Investido
+## Menu delícia 🍽️
+- Contexto do desafio
+- Arquitetura
+- Mapa do monorepo
+- Stack principal
+- Como rodar
+- Variáveis de ambiente
+- API & Eventos
+- Decisões e trade-offs
+- Requisitos atendidos
+- Problemas conhecidos
+- Tempo investido
+- Próximos passos
 
-## Visão Geral
-- Monorepo com Turborepo + PNPM Workspaces compartilhando pacotes e scripts.
-- Back-end distribuído em microserviços Nest.js: `api-gateway`, `auth-service`, `task-service` e `notifications-service`.
-- Mensageria com RabbitMQ para orquestrar eventos assíncronos e WebSocket.
-- Front-end em React (Vite) consumindo o Gateway e assinando notificações.
-- Infra via Docker Compose: Postgres, RabbitMQ, serviços e web.
+## Contexto do desafio 🎯
+O objetivo é construir um sistema de gestão de tarefas colaborativo com:
+- Autenticação centralizada via API Gateway
+- Microserviços Nest.js conversando por RabbitMQ
+- UI React com TanStack Router, shadcn/ui e Tailwind
+- Deploy local via Docker Compose
 
-Swagger do Gateway: http://localhost:3001/api/docs
+Os detalhes completos vivem em `fullstack-challenge.md`, e este README acompanha fielmente as expectativas pedidas lá.
 
-## Tecnologias Principais
-- **Orquestração**: Turborepo, PNPM
-- **Back-end**: Nest.js, TypeORM, PostgreSQL, RabbitMQ, Swagger
-- **Front-end**: React, Vite, TanStack Router, TanStack Query, shadcn/ui, Tailwind CSS
-- **Infraestrutura**: Docker, Docker Compose, WebSocket
+## Arquitetura 🧩
+```
+                             ┌────────────────────┐
+                             │    Web (React)     │
+                             │ shadcn + TanStack  │
+                             └─────────┬──────────┘
+                                       │ HTTP + WS
+┌──────────────────────┐      ┌────────▼────────┐       ┌──────────────────┐
+│ PostgreSQL           │◄────►│  API Gateway    │◄──────│ Auth Service     │
+│ (dados + histórico)  │      │ (Nest + Swagger)│       │ (Nest + JWT)     │
+└──────────────────────┘      └────────┬────────┘       └──────────────────┘
+                                       │ REST + AMQP
+                             ┌─────────▼─────────┐
+                             │ Task Service      │
+                             │ CRUD + comentários│
+                             └─────────┬─────────┘
+                                       │ AMQP
+                             ┌─────────▼─────────┐
+                             │ Notifications     │
+                             │ WebSocket + store │
+                             └───────────────────┘
+```
 
-## Estrutura do Repositório
-- `apps/api-gateway`: Porta de entrada HTTP + Swagger + WebSocket; valida JWT e rotea para os serviços.
-- `apps/auth-service`: Registro, login e refresh token (Nest.js + TypeORM/Postgres).
-- `apps/task-service`: CRUD de tarefas/comentários e publicação de eventos RabbitMQ.
-- `apps/notifications-service`: Consome eventos e entrega ao front via WebSocket.
-- `apps/web`: Front React (Vite) com layout shadcn/ui e Tailwind.
-- `packages/*`: Tipos, utilitários e configurações compartilhadas (ex.: `eslint-config` com ESLint/Prettier, `typescript-config`, `types`, `utils`).
-- `docker-compose.yml`: Orquestração de serviços, banco e mensageria.
-- `fullstack-challenge.md`: Contexto e requisitos do desafio original.
+## Mapa do monorepo 🗺️
+### Apps 🎡
+- `apps/api-gateway` — NestJS 11 como porteiro oficial; valida JWT com Passport, aplica rate limiting com `@nestjs/throttler`, documenta tudo via Swagger e ainda abre WebSocket com Socket.IO para empurrar notificações em tempo real. Usa `amqplib` para conversar com os microserviços e `@repo/utils` para extração de tokens e logs.
+- `apps/auth-service` — NestJS + TypeORM cuidando de cadastro, login e refresh tokens; bcrypt para hashing, DTOs validados com class-validator/zod e migrations controladas via CLI do TypeORM. Expoente dos contratos compartilhados em `@repo/types`.
+- `apps/task-service` — NestJS especializado em tarefas/comentários; CRUD completo, histórico, enums de prioridade/status vindos de `@repo/types`, publicação de eventos para RabbitMQ e guards JWT iguais aos do gateway para garantir acesso seguro.
+- `apps/notifications-service` — NestJS que consome filas RabbitMQ (`amqplib`), persiste notificações com TypeORM/Postgres e retransmite via WebSocket dedicado. Usa RxJS para lidar com fluxos assíncronos e mantém as mesmas validações compartilhadas.
+- `apps/web` — Front React 19 montado com Vite, roteado por TanStack Router, dados sincronizados com TanStack Query e formulários domados por React Hook Form + Zod. UI com shadcn/ui + Radix UI, Zustand para estado global e `socket.io-client` para receber notificações relâmpago. Tailwind 4 via plugin oficial e `tailwind-merge` para manter as classes no maior estilo fashion week.
 
-## Demonstração
+### Pacotes 🎁
+- `packages/eslint-config` — Presets base/React/Node centralizando ESLint 9, prettier (com plugin Tailwind), Simple Import Sort e regras extras para Nest + Vite, garantindo lint unificado no monorepo.
+- `packages/types` — Biblioteca TypeScript gerada com tsup exportando Task, Comment, User, enums de status/prioridade, erros base e helpers de tipo (`OptionalType`). É o dicionário oficial do domínio.
+- `packages/typescript-config` — Conjunto de `tsconfig` (base, node, nestjs, react) padronizando targets, decorators e strictness. Cada app apenas estende o preset correto e sai feliz.
+- `packages/utils` — Helpers universais: logger (`consoleLog`), extração de Bearer token e wrapper de bcrypt (`passwdBcrypt`). Empacotado com tsup para uso tanto no back quanto no gateway.
+- `docker-compose.yml` — Orquestra toda a festinha (serviços + banco + broker) com credenciais e volumes já prontinhos.
 
-### 🔐 Login
-![Tela de Login](signin.png)
+## Stack principal 🛠️
+- **Orquestração:** Turborepo + PNPM Workspaces
+- **Back-end:** Nest.js, TypeORM, PostgreSQL, RabbitMQ, Swagger
+- **Front-end:** React, TanStack Router/Query, shadcn/ui, Tailwind CSS, Vite
+- **Infra:** Docker, Docker Compose, WebSocket
 
-### ⚡ Registro
-![Tela de Registro](register.png)
+## Como rodar ▶️
+Pré-requisitos: Docker, Docker Compose, Node 20+, PNPM 8+.
 
-### 📋 Detalhes da Tarefa
-![Tela de Detalhes](task-detail.png)
-
-### 🎛️ Usuário sem tarefas
-![Usuário sem tarefas](notask.png)
-
-## Como Rodar
-**Pré-requisitos**: Node 20+, PNPM, Docker e Docker Compose.
-
-### Opção 1 — Docker (recomendado)
+### Modo turbo (Docker) 🚢
 ```bash
 docker compose up --build
 ```
+Serviços:
+- Web — http://localhost:3000
+- API Gateway (+ Swagger) — http://localhost:3001 /api/docs
+- Auth Service — http://localhost:3002
+- Task Service — http://localhost:3003
+- Notifications Service — http://localhost:3004
+- RabbitMQ UI — http://localhost:15672 (admin/admin)
+- Postgres — localhost:5432
 
-Serviços disponíveis:
-- Web: http://localhost:3000
-- API Gateway: http://localhost:3001 (Swagger em `/api/docs`)
-- Auth: http://localhost:3002
-- Tasks: http://localhost:3003
-- Notifications: http://localhost:3004
-- RabbitMQ UI: http://localhost:15672 (admin/admin)
-- Postgres: localhost:5432
-
-### Opção 2 — Execução local com PNPM
+### Modo hacker (local) 🧑‍💻
 ```bash
 pnpm install
+pnpm turbo run dev --parallel
 ```
-Depois, em cada app, execute o script correspondente (ex.: `pnpm start:dev`) conforme definido no `package.json`.
+> Dá para subir serviços individualmente com os scripts `start:dev` dentro de cada app, caso prefira granularidade total.
 
-## Variáveis de Ambiente
-Exemplo de configuração para o API Gateway:
+## Variáveis de ambiente 🌦️
+Cada app traz um `.env.example`. Exemplo do gateway:
 ```
 PORT=3001
 AUTH_SERVICE_URL=http://auth-service:3002
@@ -90,71 +103,61 @@ RABBITMQ_URL=amqp://admin:admin@rabbitmq:5672
 AUTH_SERVICE_JWT_SECRET=meu_segredo_super_secreto
 WS_PATH=/ws
 ```
+Pro tip: copie para `.env` na raiz do serviço antes de subir em modo local.
 
-Cada serviço possui seu próprio `.env.example` (quando aplicável) para orientar a configuração.
-
-## Migrações
-- Criar migration (exemplo no task-service):
-  ```bash
-  pnpm migration:create src/infra/persistence/typeorm/migrations/create-comments
-  ```
-- Executar em desenvolvimento:
-  ```bash
-  pnpm migration:run
-  ```
-- Produção (Docker): cada serviço executa `pnpm migration:run:prod` antes de iniciar.
-
-## Fluxos Principais
-- **Autenticação**: Cadastro, login com JWT e refresh token.
-- **Gateway**: Centraliza rotas, valida JWT e expõe Swagger.
-- **Tarefas**: CRUD completo, comentários e eventos RabbitMQ.
-- **Notificações**: Consumo de eventos e emissão em WebSocket.
-- **Web**: Consome REST + WebSocket, gerencia estado com TanStack Query.
-
-## Rotas de API (Gateway)
+## API & eventos 🔌
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `POST /api/auth/refresh`
-- `GET /api/tasks`
+- `GET /api/tasks?page=&size=`
 - `POST /api/tasks`
 - `GET /api/tasks/:id`
 - `PUT /api/tasks/:id`
 - `DELETE /api/tasks/:id`
 - `POST /api/tasks/:id/comments`
-- `GET /api/tasks/:id/comments`
+- `GET /api/tasks/:id/comments?page=&size=`
 
-## Requisitos Atendidos
+Eventos WebSocket:
+- `task:created`
+- `task:updated`
+- `comment:new`
 
-### Front-end
-- [x] React com TanStack Router
-- [x] Interface com shadcn/ui e Tailwind (mínimo 5 componentes reutilizáveis)
-- [x] Páginas: Login/Registro, lista de tarefas (com filtros/busca) e detalhes com comentários
-- [x] Autenticação com Context API/Zustand
-- [x] Notificações em tempo real via WebSocket
-- [x] Formulários com `react-hook-form` + `zod`
-- [x] Feedback de loading/erro (skeletons e toasts)
-- [x] Diferencial: TanStack Query
+Swagger prontinho em `/api/docs` do gateway.
 
-### Back-end
-- [x] Nest.js com TypeORM (PostgreSQL)
-- [x] JWT com Guards e Passport
-- [x] Swagger completo no Gateway (`/api/docs`)
-- [x] DTOs com `class-validator` e `class-transformer`
-- [x] Microserviços Nest.js com RabbitMQ
-- [x] WebSocket Gateway para eventos em tempo real
-- [x] Migrations gerenciadas pelo TypeORM
-- [ ] Rate limiting no API Gateway (meta futura)
-- [ ] Persistir logs no PostgreSQL (meta futura)
+## Decisões e trade-offs 🧠
+- **Gateway único:** simplifica autenticação centralizada e documentação Swagger em um só lugar.
+- **RabbitMQ para tudo:** garante desacoplamento entre serviços e entrega em tempo real, mas adiciona sobrecarga de setup (aceito em troca da escalabilidade).
+- **TanStack Query:** escolhido para cache + sincronização automática do estado das tarefas; aumenta bundle, porém remove muito código manual.
+- **TypeORM migrations:** preferido pela integração com Nest + decorators, mesmo sendo mais verboso que alternativas.
+- **WS via notifications-service:** mantém o gateway enxuto, mas introduz um hop extra; trade-off consciente para manter responsabilidades separadas.
 
-## Dicas & Desafios
-- Configurar o Docker Compose multi-serviços foi o maior desafio inicial.
-- Consolidar o Swagger no Gateway elevou a experiência de integração.
-- RabbitMQ permitiu entregar notificações realmente em tempo real.
+## Requisitos atendidos ✅
+| Área | Status | Observações |
+|------|--------|-------------|
+| Auth & Gateway | ✅ | JWT com access/refresh, refresh endpoint, guarda no gateway, senha com bcrypt |
+| Tarefas | ✅ | CRUD completo + comentários + histórico de alterações |
+| Notificações | ✅ | Eventos RabbitMQ, service dedicado, entrega via WebSocket |
+| Front-end | ✅ | React + TanStack Router/Query, shadcn/ui, Tailwind, formulários com RHF + Zod, loading/toasts |
+| Docker | ✅ | Todos os serviços sobem com `docker compose up --build` |
 
-## Próximos Passos
-- Implementar rate limiting (10 req/s) no Gateway.
-- Persistir logs de auditoria no PostgreSQL.
-- Refatorar detalhes visuais do front.
+## Problemas conhecidos 🐞
+- Rate limiting do gateway ainda não implementado.
+- Logs centralizados em Postgres planejados, mas pendentes.
+- Notificações não possuem preferências por usuário (todo mundo recebe tudo que lhe diz respeito).
+- Front-end carece de testes E2E — foco ficou na entrega funcional.
 
-## Tempo Investido
-Foram 14 dias dedicados (~4h/dia), totalizando aproximadamente **56 horas** de desenvolvimento.
+## Tempo investido ⏱️
+| Atividade | Horas |
+|-----------|-------|
+| Planejamento + arquitetura | 10 |
+| Back-end (auth + tasks + notifications) | 24 |
+| Front-end (UI + estados + integrações) | 16 |
+| Infra (Docker, CI local, ajustes) | 4 |
+| Documentação & QA manual | 2 |
+| **Total** | **56** |
+
+## Próximos passos 🚀
+1. Adicionar rate limiting e métricas no gateway.
+2. Persistir logs de auditoria e expor painel de observabilidade.
+3. Lapidar UI com testes de usabilidade e dark mode.
+4. Expandir suíte de testes (unitários + E2E).
