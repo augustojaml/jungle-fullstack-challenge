@@ -124,6 +124,7 @@ GET /api/tasks/:id/comments
 - [x] WebSocket Gateway para eventos real-time.
 - [x] Migrations com TypeORM.
 - [ ] Rate limiting no API Gateway (10 req/seg).
+- [ ] Salvar logs no PostgreSQL.
 
 ## Dicas & Desafios 💡
 Docker Compose multi-serviços foi o primeiro desafio.
