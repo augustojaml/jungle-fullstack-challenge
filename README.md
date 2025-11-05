@@ -51,18 +51,22 @@ Os detalhes completos vivem em `fullstack-challenge.md`, e este README acompanha
 
 ## Mapa do monorepo 🗺️
 ### Apps 🎡
-- `apps/api-gateway` — NestJS 11 como porteiro oficial; valida JWT com Passport, aplica rate limiting com `@nestjs/throttler`, documenta tudo via Swagger e ainda abre WebSocket com Socket.IO para empurrar notificações em tempo real. Usa `amqplib` para conversar com os microserviços e `@repo/utils` para extração de tokens e logs.
-- `apps/auth-service` — NestJS + TypeORM cuidando de cadastro, login e refresh tokens; bcrypt para hashing, DTOs validados com class-validator/zod e migrations controladas via CLI do TypeORM. Expoente dos contratos compartilhados em `@repo/types`.
-- `apps/task-service` — NestJS especializado em tarefas/comentários; CRUD completo, histórico, enums de prioridade/status vindos de `@repo/types`, publicação de eventos para RabbitMQ e guards JWT iguais aos do gateway para garantir acesso seguro.
-- `apps/notifications-service` — NestJS que consome filas RabbitMQ (`amqplib`), persiste notificações com TypeORM/Postgres e retransmite via WebSocket dedicado. Usa RxJS para lidar com fluxos assíncronos e mantém as mesmas validações compartilhadas.
-- `apps/web` — Front React 19 montado com Vite, roteado por TanStack Router, dados sincronizados com TanStack Query e formulários domados por React Hook Form + Zod. UI com shadcn/ui + Radix UI, Zustand para estado global e `socket.io-client` para receber notificações relâmpago. Tailwind 4 via plugin oficial e `tailwind-merge` para manter as classes no maior estilo fashion week.
+| Caminho | Tecnologias & Função |
+|---------|----------------------|
+| `apps/api-gateway` | NestJS 11 como porteiro oficial; valida JWT com Passport, aplica rate limiting com `@nestjs/throttler`, documenta no Swagger e abre WebSocket via Socket.IO para empurrar notificações. Usa `amqplib` para falar com os microserviços e `@repo/utils` para extrair tokens e logar bonito. |
+| `apps/auth-service` | NestJS + TypeORM cuidando de cadastro, login e refresh tokens; bcrypt para hashing, DTOs validados com class-validator/zod e migrations controladas via CLI do TypeORM. É o guardião dos contratos `@repo/types`. |
+| `apps/task-service` | NestJS especializado em tarefas/comentários; CRUD completo, histórico, enums de prioridade/status vindos de `@repo/types`, eventos para RabbitMQ e guards JWT espelhando o gateway para manter segurança. |
+| `apps/notifications-service` | NestJS que consome filas RabbitMQ (`amqplib`), persiste notificações no Postgres via TypeORM e reenvia num WebSocket dedicado. RxJS pilota os fluxos assíncronos enquanto validações seguem o padrão compartilhado. |
+| `apps/web` | React 19 com Vite; roteado por TanStack Router, sincronizado com TanStack Query e formulários domados por React Hook Form + Zod. UI shadcn/ui + Radix, Zustand para estado global e `socket.io-client` para notificações relâmpago. Tailwind 4 e `tailwind-merge` garantem o drip. |
 
 ### Pacotes 🎁
-- `packages/eslint-config` — Presets base/React/Node centralizando ESLint 9, prettier (com plugin Tailwind), Simple Import Sort e regras extras para Nest + Vite, garantindo lint unificado no monorepo.
-- `packages/types` — Biblioteca TypeScript gerada com tsup exportando Task, Comment, User, enums de status/prioridade, erros base e helpers de tipo (`OptionalType`). É o dicionário oficial do domínio.
-- `packages/typescript-config` — Conjunto de `tsconfig` (base, node, nestjs, react) padronizando targets, decorators e strictness. Cada app apenas estende o preset correto e sai feliz.
-- `packages/utils` — Helpers universais: logger (`consoleLog`), extração de Bearer token e wrapper de bcrypt (`passwdBcrypt`). Empacotado com tsup para uso tanto no back quanto no gateway.
-- `docker-compose.yml` — Orquestra toda a festinha (serviços + banco + broker) com credenciais e volumes já prontinhos.
+| Caminho | Tecnologias & Função |
+|---------|----------------------|
+| `packages/eslint-config` | Presets base/React/Node com ESLint 9, prettier (plugin Tailwind), Simple Import Sort e regras extras pensadas para Nest e Vite, deixando o lint uniforme. |
+| `packages/types` | Biblioteca TypeScript via tsup exportando Task, Comment, User, enums de status/prioridade, erros base e helpers (`OptionalType`). É o dicionário oficial do domínio. |
+| `packages/typescript-config` | Coleção de `tsconfig` (base, node, nestjs, react) padronizando target, decorators e nível de rigor; cada app só estende e sorri. |
+| `packages/utils` | Helpers universais: logger (`consoleLog`), extração de Bearer token e wrapper de bcrypt (`passwdBcrypt`). Empacotados com tsup para side projects e serviços. |
+| `docker-compose.yml` | Maestro da festa: sobe serviços, banco e broker com credenciais e volumes já afinados. |
 
 ## Stack principal 🛠️
 - **Orquestração:** Turborepo + PNPM Workspaces
@@ -173,8 +177,3 @@ Swagger prontinho em `/api/docs` do gateway.
 [![Swagger](https://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=black)](http://localhost:3001/api/docs)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-
-
-
-
->>>>>>> 385a4381d760e1588235e864beb2bc464f37858e
