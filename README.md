@@ -42,6 +42,30 @@ packages/*: Tipos compartilhados, utils, configs de ESLint e TS.
 docker-compose.yml: Orquestra serviços + Postgres + RabbitMQ.
 fullstack-challenge.md: Contexto e requisitos do desafio.
 
+## 🖥️ Demonstração
+
+### 🔐 Login
+
+![Tela de Login](signin.png)
+
+### ⚡ Registro
+
+![Tela de Leilão](register.png)
+
+### 📋 Detalhes da Tarefa
+
+![Tela de Detalhes](task-detail.png)
+
+### 🎛️ Painel Administrativo
+
+![Usuário iniciado](notask.png)
+
+### ➕ Cadastro de Leilão
+
+![Tela de Cadastro de Leilão](4-admin-add.png)
+
+
+
 ## Como Rodar 🏁
 Requisitos: Node 20+, PNPM, Docker e Docker Compose.
 
@@ -125,6 +149,7 @@ GET /api/tasks/:id/comments
 - [x] Migrations com TypeORM.
 - [ ] Rate limiting no API Gateway (10 req/seg).
 - [ ] Salvar logs no PostgreSQL.
+
 
 ## Dicas & Desafios 💡
 Docker Compose multi-serviços foi o primeiro desafio.
