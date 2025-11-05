@@ -101,6 +101,11 @@ Serviços:
 - Postgres — localhost:5432
 
 ### Modo hacker (local) 🧑‍💻
+Primeiro garanta que banco e broker estão ligados:
+```bash
+docker compose up -d db rabbitmq
+```
+Depois, instale dependências e suba os serviços locais:
 ```bash
 pnpm install
 pnpm turbo run dev --parallel
