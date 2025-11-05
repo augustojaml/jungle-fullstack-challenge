@@ -181,7 +181,9 @@ Swagger prontinho em `/api/docs` do gateway (Docker: http://localhost:3001/api/d
 2. Persistir logs de auditoria e expor painel de observabilidade.
 3. Lapidar UI com testes de usabilidade e dark mode.
 4. Expandir suíte de testes (unitários + E2E).
-=======
+
+
+# Tecnologias usadas 🛠 ️
 [![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![NestJS](https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=white)](https://nestjs.com/)
 [![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
