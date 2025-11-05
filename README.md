@@ -151,5 +151,18 @@ Docker Compose multi-serviços foi o primeiro desafio.
 Swagger no Gateway elevou a DX.
 RabbitMQ trouxe realtime.
 
-## Próximos Passos 🚧
-Segurança, observabilidade, testes e2e, refinamento UI/UX.
+# Feedback – Jungle Fullstack Challenge
+
+## Decisões técnicas e trade-offs
+Foi escolhida uma arquitetura em monorepo com Turborepo e microserviços (auth, tasks, notifications) pois reflete uma estrutura real e escalável.  
+Isso aumentou o setup inicial, mas deixou responsabilidades mais claras e o fluxo de eventos melhor definido.
+
+## Problemas conhecidos e melhorias futuras
+- implementar rate limiting no API Gateway
+- adicionar logs de auditoria persistidos no PostgreSQL
+- pequenos refinamentos visuais no front
+
+## Tempo gasto
+Foram 14 dias de desenvolvimento focado, com média de 4 horas por dia.
+
+**Total aproximado: ~56 horas**
