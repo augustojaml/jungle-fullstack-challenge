@@ -20,7 +20,7 @@ import { PageCommentPagination } from './table-comment-pagination'
 
 interface TaskCommentProps {
   taskId?: string
-  assignees: User[]
+  assignees: (User | null)[]
 }
 
 const TaskComments = ({ taskId, assignees }: TaskCommentProps) => {

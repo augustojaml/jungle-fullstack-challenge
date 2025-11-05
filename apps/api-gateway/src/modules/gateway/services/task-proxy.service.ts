@@ -34,10 +34,12 @@ class TaskProxyService {
     token,
     page,
     size,
+    title,
   }: {
     token: string
     page: number
     size: number
+    title?: string
   }) {
     const { data } = await firstValueFrom(
       this.http.get(`${this.taskServiceUrl}/tasks`, {
@@ -47,6 +49,7 @@ class TaskProxyService {
         params: {
           page,
           size,
+          title,
         },
       }),
     )

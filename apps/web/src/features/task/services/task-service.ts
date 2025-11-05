@@ -66,13 +66,13 @@ const taskService = {
   createTaskComment: async (
     taskId: string,
     data: CreateTaskCommentDto,
-    assignees: User[],
+    assignees: (User | null)[],
   ) => {
     const { data: result } = await api.post<{ comment: Comment }>(
       `${API_ROUTES.TASK.CREATE_TASK_COMMENT(taskId)}`,
       {
         ...data,
-        assigneeIds: assignees.map((assignee) => assignee.id),
+        assigneeIds: assignees.map((assignee) => assignee!.id),
       },
     )
 

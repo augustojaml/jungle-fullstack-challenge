@@ -83,6 +83,6 @@
 [ ] => Signin com google e github
 [ ] => Tradutor
 [ ] => Para nao ficar disparando notificações optei por alterar tasks somente no momento que clicar no botão update
-
+[ ] => if user does not owner task, add owner to assignee
 
 

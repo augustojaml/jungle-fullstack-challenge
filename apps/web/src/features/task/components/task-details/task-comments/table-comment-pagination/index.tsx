@@ -37,15 +37,17 @@ const PageCommentPagination = ({
   return (
     <div className="flex items-center justify-end gap-4">
       <span className="text-muted-foreground text-xs">
-        Showing{`   `}
+        {`Showing  `}
         <span className="text-foreground font-medium">
-          {firstIndex}-{lastIndex}
+          {`${firstIndex} - ${lastIndex}`}
         </span>{' '}
         of <span className="text-foreground font-medium">{total}</span> items
       </span>
       <div className="flex items-center gap-2">
         <span className="text-muted-foreground text-xs">
-          Page <span className="text-foreground font-medium">{page}</span> of{' '}
+          {`Page `}
+          <span className="text-foreground font-medium">{page}</span>
+          {` of `}
           <span className="text-foreground font-medium">{pageCount}</span>
         </span>
         <div className="flex items-center gap-1">

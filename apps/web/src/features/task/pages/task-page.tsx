@@ -72,16 +72,29 @@ const TaskPage = () => {
             hasData={!!response?.tasks?.length}
             onOpen={() => setOpenCreateTaskModal(true)}
           />
-          <TablePagination
-            total={response?.total}
-            size={response?.size}
-            page={response?.page}
-            onPageChange={(newPage) => setPage(newPage)}
-            onSizeChange={(newSize) => {
-              setSize(newSize)
-              setPage(1)
-            }}
-          />
+          <div className="flex items-center justify-between">
+            <div />
+            {/* <div className="row-auto">
+              <InputWithIcon
+                id="search"
+                icon={SearchIcon}
+                placeholder="Search..."
+                hiddenError
+                width={300}
+              />
+            </div> */}
+
+            <TablePagination
+              total={response?.total}
+              size={response?.size}
+              page={response?.page}
+              onPageChange={(newPage) => setPage(newPage)}
+              onSizeChange={(newSize) => {
+                setSize(newSize)
+                setPage(1)
+              }}
+            />
+          </div>
           <Separator className="my-4" />
         </div>
         {responseError ? (

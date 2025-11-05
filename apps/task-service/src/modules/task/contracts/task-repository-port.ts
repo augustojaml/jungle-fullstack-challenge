@@ -4,6 +4,7 @@ export interface FindByCreatorOrUserIdProps {
   userId: string
   page?: number
   size?: number
+  title?: string
 }
 
 abstract class TaskRepositoryPort {
@@ -17,6 +18,7 @@ abstract class TaskRepositoryPort {
     total: number
     page: number
     size: number
+    title?: string
   }>
 }
 

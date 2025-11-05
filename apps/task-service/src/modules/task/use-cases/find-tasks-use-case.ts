@@ -29,6 +29,7 @@ class FindTasksUseCase {
       userId: params.userId,
       page: params.page,
       size: params.size,
+      title: params.title,
     })
 
     const response = plainToInstance(

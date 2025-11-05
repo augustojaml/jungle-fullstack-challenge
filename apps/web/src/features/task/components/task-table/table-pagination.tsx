@@ -37,12 +37,12 @@ const TablePagination = ({
   const handleLastPage = () => onPageChange?.(pageCount)
 
   return (
-    <div className="mt-3 flex w-full items-center justify-between gap-3 px-2">
+    <div className="mt-3 flex items-center justify-between gap-3 px-2">
       {/* esquerda: "Showing X of Y items" */}
       <span className="text-muted-foreground text-xs">
-        Showing{' '}
+        {`Showing `}
         <span className="text-foreground font-medium">
-          {firstIndex}-{lastIndex}
+          {`${firstIndex} - ${lastIndex}`}
         </span>{' '}
         of <span className="text-foreground font-medium">{total}</span> items
       </span>

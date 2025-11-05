@@ -13,6 +13,10 @@ class FindTasksDto {
   @Type(() => Number)
   @IsNumber()
   size?: number = 10
+
+  @Type(() => Number)
+  @IsString()
+  title?: string
 }
 
 class UserDto {

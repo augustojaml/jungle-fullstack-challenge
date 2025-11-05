@@ -13,6 +13,7 @@ class FindTasksController {
     @Request() req,
     @Query('page') page: number,
     @Query('size') size: number,
+    @Query('title') title: string,
   ) {
     const { payload } = req.user
 
@@ -20,6 +21,7 @@ class FindTasksController {
       userId: payload.sub,
       page: page,
       size: size,
+      title: title,
     })
   }
 }

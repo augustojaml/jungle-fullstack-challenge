@@ -8,7 +8,7 @@ import { taskService } from '../services/task-service'
 
 interface UseCreateTaskCommentMutationProps {
   taskId: string
-  assignees: User[]
+  assignees: (User | null)[]
 }
 
 const useCreateTaskCommentMutation = ({

@@ -2,9 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Task, TaskPriority, TaskStatus } from '@repo/types'
 import { Link } from '@tanstack/react-router'
 import { CalendarDaysIcon, SquarePenIcon } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
+import { useAuthStore } from '@/features/auth/store/use-auth-store'
 import { BadgePriority } from '@/shared/components/customs/badge-priority'
 import { BadgeStatus } from '@/shared/components/customs/badge-status'
 import { CalendarWithIcon } from '@/shared/components/customs/calendar-with-icon'
@@ -33,6 +34,21 @@ interface TaskDetailProps {
 
 const TaskDetail = ({ task, isLoading, isError }: TaskDetailProps) => {
   const updateTaskMT = useUpdateTaskMutation(task?.id)
+  const { user } = useAuthStore()
+
+  const updateAssignees = useMemo(() => {
+    if (!task || !user) return []
+    const assignees = task.assignees ?? []
+    const hasUser = assignees.some((a) => a.id === user.id)
+
+    if (hasUser) {
+      const withoutUser = assignees.filter((a) => a.id !== user.id)
+      const hasCreator = withoutUser.some((a) => a.id === task.creatorId)
+      return hasCreator ? withoutUser : [...withoutUser, task.creator]
+    }
+
+    return assignees
+  }, [task, user])
 
   const {
     control,
@@ -94,7 +110,7 @@ const TaskDetail = ({ task, isLoading, isError }: TaskDetailProps) => {
       isSuccess={updateTaskMT.isSuccess}
       error={updateTaskMT.error}
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-6 pt-24">
+      <div className="scroll-content mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col gap-6 overflow-y-auto px-6 pt-24">
         <header className="flex flex-col gap-4 space-y-4">
           <div className="flex w-full items-center justify-between gap-4">
             <div className="flex h-9 items-center gap-2 rounded-md border px-3 text-sm">
@@ -287,11 +303,7 @@ const TaskDetail = ({ task, isLoading, isError }: TaskDetailProps) => {
 
         <Separator className="mt-3" />
 
-        <div className="scroll-content back h-full overflow-y-scroll bg-transparent">
-          <div className="back h-full">
-            <TaskComments taskId={task.id} assignees={task.assignees} />
-          </div>
-        </div>
+        <TaskComments taskId={task.id} assignees={updateAssignees} />
       </div>
     </ProcessMessage>
   )

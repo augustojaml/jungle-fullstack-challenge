@@ -68,16 +68,18 @@ class ApiGatewayTaskController {
   })
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
   @ApiQuery({ name: 'size', required: false, type: Number, example: 10 })
+  @ApiQuery({ name: 'title', required: false, type: String })
   @ApiResponse({ status: 200, description: 'Tasks list returned' })
   @Get('/')
   async find(
     @Req() req: Request,
     @Query('page') page: number,
     @Query('size') size: number,
+    @Query('title') title: string,
   ) {
     const authHeader = req.headers['authorization'] as string | undefined
     const token = extractBearerToken(authHeader)
-    return this.taskProxy.find({ token: token ?? '', page, size })
+    return this.taskProxy.find({ token: token ?? '', page, size, title })
   }
 
   @ApiBearerAuth('JWT-auth')
@@ -166,6 +168,8 @@ class ApiGatewayTaskController {
       comment: response.taskComment,
       type: 'created',
     })
+    console.log('notification', payload.assigneeIds)
+    // console.log('notification', payload.assigneeIds)
     this.ws.emitToUsers(payload.assigneeIds ?? [], 'notification', notification)
 
     return response
